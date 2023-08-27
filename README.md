@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Build status](https://github.com/RafaelWO/unparallel/workflows/build/badge.svg?branch=master&event=push)](https://github.com/RafaelWO/unparallel/actions?query=workflow%3Abuild)
+[![Build status](https://github.com/RafaelWO/unparallel/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/RafaelWO/unparallel/actions?query=workflow%3Abuild)
 [![Python Version](https://img.shields.io/pypi/pyversions/unparallel.svg)](https://pypi.org/project/unparallel/)
 [![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RafaelWO/unparallel/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
 
