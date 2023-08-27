@@ -48,7 +48,7 @@ pyupgrade = "^3.8.0"
 safety = "^2.3.5"
 coverage = "^6.1.2"
 coverage-badge = "^1.1.0"
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.1.0"
 
 [tool.black]
 # https://github.com/psf/black
