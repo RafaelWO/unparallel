@@ -40,3 +40,24 @@ jobs:
     - name: Run safety checks
       run: |
         make check-safety
+
+    - name: Verify changed coverage badge
+      uses: tj-actions/verify-changed-files@v16
+      id: verify-changed-files
+      with:
+        files: assets/images/coverage.svg
+
+    - name: Commit coverage badge
+      if: steps.verify-changed-files.outputs.files_changed == 'true'
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add assets/images/coverage.svg
+        git commit -m "Updated coverage.svg"
+
+    - name: Push coverage badge
+      if: steps.verify-changed-files.outputs.files_changed == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        branch: ${{ github.ref }}
