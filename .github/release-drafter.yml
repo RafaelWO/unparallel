@@ -10,7 +10,7 @@ categories:
   - title: ":wrench: Fixes & Refactoring"
     labels: [bug, refactoring, bugfix, fix]
   - title: ":package: Build System & CI/CD"
-    labels: [build, ci, testing, github_actions]
+    labels: [build, ci, testing]
   - title: ":boom: Breaking Changes"
     labels: [breaking]
   - title: ":pencil: Documentation"
@@ -19,7 +19,7 @@ categories:
     labels: [dependencies]
 
 template: |
-  ## What’s Changed
+  ## What's Changed
 
   $CHANGES
 
