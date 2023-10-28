@@ -89,7 +89,7 @@ async def test_request_urls_get(caplog, respx_mock):
 
 @pytest.mark.asyncio
 async def test_request_urls_misaligned_paths_and_payloads():
-    with pytest.raises(RuntimeError):
+    with pytest.raises(ValueError):
         await request_urls(
             "http://test.com", paths=["/a", "/b"], method="post", payloads=[1, 2, 3]
         )

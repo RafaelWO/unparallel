@@ -56,21 +56,29 @@ async def request_urls(
     progress=True,
 ):
     """
-    Asynchronously issues requests to a URL at the specified path(s) via ``asyncio`` and ``aiohttp``.
+    Asynchronously issues requests to a URL at the specified path(s)
+    via ``asyncio`` and ``httpx``.
 
     Args:
         base_url: The base URL of the service, e.g. http://localhost:8000.
-        paths: One path or a list of paths, e.g. /foobar/. If one path but multiple payloads are supplied, that path is
-            used for all requests.
+        paths: One path or a list of paths, e.g. /foobar/. If one path but multiple
+            payloads are supplied, that path is used for all requests.
         method: HTTP method to use, e.g. get, post, etc.
         headers: A dictionary of headers to use.
-        payloads: A list of JSON payloads (dictionaries) for e.g. HTTP post requests. Used together with paths.
-        flatten_result: If True and the response per request is a list, flatten that list of lists.
+        payloads: A list of JSON payloads (dictionaries) for e.g. HTTP post requests.
+            Used together with paths.
+        flatten_result: If True and the response per request is a list, flatten that
+            list of lists.
         connection_limit: The total number of simultaneous aiohttp TCP connections
         progress: If set to True, progress bar is shown
 
     Returns:
-        A list of the response data per request in the same order as the input (paths/payloads).
+        A list of the response data per request in the same order as the input
+        (paths/payloads).
+
+    Raises:
+        ValueError: If the number of paths provided does not match the number of
+            payloads (except if there is only one path).
     """
     tasks = []
     results = []
@@ -82,7 +90,7 @@ async def request_urls(
             logging.info(f"Using path '{paths[0]}' for all {len(payloads)} payloads")
             paths = paths * len(payloads)
         if len(paths) != len(payloads):
-            raise RuntimeError(
+            raise ValueError(
                 f"The number of paths does not match the number of payloads: "
                 f"{len(paths)} != {len(payloads)}"
             )
