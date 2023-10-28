@@ -32,6 +32,7 @@ jobs:
     - name: Run style checks
       run: |
         make check-codestyle
+        make mypy
 
     - name: Run tests
       run: |
@@ -50,10 +51,8 @@ jobs:
     - name: Commit coverage badge
       if: steps.verify-changed-files.outputs.files_changed == 'true'
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add assets/images/coverage.svg
-        git commit -m "Updated coverage.svg"
+        echo "::error::The code coverage measured in the CI differs from the one within the SVG. Please run `make test` locally and push the coverage.svg"
+        exit 1
 
     - name: Push coverage badge
       if: steps.verify-changed-files.outputs.files_changed == 'true'
