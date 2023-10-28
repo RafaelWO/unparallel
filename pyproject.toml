@@ -32,6 +32,8 @@ classifiers = [  #! Update me
 
 [tool.poetry.dependencies]
 python = "^3.8"
+httpx = "^0.25.0"
+tqdm = "^4.66.1"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.1"
@@ -49,6 +51,8 @@ safety = "^2.3.5"
 coverage = "^7.3.2"
 coverage-badge = "^1.1.0"
 pytest-cov = "^4.1.0"
+pytest-asyncio = "^0.21.1"
+respx = "^0.20.2"
 
 [tool.black]
 # https://github.com/psf/black
