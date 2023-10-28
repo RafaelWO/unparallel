@@ -72,19 +72,19 @@ async def test_request_urls_get(caplog, respx_mock):
         assert res == {"foo": i}
 
 
-# @pytest.mark.asyncio
-# @pytest.mark.parametrize("paths", ["/post", ["/post"], ["/post"] * 5])
-# async def test_request_urls_post(paths, respx_mock):
-#     base_url = "http://test.com"
-#     payloads = [{"bar": i} for i in range(5)]
-#     respx_mock.post(base_url + "/post").mock(
-#         side_effect=[Response(200, json=data) for data in payloads]
-#     )
+@pytest.mark.asyncio
+@pytest.mark.parametrize("paths", ["/post", ["/post"], ["/post"] * 5])
+async def test_request_urls_post(paths, respx_mock):
+    base_url = "http://test.com"
+    payloads = [{"bar": i} for i in range(5)]
+    respx_mock.post(base_url + "/post").mock(
+        side_effect=[Response(200, json=data) for data in payloads]
+    )
 
-#     results = await request_urls(base_url, paths, "post", payloads=payloads)
-#     assert len(results) == len(payloads)
-#     for res, data in zip(results, payloads):
-#         assert res == data
+    results = await request_urls(base_url, paths, "post", payloads=payloads)
+    assert len(results) == len(payloads)
+    for res, data in zip(results, payloads):
+        assert res == data
 
 
 @pytest.mark.asyncio

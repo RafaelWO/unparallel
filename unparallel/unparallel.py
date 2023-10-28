@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import asyncio
 import logging
@@ -10,13 +10,17 @@ logger = logging.getLogger(__name__)
 MAX_TRIALS = 3
 
 
-def order_by_idx(results):
+def order_by_idx(results: List[Tuple[int, Any]]) -> List[Any]:
     return [item[1] for item in sorted(results, key=lambda x: x[0])]
 
 
 async def single_request(
-    idx: int, client: AsyncClient, path: str, method: str, json=None
-):
+    idx: int,
+    client: AsyncClient,
+    path: str,
+    method: str,
+    json: Optional[Any] = None,
+) -> Tuple[int, Any]:
     trial = 0
     exception = None
     method = method.lower()
@@ -48,13 +52,13 @@ async def single_request(
 async def request_urls(
     base_url: str,
     paths: Union[str, List[str]],
-    method: str,
-    headers: dict = None,
-    payloads: list = None,
-    flatten_result=False,
-    connection_limit=100,
-    progress=True,
-):
+    method: str = "get",
+    headers: Optional[Dict[str, Any]] = None,
+    payloads: Optional[Any] = None,
+    flatten_result: bool = False,
+    connection_limit: int = 100,
+    progress: bool = True,
+) -> List[Any]:
     """
     Asynchronously issues requests to a URL at the specified path(s)
     via ``asyncio`` and ``httpx``.
@@ -68,7 +72,7 @@ async def request_urls(
         payloads: A list of JSON payloads (dictionaries) for e.g. HTTP post requests.
             Used together with paths.
         flatten_result: If True and the response per request is a list, flatten that
-            list of lists.
+            list of lists. This is useful when using paging.
         connection_limit: The total number of simultaneous aiohttp TCP connections
         progress: If set to True, progress bar is shown
 

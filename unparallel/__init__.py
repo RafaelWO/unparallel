@@ -1,4 +1,3 @@
-# type: ignore[attr-defined]
 """Create async web requests in no time with `unparallel`"""
 
 from importlib import metadata as importlib_metadata
