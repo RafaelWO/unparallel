@@ -1,5 +1,4 @@
 import logging
-import re
 import time
 from unittest import mock
 
@@ -59,8 +58,9 @@ async def test_request_urls_get(caplog, respx_mock):
     base_url = "http://test.com"
     paths = ["/get?foo=0", "/get?foo=1", "/get?foo=2"]
     for path in paths:
+        key, val = path.split("?")[1].split("=")
         respx_mock.get(base_url + path).mock(
-            return_value=Response(200, json=eval(f"dict({path.split('?')[1]})"))
+            return_value=Response(200, json={key: int(val)})
         )
 
     results = await request_urls(base_url, paths, "get")
