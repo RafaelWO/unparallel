@@ -2,6 +2,8 @@
 
 from importlib import metadata as importlib_metadata
 
+from .unparallel import up
+
 
 def get_version() -> str:
     try:
@@ -11,3 +13,5 @@ def get_version() -> str:
 
 
 version: str = get_version()
+
+__all__ = ["__version__", "up", "version"]
