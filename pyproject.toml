@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "unparallel"
 version = "0.1.0"
-description = "Create async web requests in no time with `unparallel`"
+description = "Create async web requests in no time"
 readme = "README.md"
 authors = ["RafaelWO <weingartner.rafael@hotmail.com>"]
 license = "MIT"
@@ -14,7 +14,7 @@ repository = "https://github.com/RafaelWO/unparallel"
 homepage = "https://github.com/RafaelWO/unparallel"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
-keywords = []  #! Update me
+keywords = ["async", "http", "requests", "network"]
 
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [  #! Update me
@@ -26,6 +26,9 @@ classifiers = [  #! Update me
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 
 
