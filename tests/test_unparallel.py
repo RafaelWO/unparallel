@@ -6,7 +6,12 @@ import pytest
 from httpx import AsyncClient, Response, TimeoutException
 
 from unparallel import up
-from unparallel.unparallel import request_urls, single_request, sort_by_idx
+from unparallel.unparallel import (
+    RequestError,
+    request_urls,
+    single_request,
+    sort_by_idx,
+)
 
 
 def test_order_by_idx():
@@ -38,7 +43,7 @@ async def test_single_request_fail(status, respx_mock):
     respx_mock.get(url).mock(return_value=Response(status))
     session = AsyncClient()
     result = await single_request(1, session, path=url, method="get")
-    assert "exception" in result[1]
+    assert isinstance(result[1], RequestError)
     await session.aclose()
 
 
@@ -52,7 +57,7 @@ async def test_single_request_timeout(respx_mock):
     result = await single_request(
         1, session, path=url, method="get", max_retries_on_timeout=retries
     )
-    assert "exception" in result[1]
+    assert isinstance(result[1], RequestError)
     assert time.time() - start_time > retries
     await session.aclose()
 

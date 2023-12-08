@@ -2,12 +2,27 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import asyncio
 import logging
+from dataclasses import dataclass
 
 from httpx import AsyncClient, Limits, TimeoutException
 from tqdm.asyncio import tqdm as tqdm_async
 
 logger = logging.getLogger(__name__)
 VALID_HTTP_METHODS = ("get", "options", "head", "post", "put", "patch", "delete")
+
+
+@dataclass
+class RequestError:
+    """A dataclass wrapping an exception that was raised during a web request.
+
+    Besides the exception itself, this contains the path, method, and (optional) payload
+    of the failed request.
+    """
+
+    path: str
+    method: str
+    payload: Optional[Any]
+    exception: Exception
 
 
 def sort_by_idx(results: List[Tuple[int, Any]]) -> List[Any]:
@@ -45,7 +60,7 @@ async def single_request(
         Tuple[int, Any]: A tuple of the index and the JSON response.
     """
     trial = 0
-    exception = None
+    exception: Optional[Exception] = None
     method = method.lower()
     for trial in range(1, max_retries_on_timeout + 1):
         try:
@@ -66,12 +81,15 @@ async def single_request(
     logger.warning(
         f"{exception.__class__.__name__} was raised after {trial} tries: {exception}"
     )
-    return idx, {
-        "path": path,
-        "method": method,
-        "json": json,
-        "exception": exception,
-    }
+    return (
+        idx,
+        RequestError(
+            path=path,
+            method=method,
+            payload=json,
+            exception=exception,
+        ),
+    )
 
 
 async def request_urls(
