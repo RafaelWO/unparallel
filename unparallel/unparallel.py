@@ -78,6 +78,8 @@ async def single_request(
             exception = ex
             break
 
+    # this assert is here to make mypy happy
+    assert exception is not None
     logger.warning(
         f"{exception.__class__.__name__} was raised after {trial} tries: {exception}"
     )
