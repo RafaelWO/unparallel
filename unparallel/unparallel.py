@@ -3,11 +3,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import asyncio
 import logging
 
-from httpx import AsyncClient, Limits
+from httpx import AsyncClient, Limits, TimeoutException
 from tqdm.asyncio import tqdm as tqdm_async
 
 logger = logging.getLogger(__name__)
-MAX_TRIALS = 3
 VALID_HTTP_METHODS = ("get", "options", "head", "post", "put", "patch", "delete")
 
 
@@ -29,6 +28,7 @@ async def single_request(
     path: str,
     method: str,
     json: Optional[Any] = None,
+    max_retries_on_timeout: int = 3,
 ) -> Tuple[int, Any]:
     """Do a single web request for the given path, HTTP method, and playload.
 
@@ -38,6 +38,8 @@ async def single_request(
         path (str): The path after the base URI
         method (str): The HTTP method
         json (Optional[Any], optional): The JSON payload. Defaults to None.
+        max_retries_on_timeout (int): The maximum number retries if the requests fails
+            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
@@ -45,7 +47,7 @@ async def single_request(
     trial = 0
     exception = None
     method = method.lower()
-    for trial in range(1, MAX_TRIALS + 1):
+    for trial in range(1, max_retries_on_timeout + 1):
         try:
             kwargs = {}
             if method in ["post", "put", "patch"]:
@@ -54,19 +56,21 @@ async def single_request(
             response.raise_for_status()
             json_data = response.json()
             return idx, json_data
+        except TimeoutException as timeout_ex:
+            exception = timeout_ex
+            await asyncio.sleep(1)
         except Exception as ex:  # pylint: disable=broad-except
             exception = ex
-            await asyncio.sleep(1)
+            break
 
-    ex_dict = getattr(exception, "__dict__", {})
     logger.warning(
-        f"{exception.__class__.__name__} was raised after {trial} tries: {ex_dict}"
+        f"{exception.__class__.__name__} was raised after {trial} tries: {exception}"
     )
     return idx, {
         "path": path,
         "method": method,
         "json": json,
-        "exception": str(ex_dict),
+        "exception": exception,
     }
 
 
@@ -78,6 +82,7 @@ async def request_urls(
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
     connection_limit: int = 100,
+    max_retries_on_timeout: int = 3,
     progress: bool = True,
 ) -> List[Any]:
     """
@@ -95,6 +100,8 @@ async def request_urls(
         flatten_result: If True and the response per request is a list, flatten that
             list of lists. This is useful when using paging.
         connection_limit: The total number of simultaneous TCP connections
+        max_retries_on_timeout (int): The maximum number retries if the requests fails
+            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         progress: If set to True, progress bar is shown
 
     Returns:
@@ -118,7 +125,9 @@ async def request_urls(
             )
             tasks.append(task)
 
-        for task in tqdm_async.as_completed(tasks, disable=not progress):
+        for task in tqdm_async.as_completed(
+            tasks, desc="Making async requests", disable=not progress
+        ):
             res = await task
             results.append(res)
 
@@ -136,6 +145,7 @@ async def up(
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
     connection_limit: int = 100,
+    max_retries_on_timeout: int = 3,
     progress: bool = True,
 ) -> List[Any]:
     """Creates async web requests to a URL at the specified path(s) via ``asyncio``
@@ -157,6 +167,8 @@ async def up(
             Defaults to False.
         connection_limit (int): The total number of simultaneous TCP
             connections. Defaults to 100.
+        max_retries_on_timeout (int): The maximum number retries if the requests fails
+            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         progress (bool): If set to True, progress bar is shown.
             Defaults to True.
 
@@ -202,5 +214,6 @@ async def up(
         payloads=payloads,
         flatten_result=flatten_result,
         connection_limit=connection_limit,
+        max_retries_on_timeout=max_retries_on_timeout,
         progress=progress,
     )
