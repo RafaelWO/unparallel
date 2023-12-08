@@ -35,7 +35,7 @@ classifiers = [  #! Update me
 
 [tool.poetry.dependencies]
 python = "^3.8"
-httpx = "^0.25.0"
+httpx = "^0.25.2"
 tqdm = "^4.66.1"
 
 [tool.poetry.group.dev.dependencies]
