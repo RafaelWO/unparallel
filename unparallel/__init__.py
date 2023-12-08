@@ -1,4 +1,4 @@
-"""Create async web requests in no time with `unparallel`"""
+"""Create async web requests in no time."""
 
 from importlib import metadata as importlib_metadata
 
@@ -14,4 +14,4 @@ def get_version() -> str:
 
 version: str = get_version()
 
-__all__ = ["__version__", "up", "version"]
+__all__ = ["up", "version"]
