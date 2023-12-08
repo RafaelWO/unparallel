@@ -132,13 +132,7 @@ Codestyle checks only, without rewriting files:
 make check-codestyle
 ```
 
-> Note: `check-codestyle` uses `isort`, `black` and `darglint` library
-
-Update all dev libraries to the latest version using one comand
-
-```bash
-make update-dev-deps
-```
+> Note: `check-codestyle` uses `isort` and `black` library
 
 <details>
 <summary>4. Code security</summary>
@@ -167,7 +161,7 @@ make check-safety
 Run `mypy` static type checker
 
 ```bash
-make mypy
+make check-typing
 ```
 
 </p>
@@ -199,7 +193,7 @@ make lint
 the same as:
 
 ```bash
-make test && make check-codestyle && make mypy && make check-safety
+make check-codestyle && make check-typing
 ```
 
 </p>
