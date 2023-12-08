@@ -3,35 +3,75 @@
 <div align="center">
 
 [![Build status](https://github.com/RafaelWO/unparallel/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/RafaelWO/unparallel/actions?query=workflow%3Abuild)
+![Coverage Report](https://raw.githubusercontent.com/RafaelWO/unparallel/main/assets/images/coverage.svg)
 [![Python Version](https://img.shields.io/pypi/pyversions/unparallel.svg)](https://pypi.org/project/unparallel/)
-[![Dependencies Status](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)](https://github.com/RafaelWO/unparallel/pulls?utf8=%E2%9C%93&q=is%3Apr%20author%3Aapp%2Fdependabot)
-
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/RafaelWO/unparallel/blob/main/.pre-commit-config.yaml)
-[![Semantic Versions](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--versions-e10079.svg)](https://github.com/RafaelWO/unparallel/releases)
 [![License](https://img.shields.io/github/license/RafaelWO/unparallel)](https://github.com/RafaelWO/unparallel/blob/main/LICENSE)
-![Coverage Report](assets/images/coverage.svg)
 
-Create Python async web requests in no time with `unparallel`.
+
+Create Python async web requests in no time!
 
 </div>
 
 ## Installation
 
-```bash
-pip install -U unparallel
-```
-
-or install with `Poetry`
+This project is currently only installable from GitHub:
 
 ```bash
-poetry add unparallel
+pip install git+https://github.com/RafaelWO/unparallel
 ```
 
+I will try to push it to PyPI as soon as possible :)
 
+## Usage
+### GET
+A simple example of doing a number of GET requests to an URL:
 
-### Makefile usage
+```python
+import asyncio
+from unparallel import up
+
+async def main():
+    url = "https://httpbin.org"
+    paths = [f"/get?i={i}" for i in range(5)]
+    results = await up(url, paths)
+    print([item["args"] for item in results])
+
+asyncio.run(main())
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 5/5 [00:00<00:00,  9.98it/s]
+[{'i': '0'}, {'i': '1'}, {'i': '2'}, {'i': '3'}, {'i': '4'}]
+```
+
+### POST
+Similarly, we can do a bunch of POST requests. This time we will use a single path but multiple payloads:
+
+```python
+import asyncio
+from unparallel import up
+
+async def main():
+    url = "https://httpbin.org"
+    path = "/post"
+    payloads = [{"obj_id": i} for i in range(5)]
+    results = await up(url, path, method="post", payloads=payloads)
+    print([item["data"] for item in results])
+
+asyncio.run(main())
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 5/5 [00:00<00:00,  9.98it/s]
+['{"obj_id": 0}', '{"obj_id": 1}', '{"obj_id": 2}', '{"obj_id": 3}', '{"obj_id": 4}']
+```
+
+## Makefile usage
 
 [`Makefile`](https://github.com/RafaelWO/unparallel/blob/main/Makefile) contains a lot of functions for faster development.
 
@@ -92,13 +132,7 @@ Codestyle checks only, without rewriting files:
 make check-codestyle
 ```
 
-> Note: `check-codestyle` uses `isort`, `black` and `darglint` library
-
-Update all dev libraries to the latest version using one comand
-
-```bash
-make update-dev-deps
-```
+> Note: `check-codestyle` uses `isort` and `black` library
 
 <details>
 <summary>4. Code security</summary>
@@ -127,7 +161,7 @@ make check-safety
 Run `mypy` static type checker
 
 ```bash
-make mypy
+make check-typing
 ```
 
 </p>
@@ -159,7 +193,7 @@ make lint
 the same as:
 
 ```bash
-make test && make check-codestyle && make mypy && make check-safety
+make check-codestyle && make check-typing
 ```
 
 </p>

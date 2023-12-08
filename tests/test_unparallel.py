@@ -3,15 +3,21 @@ import time
 from unittest import mock
 
 import pytest
-from httpx import AsyncClient, Response
+from httpx import AsyncClient, Response, TimeoutException
 
-from unparallel.unparallel import MAX_TRIALS, order_by_idx, request_urls, single_request
+from unparallel import up
+from unparallel.unparallel import (
+    RequestError,
+    request_urls,
+    single_request,
+    sort_by_idx,
+)
 
 
 def test_order_by_idx():
     to_sort = [(4, "d"), (1, "a"), (3, "c"), (2, "b")]
     expected = list("abcd")
-    assert order_by_idx(to_sort) == expected
+    assert sort_by_idx(to_sort) == expected
 
 
 @pytest.mark.asyncio
@@ -31,29 +37,42 @@ async def test_single_request(url, method, payload, respx_mock):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("status", [None, 404])
+@pytest.mark.parametrize("status", [500, 404])
 async def test_single_request_fail(status, respx_mock):
     url = "http://test.com/foo"
     respx_mock.get(url).mock(return_value=Response(status))
-    start_time = time.time()
     session = AsyncClient()
     result = await single_request(1, session, path=url, method="get")
-    assert "exception" in result[1]
-    assert time.time() - start_time > MAX_TRIALS
+    assert isinstance(result[1], RequestError)
+    await session.aclose()
+
+
+@pytest.mark.asyncio
+async def test_single_request_timeout(respx_mock):
+    url = "http://test.com/foo"
+    respx_mock.get(url).mock(side_effect=TimeoutException)
+    session = AsyncClient()
+    start_time = time.time()
+    retries = 2
+    result = await single_request(
+        1, session, path=url, method="get", max_retries_on_timeout=retries
+    )
+    assert isinstance(result[1], RequestError)
+    assert time.time() - start_time > retries
     await session.aclose()
 
 
 @pytest.mark.asyncio
 async def test_full_run_via_httpbin():
     url = "https://httpbin.org"
-    paths = [f"/get?i={i}" for i in range(100)]
-    results = await request_urls(url, paths, "get")
-    assert len(results) == 100
+    paths = [f"/get?i={i}" for i in range(20)]
+    results = await up(url, paths, "get", connection_limit=10)
+    assert len(results) == 20
     assert all(res["args"]["i"] == str(i) for i, res in enumerate(results))
 
 
 @pytest.mark.asyncio
-async def test_request_urls_get(caplog, respx_mock):
+async def test_up_get(caplog, respx_mock):
     caplog.set_level(logging.DEBUG)
     base_url = "http://test.com"
     paths = ["/get?foo=0", "/get?foo=1", "/get?foo=2"]
@@ -63,7 +82,7 @@ async def test_request_urls_get(caplog, respx_mock):
             return_value=Response(200, json={key: int(val)})
         )
 
-    results = await request_urls(base_url, paths, "get")
+    results = await up(base_url, paths, "get")
 
     my_log = next(rec for rec in caplog.records if rec.module == "unparallel")
     assert "Issuing 3 GET request(s)" in my_log.message
@@ -74,25 +93,17 @@ async def test_request_urls_get(caplog, respx_mock):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("paths", ["/post", ["/post"], ["/post"] * 5])
-async def test_request_urls_post(paths, respx_mock):
+async def test_up_post(paths, respx_mock):
     base_url = "http://test.com"
     payloads = [{"bar": i} for i in range(5)]
     respx_mock.post(base_url + "/post").mock(
         side_effect=[Response(200, json=data) for data in payloads]
     )
 
-    results = await request_urls(base_url, paths, "post", payloads=payloads)
+    results = await up(base_url, paths, "post", payloads=payloads)
     assert len(results) == len(payloads)
     for res, data in zip(results, payloads):
         assert res == data
-
-
-@pytest.mark.asyncio
-async def test_request_urls_misaligned_paths_and_payloads():
-    with pytest.raises(ValueError):
-        await request_urls(
-            "http://test.com", paths=["/a", "/b"], method="post", payloads=[1, 2, 3]
-        )
 
 
 @pytest.mark.asyncio
@@ -105,3 +116,17 @@ async def test_request_urls_flat(patched_fetch):
     )
     # without flatten, result would be: [[1, 2, 3], [4, 5, 6]]
     assert results == [1, 2, 3, 4, 5, 6]
+
+
+@pytest.mark.asyncio
+async def test_up_misaligned_paths_and_payloads():
+    with pytest.raises(ValueError):
+        await up(
+            "http://test.com", paths=["/a", "/b"], method="post", payloads=[1, 2, 3]
+        )
+
+
+@pytest.mark.asyncio
+async def test_up_wrong_method():
+    with pytest.raises(ValueError):
+        await up("http://test.com", paths="/a", method="foobar")

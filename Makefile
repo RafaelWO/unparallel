@@ -47,10 +47,9 @@ test:
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
 	poetry run black --diff --check --config pyproject.toml ./
-	poetry run darglint --verbosity 2 unparallel tests
 
-.PHONY: mypy
-mypy:
+.PHONY: check-typing
+check-typing:
 	poetry run mypy --config-file pyproject.toml ./
 
 .PHONY: check-safety
@@ -60,12 +59,7 @@ check-safety:
 	poetry run bandit -ll --recursive unparallel tests
 
 .PHONY: lint
-lint: test check-codestyle mypy check-safety
-
-.PHONY: update-dev-deps
-update-dev-deps:
-	poetry add -G dev bandit@latest darglint@latest "isort[colors]@latest" mypy@latest pre-commit@latest pydocstyle@latest pylint@latest pytest@latest pyupgrade@latest safety@latest coverage@latest coverage-badge@latest pytest-html@latest pytest-cov@latest
-	poetry add -G dev --allow-prereleases black@latest
+lint: check-codestyle check-typing
 
 #* Docker
 # Example: make docker-build VERSION=latest

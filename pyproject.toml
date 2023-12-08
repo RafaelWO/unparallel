@@ -6,7 +6,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "unparallel"
 version = "0.1.0"
-description = "Create async web requests in no time with `unparallel`"
+description = "Create async web requests in no time"
 readme = "README.md"
 authors = ["RafaelWO <weingartner.rafael@hotmail.com>"]
 license = "MIT"
@@ -14,7 +14,7 @@ repository = "https://github.com/RafaelWO/unparallel"
 homepage = "https://github.com/RafaelWO/unparallel"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
-keywords = []  #! Update me
+keywords = ["async", "http", "requests", "network"]
 
 # Pypi classifiers: https://pypi.org/classifiers/
 classifiers = [  #! Update me
@@ -26,6 +26,9 @@ classifiers = [  #! Update me
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 
 
@@ -38,7 +41,6 @@ tqdm = "^4.66.1"
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.1"
 black = "^23.11.0"
-darglint = "^1.8.1"
 isort = {extras = ["colors"], version = "^5.10.1"}
 mypy = "^1.7"
 mypy-extensions = "^1.0.0"
@@ -53,6 +55,7 @@ coverage-badge = "^1.1.0"
 pytest-cov = "^4.1.0"
 pytest-asyncio = "^0.21.1"
 respx = "^0.20.2"
+bump2version = "^1.0.1"
 
 [tool.black]
 # https://github.com/psf/black
