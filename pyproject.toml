@@ -34,9 +34,9 @@ classifiers = [  #! Update me
 
 
 [tool.poetry.dependencies]
-python = "^3.8"
-httpx = "^0.25.0"
-tqdm = "^4.66.1"
+python = ">=3.8"
+httpx = ">=0.21.0"
+tqdm = ">=4.61.2"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.1"
