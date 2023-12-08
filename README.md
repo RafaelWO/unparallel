@@ -13,25 +13,67 @@
 [![License](https://img.shields.io/github/license/RafaelWO/unparallel)](https://github.com/RafaelWO/unparallel/blob/main/LICENSE)
 ![Coverage Report](assets/images/coverage.svg)
 
-Create Python async web requests in no time with `unparallel`.
+Create Python async web requests in no time!
 
 </div>
 
 ## Installation
 
-```bash
-pip install -U unparallel
-```
-
-or install with `Poetry`
+This project is currently only installable from GitHub:
 
 ```bash
-poetry add unparallel
+pip install git+https://github.com/RafaelWO/unparallel
 ```
 
+I will try to push it to PyPI as soon as possible :)
 
+## Usage
+### GET
+A simple example of doing a number of GET requests to an URL:
 
-### Makefile usage
+```python
+import asyncio
+from unparallel import up
+
+async def main():
+    url = "https://httpbin.org"
+    paths = [f"/get?i={i}" for i in range(5)]
+    results = await up(url, paths)
+    print([item["args"] for item in results])
+
+asyncio.run(main())
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 5/5 [00:00<00:00,  9.98it/s]
+[{'i': '0'}, {'i': '1'}, {'i': '2'}, {'i': '3'}, {'i': '4'}]
+```
+
+### POST
+Similarly, we can do a bunch of POST requests. This time we will use a single path but multiple payloads:
+
+```python
+import asyncio
+from unparallel import up
+
+async def main():
+    url = "https://httpbin.org"
+    path = "/post"
+    payloads = [{"obj_id": i} for i in range(5)]
+    results = await up(url, path, method="post", payloads=payloads)
+    print([item["data"] for item in results])
+
+asyncio.run(main())
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 5/5 [00:00<00:00,  9.98it/s]
+['{"obj_id": 0}', '{"obj_id": 1}', '{"obj_id": 2}', '{"obj_id": 3}', '{"obj_id": 4}']
+```
+
+## Makefile usage
 
 [`Makefile`](https://github.com/RafaelWO/unparallel/blob/main/Makefile) contains a lot of functions for faster development.
 
