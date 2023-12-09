@@ -3,6 +3,7 @@
 
 name-template: "v$NEXT_PATCH_VERSION"
 tag-template: "v$NEXT_PATCH_VERSION"
+sort-direction: ascending
 
 categories:
   - title: ":rocket: Features"
