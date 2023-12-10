@@ -26,7 +26,7 @@ pip install unparallel
 ```
 
 ## Example
-A simple example of doing a number of GET requests to an HTTP web service:
+A simple example of doing several GET requests to an HTTP web service:
 
 ```python
 import asyncio
@@ -71,17 +71,73 @@ Making async requests: 100%|███████████| 5/5 [00:00<00:00,
 ['{"obj_id": 0}', '{"obj_id": 1}', '{"obj_id": 2}', '{"obj_id": 3}', '{"obj_id": 4}']
 ```
 
-<!-- --8<-- [end:index] -->
+## Why unparallel? Why async?
+Async is a really powerful feature - especially when you have to wait for I/O.
+Here is an example of making 20 web requests synchronously vs. asynchronously via `unparallel`.
+
+![Sync-vs-Async][sync-async-gif]
+
+As you can see, the async version finishes in less than a second.
+
+<details><summary>Code for sync</summary>
+
+```python
+import httpx
+from tqdm import tqdm
+
+
+def main():
+    url = "https://httpbin.org"
+    paths = [f"/get?i={i}" for i in range(20)]
+    results = [
+        httpx.get(f"{url}{path}") for path in tqdm(paths, desc="Making sync requests")
+    ]
+    assert len(results) == 20
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+<details><summary>Code for async</summary>
+
+```python
+import asyncio
+
+from unparallel import up
+
+
+async def main():
+    url = "https://httpbin.org"
+    paths = [f"/get?i={i}" for i in range(20)]
+
+    results = await up(url, paths)
+
+    assert len(results) == 20
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+</details>
 
 ## Contributing
 As this project is still in early development, I'm happy for any feedback and contributions! 
-Please refer to the [contributing guidelines](./CONTRIBUTING.md) for details.
+Please refer to the [contributing guidelines][contrib] for details.
 
 ## License
 
 This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/RafaelWO/unparallel/blob/main/LICENSE) for more details.
 
 ## Credits 
-I was heavily inspired for this project by the blog post [Making 1 million requests with python-aiohttp](https://pawelmhm.github.io/asyncio/python/aiohttp/2016/04/22/asyncio-aiohttp.html) by Paweł Miech.
+This project was heavily inspired by the blog post [Making 1 million requests with python-aiohttp](https://pawelmhm.github.io/asyncio/python/aiohttp/2016/04/22/asyncio-aiohttp.html) by Paweł Miech.
 
-This project was generated with [`python-package-template`](https://github.com/TezRomacH/python-package-template).
+I created this project with [python-package-template](https://github.com/TezRomacH/python-package-template).
+
+<!-- --8<-- [end:index] -->
+
+[sync-async-gif]: ./docs/assets/sync-vs-async.gif
+[contrib]: ./CONTRIBUTING.md
