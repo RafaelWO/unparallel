@@ -2,11 +2,14 @@ import logging
 import time
 from unittest import mock
 
+import httpx
 import pytest
 from httpx import AsyncClient, Response, TimeoutException
 
 from unparallel import up
 from unparallel.unparallel import (
+    DEFAULT_LIMITS,
+    DEFAULT_TIMEOUT,
     RequestError,
     request_urls,
     single_request,
@@ -66,7 +69,7 @@ async def test_single_request_timeout(respx_mock):
 async def test_full_run_via_httpbin():
     url = "https://httpbin.org"
     paths = [f"/get?i={i}" for i in range(20)]
-    results = await up(url, paths, "get", connection_limit=10)
+    results = await up(url, paths, "get", max_connections=10)
     assert len(results) == 20
     assert all(res["args"]["i"] == str(i) for i, res in enumerate(results))
 
@@ -130,3 +133,39 @@ async def test_up_misaligned_paths_and_payloads():
 async def test_up_wrong_method():
     with pytest.raises(ValueError):
         await up("http://test.com", paths="/a", method="foobar")
+
+
+@pytest.mark.parametrize(
+    "up_kwargs, expected_timeouts, expected_limits",
+    [
+        ({}, DEFAULT_TIMEOUT, DEFAULT_LIMITS),
+        (
+            {"timeout": 3, "max_connections": 10},
+            httpx.Timeout(3),
+            httpx.Limits(
+                max_connections=10,
+                max_keepalive_connections=DEFAULT_LIMITS.max_keepalive_connections,
+            ),
+        ),
+        (
+            {
+                "timeout": 100,
+                "timeouts": httpx.Timeout(2, connect=5),
+                "limits": httpx.Limits(max_connections=300),
+            },
+            httpx.Timeout(2, connect=5),
+            httpx.Limits(max_connections=300),
+        ),
+    ],
+)
+@mock.patch("unparallel.unparallel.request_urls")
+@pytest.mark.asyncio
+async def test_config(request_urls_mock, up_kwargs, expected_timeouts, expected_limits):
+    def get_kwargs(*args, **kwargs):
+        return kwargs
+
+    request_urls_mock.side_effect = get_kwargs
+
+    options = await up("foobar", "/bar", **up_kwargs)
+    assert options["timeouts"] == expected_timeouts
+    assert options["limits"] == expected_limits
