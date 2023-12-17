@@ -50,10 +50,10 @@ async def single_request(
     """Do a single web request for the given path, HTTP method, and playload.
 
     Args:
-        idx (int): The index of the task (required for sorting afterwards)
-        client (AsyncClient): The httpx client
-        path (str): The path after the base URI
-        method (str): The HTTP method
+        idx (int): The index of the task (required for sorting afterwards).
+        client (AsyncClient): The httpx client.
+        path (str): The path after the base URI.
+        method (str): The HTTP method.
         json (Optional[Any], optional): The JSON payload. Defaults to None.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
@@ -63,13 +63,9 @@ async def single_request(
     """
     trial = 0
     exception: Optional[Exception] = None
-    method = method.lower()
     for trial in range(1, max_retries_on_timeout + 1):
         try:
-            kwargs = {}
-            if method in ["post", "put", "patch"]:
-                kwargs["json"] = json
-            response = await client.request(method, path, **kwargs)
+            response = await client.request(method, path, json=json)
             response.raise_for_status()
             json_data = response.json()
             return idx, json_data

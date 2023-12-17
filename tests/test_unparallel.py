@@ -27,7 +27,7 @@ def test_order_by_idx():
 @pytest.mark.parametrize(
     "url, method, payload",
     [
-        ("http://test.com", "GET", "data"),
+        ("http://test.com", "get", "data"),
         ("http://test.com/foo", "post", "data"),
     ],
 )
