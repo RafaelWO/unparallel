@@ -27,7 +27,7 @@ def test_order_by_idx():
 @pytest.mark.parametrize(
     "url, method, payload",
     [
-        ("http://test.com", "get", "data"),
+        ("http://test.com", "GET", "data"),
         ("http://test.com/foo", "post", "data"),
     ],
 )
@@ -45,7 +45,7 @@ async def test_single_request_fail(status, respx_mock):
     url = "http://test.com/foo"
     respx_mock.get(url).mock(return_value=Response(status))
     session = AsyncClient()
-    result = await single_request(1, session, path=url, method="get")
+    result = await single_request(1, session, path=url, method="GET")
     assert isinstance(result[1], RequestError)
     await session.aclose()
 
@@ -58,7 +58,7 @@ async def test_single_request_timeout(respx_mock):
     start_time = time.time()
     retries = 2
     result = await single_request(
-        1, session, path=url, method="get", max_retries_on_timeout=retries
+        1, session, path=url, method="GET", max_retries_on_timeout=retries
     )
     assert isinstance(result[1], RequestError)
     assert time.time() - start_time > retries
@@ -85,7 +85,7 @@ async def test_up_get(caplog, respx_mock):
             return_value=Response(200, json={key: int(val)})
         )
 
-    results = await up(base_url, paths, "get")
+    results = await up(base_url, paths, "GET")
 
     my_log = next(rec for rec in caplog.records if rec.module == "unparallel")
     assert "Issuing 3 GET request(s)" in my_log.message
@@ -125,7 +125,7 @@ async def test_request_urls_flat(patched_fetch):
 async def test_up_misaligned_paths_and_payloads():
     with pytest.raises(ValueError):
         await up(
-            "http://test.com", paths=["/a", "/b"], method="post", payloads=[1, 2, 3]
+            "http://test.com", paths=["/a", "/b"], method="POST", payloads=[1, 2, 3]
         )
 
 

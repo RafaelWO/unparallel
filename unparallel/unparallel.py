@@ -7,7 +7,7 @@ import httpx
 from tqdm.asyncio import tqdm as tqdm_async
 
 logger = logging.getLogger(__name__)
-VALID_HTTP_METHODS = ("get", "options", "head", "post", "put", "patch", "delete")
+VALID_HTTP_METHODS = ("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS")
 
 DEFAULT_TIMEOUT = httpx.Timeout(timeout=10)
 DEFAULT_LIMITS = httpx.Limits(max_connections=100, max_keepalive_connections=20)
@@ -69,7 +69,7 @@ async def single_request(
             kwargs = {}
             if method in ["post", "put", "patch"]:
                 kwargs["json"] = json
-            response = await getattr(client, method.lower())(path, **kwargs)
+            response = await client.request(method, path, **kwargs)
             response.raise_for_status()
             json_data = response.json()
             return idx, json_data
@@ -170,7 +170,7 @@ async def request_urls(
 async def up(
     base_url: str,
     paths: Union[str, List[str]],
-    method: str = "get",
+    method: str = "GET",
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
@@ -189,8 +189,8 @@ async def up(
         paths (Union[str, List[str]]): One path or a list of paths, e.g. /foobar/.
             If one path but multiple payloads are supplied, that path is used for all
             requests.
-        method (str): HTTP method to use, e.g. get, post, etc.
-            Defaults to "get".
+        method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,
+            ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.
         headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.
             Defaults to None.
         payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.
@@ -222,7 +222,7 @@ async def up(
         input (paths/payloads).
     """
     # Check if method it valid
-    if method not in VALID_HTTP_METHODS:
+    if method.upper() not in VALID_HTTP_METHODS:
         raise ValueError(
             f"The method '{method}' is not a supported HTTP method. "
             f"Supported methods: {VALID_HTTP_METHODS}"
