@@ -4,7 +4,7 @@
 
 <div align="center" markdown="1">
 
-Create Python async web requests in no time with **unparallel**!
+Create async HTTP requests with Python in no time.
 
 [![Build status](https://github.com/RafaelWO/unparallel/actions/workflows/test.yml/badge.svg?branch=main&event=push)](https://github.com/RafaelWO/unparallel/actions?query=workflow%3Atest)
 ![Coverage Report](https://raw.githubusercontent.com/RafaelWO/unparallel/main/assets/images/coverage.svg)
@@ -18,6 +18,10 @@ Create Python async web requests in no time with **unparallel**!
 [![License](https://img.shields.io/github/license/RafaelWO/unparallel)](https://github.com/RafaelWO/unparallel/blob/main/LICENSE)
 
 </div>
+
+With Unparallel you can easily create thousands of web requests in an efficient way leveraging Python's async capabilities.
+
+Unparallel is built on top of [HTTPX](https://github.com/encode/httpx/) and aims to support its rich set of features.
 
 ## Installation
 
