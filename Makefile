@@ -50,7 +50,7 @@ check-codestyle:
 
 .PHONY: check-typing
 check-typing:
-	poetry run mypy --config-file pyproject.toml ./
+	poetry run mypy --config-file pyproject.toml unparallel
 
 .PHONY: check-safety
 check-safety:
