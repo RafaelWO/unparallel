@@ -104,8 +104,8 @@ async def request_urls(
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
     max_retries_on_timeout: int = 3,
-    timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     limits: httpx.Limits = DEFAULT_LIMITS,
+    timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     progress: bool = True,
 ) -> List[Any]:
     """
@@ -124,8 +124,8 @@ async def request_urls(
             list of lists. This is useful when using paging.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
-        timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
         limits (httpx.Limits): The limits configuration for ``httpx``.
+        timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
         progress: If set to True, progress bar is shown
 
     Returns:
@@ -177,8 +177,8 @@ async def up(
     max_connections: Optional[int] = 100,
     timeout: Optional[int] = 10,
     max_retries_on_timeout: int = 3,
-    timeouts: Optional[httpx.Timeout] = None,
     limits: Optional[httpx.Limits] = None,
+    timeouts: Optional[httpx.Timeout] = None,
     progress: bool = True,
 ) -> List[Any]:
     """Creates async web requests to a URL at the specified path(s) via ``asyncio``
@@ -204,10 +204,10 @@ async def up(
             This is passed into ``httpx.Timeout``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
-        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
-            If specified, this overrides the ``timeout`` parameter.
         limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
             If specified, this overrides the ``max_connections`` parameter.
+        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
+            If specified, this overrides the ``timeout`` parameter.
         progress (bool): If set to True, progress bar is shown.
             Defaults to True.
 
@@ -259,6 +259,6 @@ async def up(
         flatten_result=flatten_result,
         max_retries_on_timeout=max_retries_on_timeout,
         progress=progress,
-        timeouts=timeouts,
         limits=limits,
+        timeouts=timeouts,
     )
