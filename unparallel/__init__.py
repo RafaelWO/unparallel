@@ -1,5 +1,3 @@
-"""Create async web requests in no time."""
-
 from importlib import metadata as importlib_metadata
 
 from .unparallel import RequestError, up
