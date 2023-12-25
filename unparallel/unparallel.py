@@ -1,14 +1,16 @@
-from typing import Any, Dict, List, Optional, Tuple, Union
-
 import asyncio
 import logging
 from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple, Union
 
-from httpx import AsyncClient, Limits, TimeoutException
+import httpx
 from tqdm.asyncio import tqdm as tqdm_async
 
 logger = logging.getLogger(__name__)
-VALID_HTTP_METHODS = ("get", "options", "head", "post", "put", "patch", "delete")
+VALID_HTTP_METHODS = ("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS")
+
+DEFAULT_TIMEOUT = httpx.Timeout(timeout=10)
+DEFAULT_LIMITS = httpx.Limits(max_connections=100, max_keepalive_connections=20)
 
 
 @dataclass
@@ -39,7 +41,7 @@ def sort_by_idx(results: List[Tuple[int, Any]]) -> List[Any]:
 
 async def single_request(
     idx: int,
-    client: AsyncClient,
+    client: httpx.AsyncClient,
     path: str,
     method: str,
     json: Optional[Any] = None,
@@ -48,10 +50,10 @@ async def single_request(
     """Do a single web request for the given path, HTTP method, and playload.
 
     Args:
-        idx (int): The index of the task (required for sorting afterwards)
-        client (AsyncClient): The httpx client
-        path (str): The path after the base URI
-        method (str): The HTTP method
+        idx (int): The index of the task (required for sorting afterwards).
+        client (AsyncClient): The httpx client.
+        path (str): The path after the base URI.
+        method (str): The HTTP method.
         json (Optional[Any], optional): The JSON payload. Defaults to None.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
@@ -61,17 +63,13 @@ async def single_request(
     """
     trial = 0
     exception: Optional[Exception] = None
-    method = method.lower()
     for trial in range(1, max_retries_on_timeout + 1):
         try:
-            kwargs = {}
-            if method in ["post", "put", "patch"]:
-                kwargs["json"] = json
-            response = await getattr(client, method.lower())(path, **kwargs)
+            response = await client.request(method, path, json=json)
             response.raise_for_status()
             json_data = response.json()
             return idx, json_data
-        except TimeoutException as timeout_ex:
+        except httpx.TimeoutException as timeout_ex:
             exception = timeout_ex
             await asyncio.sleep(1)
         except Exception as ex:  # pylint: disable=broad-except
@@ -97,12 +95,13 @@ async def single_request(
 async def request_urls(
     base_url: str,
     paths: Union[str, List[str]],
-    method: str = "get",
+    method: str,
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
-    connection_limit: int = 100,
     max_retries_on_timeout: int = 3,
+    limits: httpx.Limits = DEFAULT_LIMITS,
+    timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     progress: bool = True,
 ) -> List[Any]:
     """
@@ -119,9 +118,10 @@ async def request_urls(
             Used together with paths.
         flatten_result: If True and the response per request is a list, flatten that
             list of lists. This is useful when using paging.
-        connection_limit: The total number of simultaneous TCP connections
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        limits (httpx.Limits): The limits configuration for ``httpx``.
+        timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
         progress: If set to True, progress bar is shown
 
     Returns:
@@ -131,8 +131,13 @@ async def request_urls(
     tasks = []
     results = []
 
-    limits = Limits(max_connections=connection_limit)
-    async with AsyncClient(base_url=base_url, headers=headers, limits=limits) as client:
+    logging.debug(
+        f"Issuing {len(paths)} {method.upper()} request(s) to base URL '{base_url}' "
+        f"with {limits.max_connections} max connections..."
+    )
+    async with httpx.AsyncClient(
+        base_url=base_url, headers=headers, timeout=timeouts, limits=limits
+    ) as client:
         for i, path in enumerate(paths):
             task = asyncio.create_task(
                 single_request(
@@ -141,6 +146,7 @@ async def request_urls(
                     client=client,
                     method=method,
                     json=payloads[i] if payloads else None,
+                    max_retries_on_timeout=max_retries_on_timeout,
                 )
             )
             tasks.append(task)
@@ -160,12 +166,15 @@ async def request_urls(
 async def up(
     base_url: str,
     paths: Union[str, List[str]],
-    method: str = "get",
+    method: str = "GET",
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
-    connection_limit: int = 100,
+    max_connections: Optional[int] = 100,
+    timeout: Optional[int] = 10,
     max_retries_on_timeout: int = 3,
+    limits: Optional[httpx.Limits] = None,
+    timeouts: Optional[httpx.Timeout] = None,
     progress: bool = True,
 ) -> List[Any]:
     """Creates async web requests to a URL at the specified path(s) via ``asyncio``
@@ -176,8 +185,8 @@ async def up(
         paths (Union[str, List[str]]): One path or a list of paths, e.g. /foobar/.
             If one path but multiple payloads are supplied, that path is used for all
             requests.
-        method (str): HTTP method to use, e.g. get, post, etc.
-            Defaults to "get".
+        method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,
+            ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.
         headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.
             Defaults to None.
         payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.
@@ -185,10 +194,16 @@ async def up(
         flatten_result (bool): If True and the response per request is a list,
             flatten that list of lists. This is useful when using paging.
             Defaults to False.
-        connection_limit (int): The total number of simultaneous TCP
-            connections. Defaults to 100.
+        max_connections (int): The total number of simultaneous TCP
+            connections. Defaults to 100. This is passed into ``httpx.Limits``.
+        timeout (int): The timeout for requests in seconds. Defaults to 10.
+            This is passed into ``httpx.Timeout``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
+            If specified, this overrides the ``max_connections`` parameter.
+        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
+            If specified, this overrides the ``timeout`` parameter.
         progress (bool): If set to True, progress bar is shown.
             Defaults to True.
 
@@ -203,7 +218,7 @@ async def up(
         input (paths/payloads).
     """
     # Check if method it valid
-    if method not in VALID_HTTP_METHODS:
+    if method.upper() not in VALID_HTTP_METHODS:
         raise ValueError(
             f"The method '{method}' is not a supported HTTP method. "
             f"Supported methods: {VALID_HTTP_METHODS}"
@@ -222,10 +237,15 @@ async def up(
                 f"{len(paths)} != {len(payloads)}"
             )
 
-    logging.debug(
-        f"Issuing {len(paths)} {method.upper()} request(s) to base URL '{base_url}' "
-        f"with {connection_limit} max connections..."
-    )
+    if timeouts is None:
+        timeouts = httpx.Timeout(timeout)
+    if limits is None:
+        if max_connections != DEFAULT_LIMITS.max_connections:
+            limits = httpx.Limits(max_connections=max_connections)
+            limits.max_keepalive_connections = DEFAULT_LIMITS.max_keepalive_connections
+        else:
+            limits = DEFAULT_LIMITS
+
     return await request_urls(
         base_url=base_url,
         paths=paths,
@@ -233,7 +253,8 @@ async def up(
         headers=headers,
         payloads=payloads,
         flatten_result=flatten_result,
-        connection_limit=connection_limit,
         max_retries_on_timeout=max_retries_on_timeout,
         progress=progress,
+        limits=limits,
+        timeouts=timeouts,
     )

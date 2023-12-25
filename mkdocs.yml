@@ -35,7 +35,11 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          members_order: source
+          options:
+            show_root_heading: true
+            members_order: source
+            show_root_members_full_path: true
+            separate_signature: true
 markdown_extensions:
   - md_in_html
   - pymdownx.highlight:
