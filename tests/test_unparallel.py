@@ -96,7 +96,7 @@ async def test_up_get(caplog, respx_mock):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("paths", ["/post", ["/post"], ["/post"] * 5])
-async def test_up_post(paths, respx_mock):
+async def test_up_post_single_vs_multi_path(paths, respx_mock):
     base_url = "http://test.com"
     payloads = [{"bar": i} for i in range(5)]
     respx_mock.post(base_url + "/post").mock(
@@ -110,15 +110,33 @@ async def test_up_post(paths, respx_mock):
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "payloads", [{"bar": 1}, [{"bar": 1}], [{"bar": i} for i in range(5)]]
+)
+async def test_up_post_single_vs_multi_payload(payloads, respx_mock):
+    base_url = "http://test.com"
+    paths = [f"/post/{i}" for i in range(5)]
+    for path in paths:
+        respx_mock.post(base_url + path).mock(return_value=Response(200))
+
+    results = await up(base_url, paths, "post", payloads=payloads)
+    assert len(results) == len(paths)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "flatten, expected",
+    [(False, [[1, 2, 3], [4, 5, 6]]), (True, [1, 2, 3, 4, 5, 6])],
+    ids=["not-flat", "flat"],
+)
 @mock.patch(
     "unparallel.unparallel.single_request", side_effect=[(1, [1, 2, 3]), (2, [4, 5, 6])]
 )
-async def test_request_urls_flat(patched_fetch):
+async def test_request_urls_flat(patched_fetch, flatten, expected):
     results = await request_urls(
-        "http://test.com", paths=["/a", "/b"], method="get", flatten_result=True
+        "http://test.com", paths=["/a", "/b"], method="get", flatten_result=flatten
     )
-    # without flatten, result would be: [[1, 2, 3], [4, 5, 6]]
-    assert results == [1, 2, 3, 4, 5, 6]
+    assert results == expected
 
 
 @pytest.mark.asyncio
