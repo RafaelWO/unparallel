@@ -190,7 +190,9 @@ async def up(
         headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.
             Defaults to None.
         payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.
-            for HTTP post requests. Used together with paths. Defaults to None.
+            for HTTP post requests. Used together with paths. If one payload but
+            multiple paths are supplied, that payload is used for all requests.
+            Defaults to None.
         flatten_result (bool): If True and the response per request is a list,
             flatten that list of lists. This is useful when using paging.
             Defaults to False.
@@ -228,9 +230,14 @@ async def up(
     if payloads:
         if isinstance(paths, str):
             paths = [paths]
+        if not isinstance(payloads, list):
+            payloads = [payloads]
         if len(paths) == 1 and len(payloads) > 1:
             logging.info(f"Using path '{paths[0]}' for all {len(payloads)} payloads")
             paths = paths * len(payloads)
+        if len(payloads) == 1 and len(paths) > 1:
+            logging.info(f"Using payload '{payloads[0]}' for all {len(paths)} paths")
+            payloads = payloads * len(paths)
         if len(paths) != len(payloads):
             raise ValueError(
                 f"The number of paths does not match the number of payloads: "
