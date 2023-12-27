@@ -143,5 +143,5 @@ I created this project with [python-package-template](https://github.com/TezRoma
 
 <!-- --8<-- [end:index] -->
 
-[sync-async-gif]: ./docs/assets/sync-vs-async.gif
-[contrib]: ./CONTRIBUTING.md
+[sync-async-gif]: https://raw.githubusercontent.com/RafaelWO/unparallel/main/docs/assets/sync-vs-async.gif
+[contrib]: https://github.com/RafaelWO/unparallel/blob/main/CONTRIBUTING.md
