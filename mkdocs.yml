@@ -1,6 +1,9 @@
 site_name: Unparallel
+site_url: https://rafaelwo.github.io/unparallel/
 nav:
   - Home: index.md
+  - Usage: usage.md
+  - Examples: examples.md
   - Releases: releases.md
   - Contributing: contributing.md
   - API Reference: reference.md
@@ -35,7 +38,9 @@ plugins:
             show_root_members_full_path: true
             separate_signature: true
 markdown_extensions:
+  - admonition
   - md_in_html
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
