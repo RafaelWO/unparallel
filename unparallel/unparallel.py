@@ -214,7 +214,6 @@ async def up(
         ValueError: If the number of paths provided does not match the number of
             payloads (except if there is only one path).
 
-
     Returns:
         List[Any]:  A list of the response data per request in the same order as the
         input (paths/payloads).
