@@ -26,7 +26,7 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
 ## POSTing Data
 ### One body for different paths
 If you want to do POST instead of GET requests, you just have to pass `method='POST'`
-to `up(...)` and add some data. 
+to `up()` and add some data. 
 
 ```python
 import asyncio
@@ -185,6 +185,44 @@ This prints:
   'state-province': None}]
 ```
 
+## Configuring limits and timouts
+You can configure connection pool limits and request timeouts using the following 
+parameters in the `up()` method:
+
+* `max_connections (int)`: The total number of simultaneous TCP connections. This is passed into `httpx.Limits()` and defaults to 100.
+* `limits (Optional[httpx.Limits])`: Explicitly set the HTTPX limits configuration. This overrides `max_connections`.
+* `timeout (int)`: The timeout for requests in seconds. This is passed into `httpx.Timeout()` and defaults to 10.
+* `timeouts (Optional[httpx.Timeout])`: Explicitly set the HTTPX timeout configuration. This overrides `timeout`.
+
+If you don't care about a detailed timeout or limits configuration, you can use 
+`up()` without specifying any of those options:
+
+```python
+results = await up(base_url, paths)
+```
+
+Otherwise, you can use the simplified parameters `max_connections` for setting the 
+connection limit and/or `timeout` for setting (all) timeouts for requests:
+
+
+```python
+results = await up(base_url, paths, max_connections=10, timeout=60)
+```
+
+This results in the limits config created via `httpx.Limits(max_connections=10, **default_values)`
+and timeout config created via `httpx.Timeout(60)`
+
+For more fine-grained control over limits and timeouts, just specify the HTTPX configs 
+and pass them to `up()`:
+
+```python
+results = await up(
+    base_url, 
+    paths, 
+    limits=httpx.Limits(max_connections=20, ...), 
+    timeouts=httpx.Timeout(connect=5, ...)
+)
+```
 
 ## Other HTTP methods
 
