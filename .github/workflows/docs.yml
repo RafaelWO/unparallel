@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry install -G docs
+          poetry install --only docs
 
       - name: Publish docs on push to main (dev)
         # For testing!
