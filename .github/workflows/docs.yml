@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - 'docs/versioning' # TODO: remove after testing!!!
 permissions:
   contents: write
 jobs:
@@ -38,8 +37,7 @@ jobs:
           poetry install --only docs
 
       - name: Publish docs on push to main (dev)
-        # For testing!
-        if: "github.ref == 'refs/heads/main' || github.ref == 'refs/heads/docs/versioning'"
+        if: github.ref == 'refs/heads/main'
         run: poetry run mike deploy dev --push
       
       - name: Get package version
