@@ -330,6 +330,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#other-http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other HTTP methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pagination-and-flattening" class="md-nav__link">
     <span class="md-ellipsis">
       Pagination and flattening
@@ -339,18 +348,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-limits-and-timouts" class="md-nav__link">
+  <a href="#configuring-limits-and-timeouts" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring limits and timouts
+      Configuring limits and timeouts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-http-methods" class="md-nav__link">
+  <a href="#retries" class="md-nav__link">
     <span class="md-ellipsis">
-      Other HTTP methods
+      Retries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress bar
     </span>
   </a>
   
@@ -502,6 +520,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#other-http-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other HTTP methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pagination-and-flattening" class="md-nav__link">
     <span class="md-ellipsis">
       Pagination and flattening
@@ -511,18 +538,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-limits-and-timouts" class="md-nav__link">
+  <a href="#configuring-limits-and-timeouts" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring limits and timouts
+      Configuring limits and timeouts
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#other-http-methods" class="md-nav__link">
+  <a href="#retries" class="md-nav__link">
     <span class="md-ellipsis">
-      Other HTTP methods
+      Retries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress bar
     </span>
   </a>
   
@@ -616,6 +652,14 @@ supported.</p>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a> &#39;{&quot;type&quot;: &quot;tree&quot;, &quot;height&quot;: 3}&#39;,
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a> &#39;{&quot;type&quot;: &quot;tree&quot;, &quot;height&quot;: 4}&#39;]
 </span></code></pre></div></p>
+<h2 id="other-http-methods"><img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/1f6a7.svg" title=":construction:" /> Other HTTP methods</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently (version <code>0.1.0</code>) the method <code>.json()</code> is called on every response.
+Hence, HTTP methods that don't return a JSON body will not work as expected.</p>
+</div>
+<p>Besides the popular GET and POST methods, you can use any other HTTP method supported 
+by HTTPX - which are <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, <code>HEAD</code>, <code>PATCH</code>, and <code>OPTIONS</code>.</p>
 <h2 id="pagination-and-flattening">Pagination and flattening</h2>
 <p>Another use case for Unparallel could be fetching all items from a REST API using 
 pagination. This is useful if there are too many objects to get them all at once and 
@@ -701,7 +745,7 @@ flattened array. Unparallel will flatten the data for you if you pass
 </span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>  &#39;web_pages&#39;: [&#39;https://usm.cl&#39;],
 </span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>  &#39;state-province&#39;: None}]
 </span></code></pre></div></p>
-<h2 id="configuring-limits-and-timouts">Configuring limits and timouts</h2>
+<h2 id="configuring-limits-and-timeouts">Configuring limits and timeouts</h2>
 <p>You can configure connection pool limits and request timeouts using the following 
 parameters in the <code>up()</code> method:</p>
 <ul>
@@ -729,14 +773,15 @@ and pass them to <code>up()</code>:</p>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">timeouts</span><span class="o">=</span><span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">)</span>
 </span></code></pre></div>
-<h2 id="other-http-methods">Other HTTP methods</h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Currently (version <code>0.1.0</code>) the method <code>.json()</code> is called on every response.
-Hence, HTTP methods that don't return a JSON body will not work as expected.</p>
-</div>
-<p>Besides the popular GET and POST methods, you can use any other HTTP method supported 
-by HTTPX - which are <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, <code>HEAD</code>, <code>PATCH</code>, and <code>OPTIONS</code>.</p>
+<h2 id="retries">Retries</h2>
+<p>Per default, every HTTP request will be retried 3 times if an exception of the type 
+<code>httpx.TimeoutException</code> is raised. You can change the behavior by passing e.g. 
+<code>max_retries_on_timeout=5</code> to <code>up()</code> for doing 5 retries, or pass <code>0</code> for disabling them.</p>
+<h2 id="progress-bar">Progress bar</h2>
+<p>Unparallel uses <a href="https://github.com/tqdm/tqdm/">tqdm</a> to display the progress of the 
+HTTP requests - specifically <a href="https://tqdm.github.io/docs/asyncio/#as_completed"><code>tqdm.asyncio.tqdm.as_completed()</code></a> 
+is used to iterate over the list of async tasks (HTTP requests).</p>
+<p>You can disable the progress bar by passing <code>progress=False</code> to <code>up()</code>.</p>
 
 
 
