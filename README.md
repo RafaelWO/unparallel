@@ -16,6 +16,9 @@ Create async HTTP requests with Python in no time.
 [![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/RafaelWO/unparallel/blob/main/.pre-commit-config.yaml)
 [![License](https://img.shields.io/github/license/RafaelWO/unparallel)](https://github.com/RafaelWO/unparallel/blob/main/LICENSE)
+<br>
+[![Docs](https://img.shields.io/badge/docs-link-526cfe?style=for-the-badge)](https://rafaelwo.github.io/unparallel/)
+[![Built with Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 </div>
 
@@ -51,7 +54,6 @@ Making async requests: 100%|███████████| 5/5 [00:00<00:00,
 [{'i': '0'}, {'i': '1'}, {'i': '2'}, {'i': '3'}, {'i': '4'}]
 ```
 
----
 
 Similarly, we can do a bunch of POST requests. This time we will use a single path but multiple payloads:
 
@@ -74,6 +76,8 @@ This prints:
 Making async requests: 100%|███████████| 5/5 [00:00<00:00,  9.98it/s]
 ['{"obj_id": 0}', '{"obj_id": 1}', '{"obj_id": 2}', '{"obj_id": 3}', '{"obj_id": 4}']
 ```
+
+For more details on the usage and examples, check out the [docs][docs-usage].
 
 ## Why unparallel? Why async?
 Async is a really powerful feature - especially when you have to wait for I/O.
@@ -143,5 +147,6 @@ I created this project with [python-package-template](https://github.com/TezRoma
 
 <!-- --8<-- [end:index] -->
 
+[docs-usage]: https://rafaelwo.github.io/unparallel/usage/
 [sync-async-gif]: https://raw.githubusercontent.com/RafaelWO/unparallel/main/docs/assets/sync-vs-async.gif
 [contrib]: https://github.com/RafaelWO/unparallel/blob/main/CONTRIBUTING.md

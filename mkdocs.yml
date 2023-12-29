@@ -27,6 +27,9 @@ theme:
       toggle:
         icon: octicons/sun-16
         name: "Switch to light mode"
+extra:
+  version:
+    provider: mike
 plugins:
   - search
   - mkdocstrings:
@@ -37,6 +40,8 @@ plugins:
             members_order: source
             show_root_members_full_path: true
             separate_signature: true
+  - mike:
+      canonical_version: latest
 markdown_extensions:
   - admonition
   - md_in_html
@@ -48,3 +53,6 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg

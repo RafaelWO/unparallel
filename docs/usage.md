@@ -86,6 +86,17 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
  '{"type": "tree", "height": 4}']
 ```
 
+## :construction: Other HTTP methods
+
+!!! warning
+
+    Currently (version `0.1.0`) the method `.json()` is called on every response.
+    Hence, HTTP methods that don't return a JSON body will not work as expected.
+
+Besides the popular GET and POST methods, you can use any other HTTP method supported 
+by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIONS`.
+
+
 ## Pagination and flattening
 Another use case for Unparallel could be fetching all items from a REST API using 
 pagination. This is useful if there are too many objects to get them all at once and 
@@ -185,7 +196,7 @@ This prints:
   'state-province': None}]
 ```
 
-## Configuring limits and timouts
+## Configuring limits and timeouts
 You can configure connection pool limits and request timeouts using the following 
 parameters in the `up()` method:
 
@@ -224,12 +235,14 @@ results = await up(
 )
 ```
 
-## Other HTTP methods
+## Retries
+Per default, every HTTP request will be retried 3 times if an exception of the type 
+`httpx.TimeoutException` is raised. You can change the behavior by passing e.g. 
+`max_retries_on_timeout=5` to `up()` for doing 5 retries, or pass `0` for disabling them.
 
-!!! warning
+## Progress bar
+Unparallel uses [tqdm](https://github.com/tqdm/tqdm/) to display the progress of the 
+HTTP requests - specifically [`tqdm.asyncio.tqdm.as_completed()`](https://tqdm.github.io/docs/asyncio/#as_completed) 
+is used to iterate over the list of async tasks (HTTP requests).
 
-    Currently (version `0.1.0`) the method `.json()` is called on every response.
-    Hence, HTTP methods that don't return a JSON body will not work as expected.
-
-Besides the popular GET and POST methods, you can use any other HTTP method supported 
-by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIONS`.
+You can disable the progress bar by passing `progress=False` to `up()`.
