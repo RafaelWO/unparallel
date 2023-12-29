@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Feature: Configure HTTPX timeouts and limits (#87) @RafaelWO
 * Feature: Add support for single payload for multiple paths (#101) @RafaelWO
+* Docs: Add a changelog (#107) @RafaelWO
 * Docs: Add versioning via mike (#106) @RafaelWO
 * Docs: Add section "Why?" with GIF to README (#82) @RafaelWO
 * Docs: Add more detailed usage examples (#105) @RafaelWO
