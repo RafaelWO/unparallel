@@ -95,7 +95,7 @@ async def single_request(
 async def request_urls(
     urls: List[str],
     method: str,
-    base_url: str,
+    base_url: Optional[str] = None,
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     flatten_result: bool = False,
@@ -109,19 +109,19 @@ async def request_urls(
     via ``asyncio`` and ``httpx``.
 
     Args:
-        urls: A list of URLs for the HTTP requests.
-        method: HTTP method to use, e.g. get, post, etc.
-        base_url: The base URL of the service, e.g. http://localhost:8000.
-        headers: A dictionary of headers to use.
-        payloads: A list of JSON payloads (dictionaries) for e.g. HTTP post requests.
+        urls (List[str]): A list of URLs for the HTTP requests.
+        method (str): HTTP method to use, e.g. get, post, etc.
+        base_url (Optional[str]): The base URL of the service, e.g. http://localhost:8000.
+        headers (Optional[Dict[str, Any]]): A dictionary of headers to use.
+        payloads (Optional[Any]): A list of JSON payloads (dictionaries) for e.g. HTTP post requests.
             Used together with ``urls``.
-        flatten_result: If True and the response per request is a list, flatten that
+        flatten_result (bool): If True and the response per request is a list, flatten that
             list of lists. This is useful when using paging.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         limits (httpx.Limits): The limits configuration for ``httpx``.
         timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
-        progress: If set to True, progress bar is shown
+        progress (bool): Whether to show a progress bar. Defaults to ``True``.
 
     Returns:
         A list of the response data per request in the same order as the input
@@ -227,10 +227,12 @@ async def up(
             f"Supported methods: {VALID_HTTP_METHODS}"
         )
 
+    # Wrap single URL into list to check for alignment with payload
+    if isinstance(urls, str):
+        urls = [urls]
+
     # Check if payloads align with URLs
     if payloads:
-        if isinstance(urls, str):
-            urls = [urls]
         if not isinstance(payloads, list):
             payloads = [payloads]
         if len(urls) == 1 and len(payloads) > 1:
