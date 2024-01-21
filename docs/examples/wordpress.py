@@ -27,11 +27,18 @@ async def main():
     # Comment the line below to get all pages
     total_pages = min(total_pages, 1000)
 
-    # Get all pages
+    # Get all pages and flatten the result
     paths = [f"{pagination_url}&page={i}" for i in range(1, total_pages + 1)]
-    return await up(url, paths, method="GET", flatten_result=True)
+    results = await up(url, paths, method="GET", flatten_result=True)
+
+    # Display some properties of the first 5 posts
+    intersting_keys = ["id", "date", "slug", "title", "author"]
+    pp(
+        [
+            {k: v for k, v in item.items() if k in intersting_keys}
+            for item in results[:5]
+        ]
+    )
 
 
 results = asyncio.run(main())
-intersting_keys = ["id", "date", "slug", "title", "author"]
-pp([{k: v for k, v in item.items() if k in intersting_keys} for item in results[:5]])
