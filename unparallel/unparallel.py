@@ -48,6 +48,7 @@ async def single_request(
     json: Optional[Any] = None,
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
 ) -> Tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
@@ -61,6 +62,8 @@ async def single_request(
             on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
+            response.
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
@@ -70,7 +73,8 @@ async def single_request(
     for trial in range(1, max_retries_on_timeout + 1):
         try:
             response = await client.request(method, url, json=json)
-            response.raise_for_status()
+            if raise_for_status:
+                response.raise_for_status()
             if response_fn is None:
                 return idx, response
             result = response_fn(response)
@@ -107,6 +111,7 @@ async def request_urls(
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     flatten_result: bool = False,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
     limits: httpx.Limits = DEFAULT_LIMITS,
     timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     progress: bool = True,
@@ -126,6 +131,8 @@ async def request_urls(
             on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         flatten_result (bool): If True and the response per request is a list, flatten
             that list of lists. This is useful when using paging.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on every
+            response.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         limits (httpx.Limits): The limits configuration for ``httpx``.
@@ -156,6 +163,7 @@ async def request_urls(
                     json=payloads[i] if payloads else None,
                     response_fn=response_fn,
                     max_retries_on_timeout=max_retries_on_timeout,
+                    raise_for_status=raise_for_status,
                 )
             )
             tasks.append(task)
@@ -183,6 +191,7 @@ async def up(
     max_connections: Optional[int] = 100,
     timeout: Optional[int] = 10,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
     limits: Optional[httpx.Limits] = None,
     timeouts: Optional[httpx.Timeout] = None,
     progress: bool = True,
@@ -221,6 +230,8 @@ async def up(
             This is passed into ``httpx.Timeout``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy
+            response.
         limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
             If specified, this overrides the ``max_connections`` parameter.
         timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
@@ -282,6 +293,7 @@ async def up(
         response_fn=response_fn,
         flatten_result=flatten_result,
         max_retries_on_timeout=max_retries_on_timeout,
+        raise_for_status=raise_for_status,
         progress=progress,
         limits=limits,
         timeouts=timeouts,

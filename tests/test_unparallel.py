@@ -68,17 +68,27 @@ async def test_single_request_custom_response(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("status", [500, 404])
-async def test_single_request_fail(status, respx_mock):
+@pytest.mark.parametrize(
+    "status, do_raise", [(500, True), (500, False), (404, True), (404, False)]
+)
+async def test_single_request_fail(status, do_raise, respx_mock):
     url = "http://test.com/foo"
     respx_mock.get(url).mock(return_value=Response(status))
     session = AsyncClient()
-    idx, result = await single_request(1, session, url=url, method="GET")
+    idx, result = await single_request(
+        1, session, url=url, method="GET", raise_for_status=do_raise, response_fn=None
+    )
+
     assert idx == 1
-    assert isinstance(result, RequestError)
-    assert result.method == "GET"
-    assert result.url == url
-    assert isinstance(result.exception, Exception)
+
+    if do_raise:
+        assert isinstance(result, RequestError)
+        assert result.method == "GET"
+        assert result.url == url
+        assert isinstance(result.exception, Exception)
+    else:
+        assert isinstance(result, Response)
+
     await session.aclose()
 
 
