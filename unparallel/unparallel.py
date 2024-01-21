@@ -206,10 +206,10 @@ async def up(
             for HTTP post requests. Used together with ``urls``. If one payload but
             multiple URLs are supplied, that payload is used for all requests.
             Defaults to None.
-        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply on every
-            response of the HTTP requests. This can be an existing function of
-            ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom function
-            which takes the ``httpx.Response`` as argument and can return anything.
+        response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)
+            to apply on every response of the HTTP requests. This can be an existing
+            function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom
+            function which takes the ``httpx.Response`` as the argument returns ``Any``.
             If you set this to ``None``, you will get the raw ``httpx.Response``.
             Defaults to ``httpx.Response.json``.
         flatten_result (bool): If True and the response per request is a list,

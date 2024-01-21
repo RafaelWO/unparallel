@@ -93,7 +93,7 @@ Besides the popular GET and POST methods, you can use any other HTTP method supp
 by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIONS`.
 
 For example, you can get the status of services/webpages using the method `HEAD` in
-combination with a custom reponse function:
+combination with a custom response function:
 
 ```python
 import asyncio
