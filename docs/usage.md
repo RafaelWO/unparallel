@@ -22,7 +22,6 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
 [{'foo': '0'}, {'foo': '1'}, {'foo': '2'}, {'foo': '3'}, {'foo': '4'}]
 ```
 
-
 ## POSTing Data
 ### One body for different paths
 If you want to do POST instead of GET requests, you just have to pass `method='POST'`
@@ -86,15 +85,38 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
  '{"type": "tree", "height": 4}']
 ```
 
-## :construction: Other HTTP methods
+## Custom response functions
 
-!!! warning
 
-    Currently (version `0.1.0`) the method `.json()` is called on every response.
-    Hence, HTTP methods that don't return a JSON body will not work as expected.
-
+## Other HTTP methods
 Besides the popular GET and POST methods, you can use any other HTTP method supported 
 by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIONS`.
+
+For example, you can get the status of services/webpages using the method `HEAD` in
+combination with a custom reponse function:
+
+```python
+import asyncio
+
+from unparallel import up
+
+async def main():
+    urls = [
+        "https://www.example.com",
+        "https://www.ecosia.org",
+        "https://github.com"
+    ]
+    return await up(urls, method="HEAD", response_fn=lambda x: x.status_code)
+
+results = asyncio.run(main())
+print(results)
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 3/3 [00:00<00:00,  4.43it/s]
+[200, 200, 200]
+```
 
 
 ## Pagination and flattening
