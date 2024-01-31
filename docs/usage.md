@@ -86,7 +86,47 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
 ```
 
 ## Custom response functions
+Per default, Unparallel will call the `.json()` function on every `httpx.Response` and 
+return the result. But you might want to get other data from the response like the 
+content as plain-text or the HTTP status. 
 
+For this, define your own response function/callback using a `def` or `lambda` and pass
+it to `up()` via the keyword `response_fn`. The function will receive a `httpx.Response`
+object as the argument and can return anything.
+
+The example below demonstrates how to use a custom response function to get the `.text`
+of a response:
+
+```python
+import asyncio
+
+from unparallel import up
+
+async def main():
+    urls = [
+        "https://www.example.com",
+        "https://duckduckgo.com/",
+        "https://github.com"
+    ]
+    return await up(urls, response_fn=lambda x: x.text)
+
+results = asyncio.run(main())
+for res in results:
+    print(repr(res[:50]))
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 3/3 [00:00<00:00,  4.43it/s]
+'<!doctype html>\n<html>\n<head>\n    <title>Example D'
+'<!DOCTYPE html><html lang="en-US"><head><meta char'
+'\n\n\n\n\n\n<!DOCTYPE html>\n<html\n  lang="en"\n  \n  \n  da'
+```
+(Or something similar if the website was changed.)
+
+
+If you want to process the raw `httpx.Response` later yourself, you can simply set 
+`response_fn=None`.
 
 ## Other HTTP methods
 Besides the popular GET and POST methods, you can use any other HTTP method supported 
