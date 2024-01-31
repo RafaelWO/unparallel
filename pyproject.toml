@@ -40,7 +40,7 @@ tqdm = ">=4.61.2"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.1"
-black = "^23.11.0"
+black = ">=23.11,<25.0"
 isort = {extras = ["colors"], version = "^5.10.1"}
 mypy = "^1.7"
 mypy-extensions = "^1.0.0"
