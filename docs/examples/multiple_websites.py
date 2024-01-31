@@ -8,7 +8,9 @@ See Also:
 import asyncio
 
 from unparallel import up
+from unparallel.unparallel import RequestError
 
+# Extracted from https://en.wikipedia.org/wiki/List_of_most-visited_websites
 websites = """https://www.google.com/
 https://www.youtube.com/
 https://www.facebook.com/
@@ -41,7 +43,6 @@ https://www.zoom.us/
 https://www.imdb.com/
 https://www.x.com/
 https://www.nytimes.com/
-https://www.onlyfans.com/
 https://www.espn.com/
 https://www.amazon.co.jp/
 https://www.pinterest.com/
