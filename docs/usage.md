@@ -141,7 +141,7 @@ from unparallel import up
 async def main():
     urls = [
         "https://www.example.com",
-        "https://www.ecosia.org",
+        "https://duckduckgo.com/",
         "https://github.com"
     ]
     return await up(urls, method="HEAD", response_fn=lambda x: x.status_code)
