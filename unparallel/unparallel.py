@@ -176,7 +176,11 @@ async def request_urls(
 
     results = sort_by_idx(results)
     if flatten_result:
-        return [item for sublist in results for item in sublist]
+        return [
+            item
+            for sublist in results
+            for item in ((sublist,) if isinstance(sublist, RequestError) else sublist)
+        ]
     return results
 
 
