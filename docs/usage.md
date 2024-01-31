@@ -94,10 +94,13 @@ For this, define your own response function/callback using a `def` or `lambda` a
 it to `up()` via the keyword `response_fn`. The function will receive a `httpx.Response`
 object as the argument and can return anything.
 
+If you want to process the raw `httpx.Response` later yourself, you can simply set 
+`response_fn=None`.
+
 The example below demonstrates how to use a custom response function to get the `.text`
 of a response:
 
-```python
+```python hl_lines="11"
 import asyncio
 
 from unparallel import up
@@ -115,18 +118,13 @@ for res in results:
     print(repr(res[:50]))
 ```
 
-This prints:
+This should print something similar to the following:
 ```
 Making async requests: 100%|███████████| 3/3 [00:00<00:00,  4.43it/s]
 '<!doctype html>\n<html>\n<head>\n    <title>Example D'
 '<!DOCTYPE html><html lang="en-US"><head><meta char'
 '\n\n\n\n\n\n<!DOCTYPE html>\n<html\n  lang="en"\n  \n  \n  da'
 ```
-(Or something similar if the website was changed.)
-
-
-If you want to process the raw `httpx.Response` later yourself, you can simply set 
-`response_fn=None`.
 
 ## Other HTTP methods
 Besides the popular GET and POST methods, you can use any other HTTP method supported 
@@ -135,7 +133,7 @@ by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIO
 For example, you can get the status of services/webpages using the method `HEAD` in
 combination with a custom response function:
 
-```python
+```python hl_lines="11"
 import asyncio
 
 from unparallel import up
