@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import httpx
 from tqdm.asyncio import tqdm as tqdm_async
@@ -9,6 +9,7 @@ from tqdm.asyncio import tqdm as tqdm_async
 logger = logging.getLogger(__name__)
 VALID_HTTP_METHODS = ("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS")
 
+DEFAULT_JSON_FN = httpx.Response.json
 DEFAULT_TIMEOUT = httpx.Timeout(timeout=10)
 DEFAULT_LIMITS = httpx.Limits(max_connections=100, max_keepalive_connections=20)
 
@@ -45,7 +46,9 @@ async def single_request(
     url: str,
     method: str,
     json: Optional[Any] = None,
+    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
 ) -> Tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
@@ -55,8 +58,12 @@ async def single_request(
         url (str): The URL after the base URI.
         method (str): The HTTP method.
         json (Optional[Any], optional): The JSON payload. Defaults to None.
+        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
+            on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
+            response.
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
@@ -66,9 +73,12 @@ async def single_request(
     for trial in range(1, max_retries_on_timeout + 1):
         try:
             response = await client.request(method, url, json=json)
-            response.raise_for_status()
-            json_data = response.json()
-            return idx, json_data
+            if raise_for_status:
+                response.raise_for_status()
+            if response_fn is None:
+                return idx, response
+            result = response_fn(response)
+            return idx, result
         except httpx.TimeoutException as timeout_ex:
             exception = timeout_ex
             await asyncio.sleep(1)
@@ -98,8 +108,10 @@ async def request_urls(
     base_url: Optional[str] = None,
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
+    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     flatten_result: bool = False,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
     limits: httpx.Limits = DEFAULT_LIMITS,
     timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     progress: bool = True,
@@ -113,10 +125,14 @@ async def request_urls(
         method (str): HTTP method to use, e.g. get, post, etc.
         base_url (Optional[str]): The base URL of the service, e.g. http://localhost:8000.
         headers (Optional[Dict[str, Any]]): A dictionary of headers to use.
-        payloads (Optional[Any]): A list of JSON payloads (dictionaries) for e.g. HTTP post requests.
-            Used together with ``urls``.
-        flatten_result (bool): If True and the response per request is a list, flatten that
-            list of lists. This is useful when using paging.
+        payloads (Optional[Any]): A list of JSON payloads (dictionaries) for e.g. HTTP
+            post requests. Used together with ``urls``.
+        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
+            on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
+        flatten_result (bool): If True and the response per request is a list, flatten
+            that list of lists. This is useful when using paging.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on every
+            response.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         limits (httpx.Limits): The limits configuration for ``httpx``.
@@ -145,7 +161,9 @@ async def request_urls(
                     client=client,
                     method=method,
                     json=payloads[i] if payloads else None,
+                    response_fn=response_fn,
                     max_retries_on_timeout=max_retries_on_timeout,
+                    raise_for_status=raise_for_status,
                 )
             )
             tasks.append(task)
@@ -158,7 +176,11 @@ async def request_urls(
 
     results = sort_by_idx(results)
     if flatten_result:
-        return [item for sublist in results for item in sublist]
+        return [
+            item
+            for sublist in results
+            for item in ((sublist,) if isinstance(sublist, RequestError) else sublist)
+        ]
     return results
 
 
@@ -168,10 +190,12 @@ async def up(
     base_url: Optional[str] = None,
     headers: Optional[Dict[str, Any]] = None,
     payloads: Optional[Any] = None,
+    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     flatten_result: bool = False,
     max_connections: Optional[int] = 100,
     timeout: Optional[int] = 10,
     max_retries_on_timeout: int = 3,
+    raise_for_status: bool = True,
     limits: Optional[httpx.Limits] = None,
     timeouts: Optional[httpx.Timeout] = None,
     progress: bool = True,
@@ -195,6 +219,12 @@ async def up(
             for HTTP post requests. Used together with ``urls``. If one payload but
             multiple URLs are supplied, that payload is used for all requests.
             Defaults to None.
+        response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)
+            to apply on every response of the HTTP requests. This can be an existing
+            function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom
+            function which takes the ``httpx.Response`` as the argument returns ``Any``.
+            If you set this to ``None``, you will get the raw ``httpx.Response``.
+            Defaults to ``httpx.Response.json``.
         flatten_result (bool): If True and the response per request is a list,
             flatten that list of lists. This is useful when using paging.
             Defaults to False.
@@ -204,6 +234,8 @@ async def up(
             This is passed into ``httpx.Timeout``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+        raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy
+            response.
         limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
             If specified, this overrides the ``max_connections`` parameter.
         timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
@@ -262,8 +294,10 @@ async def up(
         base_url=base_url,
         headers=headers,
         payloads=payloads,
+        response_fn=response_fn,
         flatten_result=flatten_result,
         max_retries_on_timeout=max_retries_on_timeout,
+        raise_for_status=raise_for_status,
         progress=progress,
         limits=limits,
         timeouts=timeouts,

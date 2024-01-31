@@ -40,17 +40,55 @@ async def test_single_request(url, method, payload, respx_mock):
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("status", [500, 404])
-async def test_single_request_fail(status, respx_mock):
+@pytest.mark.parametrize(
+    "method, return_value, response_fn, expected",
+    [
+        ("HEAD", Response(200), lambda x: x.status_code, 200),
+        ("GET", Response(200, text="foobar"), lambda x: x.text, "foobar"),
+        ("POST", Response(200), None, Response(200)),
+    ],
+    ids=["HEAD_status", "GET_text", "POST_raw"],
+)
+async def test_single_request_custom_response(
+    respx_mock, method, return_value, response_fn, expected
+):
+    url = "http://example.com"
+    respx_mock.request(method, url).mock(return_value=return_value)
+
+    async with AsyncClient() as session:
+        _, result = await single_request(
+            1, session, url, method=method, response_fn=response_fn
+        )
+
+    if isinstance(expected, Response):
+        assert isinstance(result, Response)
+        assert result.status_code == expected.status_code
+    else:
+        assert result == expected
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "status, do_raise", [(500, True), (500, False), (404, True), (404, False)]
+)
+async def test_single_request_fail(status, do_raise, respx_mock):
     url = "http://test.com/foo"
     respx_mock.get(url).mock(return_value=Response(status))
     session = AsyncClient()
-    idx, result = await single_request(1, session, url=url, method="GET")
+    idx, result = await single_request(
+        1, session, url=url, method="GET", raise_for_status=do_raise, response_fn=None
+    )
+
     assert idx == 1
-    assert isinstance(result, RequestError)
-    assert result.method == "GET"
-    assert result.url == url
-    assert isinstance(result.exception, Exception)
+
+    if do_raise:
+        assert isinstance(result, RequestError)
+        assert result.method == "GET"
+        assert result.url == url
+        assert isinstance(result.exception, Exception)
+    else:
+        assert isinstance(result, Response)
+
     await session.aclose()
 
 
@@ -146,6 +184,17 @@ async def test_request_urls_flat(patched_fetch, flatten, expected):
         flatten_result=flatten,
     )
     assert results == expected
+
+
+@pytest.mark.asyncio
+async def test_up_custom_response_text(respx_mock):
+    urls = ["http://test.com", "http://example.com"]
+    for url in urls:
+        respx_mock.get(url).mock(return_value=Response(200, text="foobar"))
+
+    results = await up(urls, method="GET", response_fn=lambda x: x.text)
+
+    assert results == ["foobar", "foobar"]
 
 
 @pytest.mark.asyncio

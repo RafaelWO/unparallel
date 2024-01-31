@@ -5,7 +5,7 @@ This page contains some more advanced and realistic examples of using Unparallel
 --8<-- "docs/examples/wordpress.py"
 ```
 
-This should print something like:
+If you run the example, it should print something like the following:
 ```
 Website 'https://techcrunch.com/wp-json/wp/v2' has 12202 pages (page size = 20)
 Making async requests: 100%|███████████| 1000/1000 [00:13<00:00, 74.30it/s]
@@ -39,4 +39,19 @@ Making async requests: 100%|███████████| 1000/1000 [00:13<
   'title': {'rendered': 'Nonprofit Code.org sues Byju&#8217;s unit WhiteHat Jr '
                         'over payment dues'},
   'author': 133574269}]
+```
+
+## Fetch the content of multiple websites
+```python
+--8<-- "docs/examples/multiple_websites.py"
+```
+
+If you run the example, it should print something like the following:
+```
+Making async requests: 100%|███████████| 43/43 [00:03<00:00, 11.60it/s]
+https://www.google.com/ '<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="de-AT"><head><meta cont'
+https://www.youtube.com/ '<!DOCTYPE html><html style="font-size: 10px;font-family: Roboto, Arial, sans-serif;" lang="de-DE" da'
+https://www.facebook.com/ '<!DOCTYPE html>\n<html lang="de" id="facebook" class="no_js">\n<head><meta charset="utf-8" /><meta nam'
+https://www.wikipedia.org/ '<!DOCTYPE html>\n<html lang="en" class="no-js">\n<head>\n<meta charset="utf-8">\n<title>Wikipedia</title'
+https://www.instagram.com/ '<!DOCTYPE html><html class="_9dls" lang="en" dir="ltr"><head><link data-default-icon="https://static'
 ```

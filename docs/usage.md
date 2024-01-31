@@ -22,7 +22,6 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
 [{'foo': '0'}, {'foo': '1'}, {'foo': '2'}, {'foo': '3'}, {'foo': '4'}]
 ```
 
-
 ## POSTing Data
 ### One body for different paths
 If you want to do POST instead of GET requests, you just have to pass `method='POST'`
@@ -86,15 +85,76 @@ Making async requests: 100%|███████████| 100/100 [00:01<00
  '{"type": "tree", "height": 4}']
 ```
 
-## :construction: Other HTTP methods
+## Custom response functions
+Per default, Unparallel will call the `.json()` function on every `httpx.Response` and 
+return the result. But you might want to get other data from the response like the 
+content as plain-text or the HTTP status. 
 
-!!! warning
+For this, define your own response function/callback using a `def` or `lambda` and pass
+it to `up()` via the keyword `response_fn`. The function will receive a `httpx.Response`
+object as the argument and can return anything.
 
-    Currently (version `0.1.0`) the method `.json()` is called on every response.
-    Hence, HTTP methods that don't return a JSON body will not work as expected.
+If you want to process the raw `httpx.Response` later yourself, you can simply set 
+`response_fn=None`.
 
+The example below demonstrates how to use a custom response function to get the `.text`
+of a response:
+
+```python hl_lines="11"
+import asyncio
+
+from unparallel import up
+
+async def main():
+    urls = [
+        "https://www.example.com",
+        "https://duckduckgo.com/",
+        "https://github.com"
+    ]
+    return await up(urls, response_fn=lambda x: x.text)
+
+results = asyncio.run(main())
+for res in results:
+    print(repr(res[:50]))
+```
+
+This should print something similar to the following:
+```
+Making async requests: 100%|███████████| 3/3 [00:00<00:00,  4.43it/s]
+'<!doctype html>\n<html>\n<head>\n    <title>Example D'
+'<!DOCTYPE html><html lang="en-US"><head><meta char'
+'\n\n\n\n\n\n<!DOCTYPE html>\n<html\n  lang="en"\n  \n  \n  da'
+```
+
+## Other HTTP methods
 Besides the popular GET and POST methods, you can use any other HTTP method supported 
 by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIONS`.
+
+For example, you can get the status of services/webpages using the method `HEAD` in
+combination with a custom response function:
+
+```python hl_lines="11"
+import asyncio
+
+from unparallel import up
+
+async def main():
+    urls = [
+        "https://www.example.com",
+        "https://duckduckgo.com/",
+        "https://github.com"
+    ]
+    return await up(urls, method="HEAD", response_fn=lambda x: x.status_code)
+
+results = asyncio.run(main())
+print(results)
+```
+
+This prints:
+```
+Making async requests: 100%|███████████| 3/3 [00:00<00:00,  4.43it/s]
+[200, 200, 200]
+```
 
 
 ## Pagination and flattening
