@@ -1,5 +1,5 @@
+import asyncio
 import logging
-import time
 from unittest import mock
 
 import httpx
@@ -93,17 +93,18 @@ async def test_single_request_fail(status, do_raise, respx_mock):
 
 
 @pytest.mark.asyncio
-async def test_single_request_timeout(respx_mock):
+@pytest.mark.parametrize("retries", [0, 1, 3])
+async def test_single_request_timeout(respx_mock, retries: int):
     url = "http://test.com/foo"
-    respx_mock.get(url).mock(side_effect=TimeoutException)
+    route = respx_mock.get(url).mock(side_effect=TimeoutException)
     session = AsyncClient()
-    start_time = time.time()
-    retries = 2
-    result = await single_request(
-        1, session, url=url, method="GET", max_retries_on_timeout=retries
-    )
-    assert isinstance(result[1], RequestError)
-    assert time.time() - start_time > retries
+    with mock.patch("asyncio.sleep", wraps=asyncio.sleep) as mocked_sleep:
+        result = await single_request(
+            1, session, url=url, method="GET", max_retries_on_timeout=retries
+        )
+        assert isinstance(result[1], RequestError)
+        assert route.call_count == retries + 1
+        assert mocked_sleep.call_count == retries
     await session.aclose()
 
 
