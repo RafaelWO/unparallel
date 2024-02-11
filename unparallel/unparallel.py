@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import logging
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
@@ -52,6 +53,7 @@ async def single_request(
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
+    semaphore: Optional[asyncio.Semaphore] = None,
 ) -> Tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
@@ -67,6 +69,8 @@ async def single_request(
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
             response.
+        semaphore (Optional[asyncio.Semaphore]): A semaphore object to synchronize
+            the HTTP request. Defaults to None (-> nullcontext).
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
@@ -78,7 +82,8 @@ async def single_request(
             await asyncio.sleep(1)
 
         try:
-            response = await client.request(method, url, json=json)
+            async with semaphore or contextlib.nullcontext():  # type: ignore
+                response = await client.request(method, url, json=json)
             if raise_for_status:
                 response.raise_for_status()
             if response_fn is None:
@@ -105,12 +110,6 @@ async def single_request(
             exception=exception,
         ),
     )
-
-
-async def bound_fetch(sem: asyncio.Semaphore, *args, **kwargs):
-    """This function synchronizes ``single_request`` with a semaphore object."""
-    async with sem:
-        return await single_request(*args, **kwargs)
 
 
 async def request_urls(
@@ -171,8 +170,7 @@ async def request_urls(
     ) as client:
         for i, url in enumerate(urls):
             task = asyncio.create_task(
-                bound_fetch(
-                    semaphore,
+                single_request(
                     idx=i,
                     url=url,
                     client=client,
@@ -181,6 +179,7 @@ async def request_urls(
                     response_fn=response_fn,
                     max_retries_on_timeout=max_retries_on_timeout,
                     raise_for_status=raise_for_status,
+                    semaphore=semaphore,
                 )
             )
             tasks.append(task)
