@@ -1,4 +1,5 @@
 import asyncio
+import contextlib
 import logging
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
@@ -6,12 +7,17 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import httpx
 from tqdm.asyncio import tqdm as tqdm_async
 
+from unparallel.utils import AsyncNullContext
+
 logger = logging.getLogger(__name__)
+
 VALID_HTTP_METHODS = ("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS")
 
 DEFAULT_JSON_FN = httpx.Response.json
 DEFAULT_TIMEOUT = httpx.Timeout(timeout=10)
 DEFAULT_LIMITS = httpx.Limits(max_connections=100, max_keepalive_connections=20)
+
+SEMAPHORE_COUNT = 1000
 
 
 @dataclass
@@ -49,6 +55,7 @@ async def single_request(
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
+    semaphore: Optional[asyncio.Semaphore] = None,
 ) -> Tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
@@ -64,24 +71,29 @@ async def single_request(
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
             response.
+        semaphore (Optional[asyncio.Semaphore]): A semaphore object to synchronize
+            the HTTP request. Defaults to None (-> nullcontext).
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
     """
     trial = 0
     exception: Optional[Exception] = None
-    for trial in range(1, max_retries_on_timeout + 1):
+    for trial in range(max(0, max_retries_on_timeout) + 1):
+        if trial > 0:
+            await asyncio.sleep(1)
+
         try:
-            response = await client.request(method, url, json=json)
+            async with semaphore or AsyncNullContext():
+                response = await client.request(method, url, json=json)
             if raise_for_status:
                 response.raise_for_status()
             if response_fn is None:
                 return idx, response
             result = response_fn(response)
             return idx, result
-        except httpx.TimeoutException as timeout_ex:
-            exception = timeout_ex
-            await asyncio.sleep(1)
+        except (httpx.TimeoutException, httpx.NetworkError) as retry_ex:
+            exception = retry_ex
         except Exception as ex:  # pylint: disable=broad-except
             exception = ex
             break
@@ -89,7 +101,7 @@ async def single_request(
     # this assert is here to make mypy happy
     assert exception is not None
     logger.warning(
-        f"{exception.__class__.__name__} was raised after {trial} tries: {exception}"
+        f"{exception.__class__.__name__} was raised after {trial+1} tries: {exception}"
     )
     return (
         idx,
@@ -145,6 +157,11 @@ async def request_urls(
     """
     tasks = []
     results = []
+    # If you want to do lot's of web requests (over 10k), it is really hard to avoid
+    # getting timeout errors. Adding a semaphore with a limit of 1k drastically reduced
+    # the amount of timeouts. As one will likely use fewer parallel open connections
+    # (max_connections) than 1k, it should not slow down the HTTP requests.
+    semaphore = asyncio.Semaphore(SEMAPHORE_COUNT)
 
     logging.debug(
         f"Issuing {len(urls)} {method.upper()} request(s) to base URL '{base_url}' "
@@ -164,6 +181,7 @@ async def request_urls(
                     response_fn=response_fn,
                     max_retries_on_timeout=max_retries_on_timeout,
                     raise_for_status=raise_for_status,
+                    semaphore=semaphore,
                 )
             )
             tasks.append(task)
