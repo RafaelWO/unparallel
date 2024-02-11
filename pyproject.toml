@@ -97,7 +97,7 @@ color_output = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = 3.8
+python_version = "3.8"
 pretty = true
 show_traceback = true
 color_output = true

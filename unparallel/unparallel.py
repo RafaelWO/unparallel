@@ -7,6 +7,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import httpx
 from tqdm.asyncio import tqdm as tqdm_async
 
+from unparallel.utils import AsyncNullContext
+
 logger = logging.getLogger(__name__)
 
 VALID_HTTP_METHODS = ("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS")
@@ -82,7 +84,7 @@ async def single_request(
             await asyncio.sleep(1)
 
         try:
-            async with semaphore or contextlib.nullcontext():  # type: ignore
+            async with semaphore or AsyncNullContext():
                 response = await client.request(method, url, json=json)
             if raise_for_status:
                 response.raise_for_status()
