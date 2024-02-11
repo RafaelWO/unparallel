@@ -1,7 +1,4 @@
-import contextlib
-
-
-class AsyncNullContext(contextlib.AbstractAsyncContextManager[None]):
+class AsyncNullContext:
     """A nullcontext including __aenter__ and __aexit__ to support Python versions
     below 3.10."""
 
