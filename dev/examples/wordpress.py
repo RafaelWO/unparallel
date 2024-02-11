@@ -25,9 +25,9 @@ async def main():
     total_pages = int(response.headers["X-WP-TotalPages"])
     print(f"Website '{base_url}' has {total_pages} pages (page size = {page_size})")
 
-    # Comment the line below to get all pages. Note that you will have to adjust
+    # Comment the line below to get all pages. Note that you might have to adjust
     # the settings for this to work without errors. For me, it worked using
-    # max_connections=800 and timeout=180
+    # max_connections=800 and timeout=60.
 
     total_pages = min(total_pages, 1000)
 
