@@ -1,0 +1,52 @@
+name: Publish
+on:
+  push:
+    
+    branches: # TODO: REMOVE!!!
+      - feature/102-publish-to-pypi-within-github-ci
+    tags:
+      - '**'
+
+jobs:
+  pypi-publish:
+    name: Build package and upload it to PyPI
+    runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: pypi
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
+    
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-publish
+      
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Build package
+        run: poetry build
+          
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
