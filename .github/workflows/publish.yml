@@ -1,9 +1,6 @@
 name: Publish
 on:
   push:
-    
-    branches: # TODO: REMOVE!!!
-      - feature/102-publish-to-pypi-within-github-ci
     tags:
       - '**'
 
