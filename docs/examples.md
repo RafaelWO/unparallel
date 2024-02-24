@@ -1,7 +1,7 @@
 This page contains some more advanced and realistic examples of using Unparallel.
 
 ## Query (all) posts of a WordPress site
-```python
+```python notest
 --8<-- "docs/examples/wordpress.py"
 ```
 
@@ -42,7 +42,7 @@ Making async requests: 100%|███████████| 1000/1000 [00:13<
 ```
 
 ## Fetch the content of multiple websites
-```python
+```python notest
 --8<-- "docs/examples/multiple_websites.py"
 ```
 
