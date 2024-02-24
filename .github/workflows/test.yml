@@ -45,7 +45,7 @@ jobs:
 
     - name: Run safety checks
       run: |
-        make check-safety
+        make SAFETY_KEY=${{ secrets.SAFETY_API_KEY }} check-safety
 
     - name: Verify changed coverage badge
       uses: tj-actions/verify-changed-files@v18
