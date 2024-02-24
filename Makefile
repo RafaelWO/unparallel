@@ -7,6 +7,12 @@ PYTHONPATH := `pwd`
 IMAGE := unparallel
 VERSION := latest
 
+ifndef SAFETY_KEY
+	SAFETY_ARGS := 
+else
+	SAFETY_ARGS := --key $(SAFETY_KEY) --stage cicd
+endif
+
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
@@ -55,7 +61,7 @@ check-typing:
 .PHONY: check-safety
 check-safety:
 	poetry check
-	poetry run safety check --full-report
+	poetry run safety $(SAFETY_ARGS) scan
 	poetry run bandit -ll --recursive unparallel tests
 
 .PHONY: lint
