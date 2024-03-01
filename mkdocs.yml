@@ -1,5 +1,6 @@
 site_name: Unparallel
 site_url: https://rafaelwo.github.io/unparallel/
+repo_url: https://github.com/RafaelWO/unparallel
 nav:
   - Home: index.md
   - Usage: usage.md
@@ -11,6 +12,7 @@ theme:
   name: material
   icon:
     logo: material/shuffle-variant
+    repo: fontawesome/brands/github
   features:
     - content.code.copy
   palette:
