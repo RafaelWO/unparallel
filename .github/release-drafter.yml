@@ -27,3 +27,7 @@ template: |
   ## :busts_in_silhouette: List of contributors
 
   $CONTRIBUTORS
+
+  ---
+
+  **Full Changelog**: https://github.com/RafaelWO/unparallel/compare/$PREVIOUS_TAG...$NEXT_PATCH_VERSION
