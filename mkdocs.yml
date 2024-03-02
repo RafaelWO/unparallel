@@ -1,6 +1,7 @@
 site_name: Unparallel
 site_url: https://rafaelwo.github.io/unparallel/
 repo_url: https://github.com/RafaelWO/unparallel
+repo_name: RafaelWO/unparallel
 nav:
   - Home: index.md
   - Usage: usage.md
