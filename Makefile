@@ -49,6 +49,11 @@ test:
 	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=term-missing --cov=unparallel tests/
 	poetry run coverage-badge -o assets/images/coverage.svg -f
 
+test-docs:
+	sed -i 's/__main__/fence/g' README.md
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest --markdown-docs README.md docs
+	sed -i 's/fence/__main__/g' README.md
+
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./

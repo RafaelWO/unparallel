@@ -10,7 +10,7 @@ from unparallel import up
 async def main():
     url = "https://httpbin.org"
     paths = [f"/get?foo={i}" for i in range(100)]
-    return await up(url, paths)
+    return await up(paths, base_url=url)
 
 results = asyncio.run(main())
 print([item["args"] for item in results[:5]])
@@ -37,7 +37,7 @@ async def main():
     url = "https://httpbin.org"
     data = {"item_id": 1, "type": "tree"}
     paths = [f"/post?bar={i}" for i in range(100)]
-    return await up(url, paths, method="POST", payloads=data)
+    return await up(paths, method="POST", base_url=url, payloads=data)
 
 results = asyncio.run(main())
 pp([{"args": item["args"], "data": item["data"]} for item in results[:5]])
@@ -69,7 +69,7 @@ async def main():
     url = "https://httpbin.org"
     path = "/post"
     data = [{"type": "tree", "height": i} for i in range(100)]
-    return await up(url, path, method="POST", payloads=data)
+    return await up(path, method="POST", base_url=url, payloads=data)
 
 results = asyncio.run(main())
 pp([item["data"] for item in results[:5]])
@@ -175,7 +175,7 @@ from unparallel import up
 async def main():
     url = "http://universities.hipolabs.com"
     paths = [f"/search?limit=20&offset={i}" for i in range(0, 1000, 20)]
-    return await up(url, paths)
+    return await up(paths, base_url=url)
 
 results = asyncio.run(main())
 print(f"#Results: {len(results)}")
@@ -226,7 +226,7 @@ from unparallel import up
 async def main():
     url = "http://universities.hipolabs.com"
     paths = [f"/search?limit=20&offset={i}" for i in range(0, 1000, 20)]
-    return await up(url, paths, flatten_result=True)
+    return await up(paths, base_url=url, flatten_result=True)
 
 results = asyncio.run(main())
 print(f"#Results: {len(results)}")
@@ -268,7 +268,7 @@ parameters in the `up()` method:
 If you don't care about a detailed timeout or limits configuration, you can use 
 `up()` without specifying any of those options:
 
-```python
+```python notest
 results = await up(base_url, paths)
 ```
 
@@ -276,7 +276,7 @@ Otherwise, you can use the simplified parameters `max_connections` for setting t
 connection limit and/or `timeout` for setting (all) timeouts for requests:
 
 
-```python
+```python notest
 results = await up(base_url, paths, max_connections=10, timeout=60)
 ```
 
@@ -286,10 +286,10 @@ and timeout config created via `httpx.Timeout(60)`
 For more fine-grained control over limits and timeouts, just specify the HTTPX configs 
 and pass them to `up()`:
 
-```python
+```python notest
 results = await up(
-    base_url, 
     paths, 
+    base_url=base_url, 
     limits=httpx.Limits(max_connections=20, ...), 
     timeouts=httpx.Timeout(connect=5, ...)
 )

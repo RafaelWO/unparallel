@@ -36,16 +36,16 @@ jobs:
         poetry install
 
     - name: Run style checks
-      run: |
-        make lint
+      run: make lint
 
     - name: Run tests
-      run: |
-        make test
+      run: make test
+    
+    - name: Run code in docs
+      run: make test-docs
 
     - name: Run safety checks
-      run: |
-        make SAFETY_KEY=${{ secrets.SAFETY_API_KEY }} check-safety
+      run: make SAFETY_KEY=${{ secrets.SAFETY_API_KEY }} check-safety
 
     - name: Verify changed coverage badge
       uses: tj-actions/verify-changed-files@v18

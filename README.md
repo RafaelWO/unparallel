@@ -40,9 +40,8 @@ import asyncio
 from unparallel import up
 
 async def main():
-    url = "https://httpbin.org"
-    paths = [f"/get?i={i}" for i in range(5)]
-    results = await up(url, paths)
+    urls = [f"https://httpbin.org/get?i={i}" for i in range(5)]
+    results = await up(urls)
     print([item["args"] for item in results])
 
 asyncio.run(main())
@@ -62,10 +61,9 @@ import asyncio
 from unparallel import up
 
 async def main():
-    url = "https://httpbin.org"
-    path = "/post"
+    url = "https://httpbin.org/post"
     payloads = [{"obj_id": i} for i in range(5)]
-    results = await up(url, path, method="post", payloads=payloads)
+    results = await up(url, method="post", payloads=payloads)
     print([item["data"] for item in results])
 
 asyncio.run(main())
@@ -121,7 +119,7 @@ async def main():
     url = "https://httpbin.org"
     paths = [f"/get?i={i}" for i in range(20)]
 
-    results = await up(url, paths)
+    results = await up(paths, base_url=url)
 
     assert len(results) == 20
 
