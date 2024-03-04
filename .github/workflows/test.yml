@@ -48,7 +48,7 @@ jobs:
       run: make SAFETY_KEY=${{ secrets.SAFETY_API_KEY }} check-safety
 
     - name: Verify changed coverage badge
-      uses: tj-actions/verify-changed-files@v18
+      uses: tj-actions/verify-changed-files@v19
       id: verify-changed-files
       with:
         files: assets/images/coverage.svg
