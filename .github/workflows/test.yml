@@ -40,9 +40,9 @@ jobs:
 
     - name: Run tests
       run: make test
-    
-    - name: Run code in docs
-      run: make test-docs
+
+    - name: Run code in docs/examples/
+      run: make test-examples
 
     - name: Run safety checks
       run: make SAFETY_KEY=${{ secrets.SAFETY_API_KEY }} check-safety
