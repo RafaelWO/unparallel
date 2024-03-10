@@ -8,7 +8,7 @@ IMAGE := unparallel
 VERSION := latest
 
 ifndef SAFETY_KEY
-	SAFETY_ARGS := 
+	SAFETY_ARGS :=
 else
 	SAFETY_ARGS := --key $(SAFETY_KEY) --stage cicd
 endif
@@ -49,10 +49,10 @@ test:
 	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=term-missing --cov=unparallel tests/
 	poetry run coverage-badge -o assets/images/coverage.svg -f
 
-test-docs:
-	sed -i 's/__main__/fence/g' README.md
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest --markdown-docs README.md docs
-	sed -i 's/fence/__main__/g' README.md
+test-examples:
+	for file in ./docs/examples/*.py; do \
+	  PYTHONPATH=$(PYTHONPATH) poetry run python $$file; \
+	done
 
 .PHONY: check-codestyle
 check-codestyle:

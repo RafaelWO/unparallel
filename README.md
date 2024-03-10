@@ -37,14 +37,18 @@ A simple example of doing several GET requests to an HTTP web service:
 
 ```python
 import asyncio
+
 from unparallel import up
+
 
 async def main():
     urls = [f"https://httpbin.org/get?i={i}" for i in range(5)]
     results = await up(urls)
     print([item["args"] for item in results])
 
-asyncio.run(main())
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 This prints:
@@ -58,13 +62,16 @@ Similarly, we can do a bunch of POST requests. This time we will use a single pa
 
 ```python
 import asyncio
+
 from unparallel import up
+
 
 async def main():
     url = "https://httpbin.org/post"
     payloads = [{"obj_id": i} for i in range(5)]
     results = await up(url, method="post", payloads=payloads)
     print([item["data"] for item in results])
+
 
 asyncio.run(main())
 ```
@@ -131,14 +138,14 @@ if __name__ == "__main__":
 </details>
 
 ## Contributing
-As this project is still in early development, I'm happy for any feedback and contributions! 
+As this project is still in early development, I'm happy for any feedback and contributions!
 Please refer to the [contributing guidelines][contrib] for details.
 
 ## License
 
 This project is licensed under the terms of the `MIT` license. See [LICENSE](https://github.com/RafaelWO/unparallel/blob/main/LICENSE) for more details.
 
-## Credits 
+## Credits
 This project was heavily inspired by the blog post [Making 1 million requests with python-aiohttp](https://pawelmhm.github.io/asyncio/python/aiohttp/2016/04/22/asyncio-aiohttp.html) by Paweł Miech.
 
 I created this project with [python-package-template](https://github.com/TezRomacH/python-package-template).
