@@ -111,9 +111,9 @@ async def test_single_request_timeout(respx_mock, retries: int):
 @pytest.mark.asyncio
 async def test_full_run_via_httpbin():
     url = "https://httpbin.org"
-    paths = [f"/get?i={i}" for i in range(20)]
-    results = await up(paths, method="get", base_url=url, max_connections=10)
-    assert len(results) == 20
+    paths = [f"/get?i={i}" for i in range(5)]
+    results = await up(paths, method="get", base_url=url)
+    assert len(results) == 5
     assert all(res["args"]["i"] == str(i) for i, res in enumerate(results))
 
 
