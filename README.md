@@ -12,7 +12,7 @@ Create async HTTP requests with Python in no time.
 [![Package Version](https://img.shields.io/pypi/v/unparallel.svg)](https://pypi.org/project/unparallel/)
 [![Python Version](https://img.shields.io/pypi/pyversions/unparallel.svg)](https://pypi.org/project/unparallel/)
 <br>
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-green.svg)](https://github.com/PyCQA/bandit)
 [![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/RafaelWO/unparallel/blob/main/.pre-commit-config.yaml)
 [![License](https://img.shields.io/github/license/RafaelWO/unparallel)](https://github.com/RafaelWO/unparallel/blob/main/LICENSE)
@@ -86,56 +86,17 @@ For more details on the usage and examples, check out the [docs][docs-usage].
 
 ## Why unparallel? Why async?
 Async is a really powerful feature - especially when you have to wait for I/O.
+When we create HTTP requests synchronously we have to wait for every response before we can start with the next request.
+If we utilize asynchronous programming, our runtime thread can do other work (other requests) during those periods of waiting.
+
 Here is an example of making 20 web requests synchronously vs. asynchronously via `unparallel`.
 
 ![Sync-vs-Async][sync-async-gif]
 
-As you can see, the async version finishes in less than a second.
+As you can see, the async version finishes in less than a second while the sync code runs for around 10 seconds.
+The difference gets even more drastic if you create much more requests.
 
-<details><summary>Code for sync</summary>
-
-```python
-import httpx
-from tqdm import tqdm
-
-
-def main():
-    url = "https://httpbin.org"
-    paths = [f"/get?i={i}" for i in range(20)]
-    results = [
-        httpx.get(f"{url}{path}") for path in tqdm(paths, desc="Making sync requests")
-    ]
-    assert len(results) == 20
-
-
-if __name__ == "__main__":
-    main()
-```
-
-</details>
-
-<details><summary>Code for async</summary>
-
-```python
-import asyncio
-
-from unparallel import up
-
-
-async def main():
-    url = "https://httpbin.org"
-    paths = [f"/get?i={i}" for i in range(20)]
-
-    results = await up(paths, base_url=url)
-
-    assert len(results) == 20
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
-
-</details>
+You can find the sync/async code in the [docs folder](https://github.com/RafaelWO/unparallel/blob/main/docs/sync_async/).
 
 ## Contributing
 As this project is still in early development, I'm happy for any feedback and contributions!

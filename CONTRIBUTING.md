@@ -24,12 +24,12 @@ make codestyle
 
 ### Checks
 
-Many checks are configured for this project. Command `make check-codestyle` will check black and isort.
-The `make check-typing` command will run mypy to check for typing issues. 
+Many checks are configured for this project. The command `make check-codestyle` will run ruff (lint and format) but won't edit files.
+The `make check-typing` command will run mypy to check for typing issues.
 
-Comand `make lint` applies both checks above.
+The command `make lint` applies both checks above.
 
-The `make check-safety` command will look at the security of your code. 
+The `make check-safety` command will look at the security of your code.
 
 ### Before submitting
 
@@ -94,7 +94,7 @@ make pre-commit-install
 <summary>3. Codestyle</summary>
 <p>
 
-Automatic formatting uses `pyupgrade`, `isort` and `black`.
+Automatic formatting uses `ruff`.
 
 ```bash
 make codestyle
@@ -109,7 +109,7 @@ Codestyle checks only, without rewriting files:
 make check-codestyle
 ```
 
-> Note: `check-codestyle` uses `isort` and `black` library
+> Note: `check-codestyle` uses `ruff`
 
 <details>
 <summary>4. Code security</summary>

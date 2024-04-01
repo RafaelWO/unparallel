@@ -36,9 +36,8 @@ pre-commit-install:
 #* Formatters
 .PHONY: codestyle
 codestyle:
-	poetry run pyupgrade --exit-zero-even-if-changed --py38-plus **/*.py
-	poetry run isort --settings-path pyproject.toml ./
-	poetry run black --config pyproject.toml ./
+	poetry run ruff check --fix
+	poetry run ruff format
 
 .PHONY: formatting
 formatting: codestyle
@@ -54,10 +53,16 @@ test-examples:
 	  PYTHONPATH=$(PYTHONPATH) poetry run python $$file; \
 	done
 
+	for file in ./docs/sync_async/*.py; do \
+	  sed -i 's/NUM_REQUESTS = 20/NUM_REQUESTS = 2/' $$file; \
+	  PYTHONPATH=$(PYTHONPATH) poetry run python $$file; \
+	  sed -i 's/NUM_REQUESTS = 2/NUM_REQUESTS = 20/' $$file; \
+	done
+
 .PHONY: check-codestyle
 check-codestyle:
-	poetry run isort --diff --check-only --settings-path pyproject.toml ./
-	poetry run black --diff --check --config pyproject.toml ./
+	poetry run ruff check
+	poetry run ruff format --check
 
 .PHONY: check-typing
 check-typing:
