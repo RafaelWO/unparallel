@@ -21,7 +21,6 @@ async def main():
     pagination_url = f"/posts?per_page={page_size}"
 
     # Get page count
-    page_size = 20
     response = httpx.head(base_url + pagination_url)
     total_pages = int(response.headers["X-WP-TotalPages"])
     print(f"Website '{base_url}' has {total_pages} pages (page size = {page_size})")
@@ -30,7 +29,7 @@ async def main():
     # the settings for this to work without errors. For me, it worked using
     # max_connections=800 and timeout=60.
 
-    total_pages = min(total_pages, 500)
+    total_pages = min(total_pages, 100)
 
     # Get all pages and flatten the result
     paths = [f"{pagination_url}&page={i}" for i in range(1, total_pages + 1)]

@@ -53,6 +53,12 @@ test-examples:
 	  PYTHONPATH=$(PYTHONPATH) poetry run python $$file; \
 	done
 
+	for file in ./docs/sync_async/*.py; do \
+	  sed -i 's/NUM_REQUESTS = 20/NUM_REQUESTS = 2/' $$file; \
+	  PYTHONPATH=$(PYTHONPATH) poetry run python $$file; \
+	  sed -i 's/NUM_REQUESTS = 2/NUM_REQUESTS = 20/' $$file; \
+	done
+
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run ruff check
