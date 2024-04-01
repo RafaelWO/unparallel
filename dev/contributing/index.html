@@ -590,10 +590,10 @@ If you dont have <code>poetry</code>, you should install with <code>make poetry-
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>make<span class="w"> </span>codestyle
 </span></code></pre></div>
 <h3 id="checks">Checks</h3>
-<p>Many checks are configured for this project. Command <code>make check-codestyle</code> will check black and isort.
-The <code>make check-typing</code> command will run mypy to check for typing issues. </p>
-<p>Comand <code>make lint</code> applies both checks above.</p>
-<p>The <code>make check-safety</code> command will look at the security of your code. </p>
+<p>Many checks are configured for this project. The command <code>make check-codestyle</code> will run ruff (lint and format) but won't edit files.
+The <code>make check-typing</code> command will run mypy to check for typing issues.</p>
+<p>The command <code>make lint</code> applies both checks above.</p>
+<p>The <code>make check-safety</code> command will look at the security of your code.</p>
 <h3 id="before-submitting">Before submitting</h3>
 <p>Before submitting your code please do the following steps:</p>
 <ol>
@@ -648,7 +648,7 @@ Pre-commit hooks coulb be installed after `git init` via
 <summary>3. Codestyle</summary>
 <p>
 
-Automatic formatting uses `pyupgrade`, `isort` and `black`.
+Automatic formatting uses `ruff`.
 
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>make<span class="w"> </span>codestyle
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
@@ -661,7 +661,7 @@ Codestyle checks only, without rewriting files:
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>make<span class="w"> </span>check-codestyle
 </span></code></pre></div>
 
-> Note: `check-codestyle` uses `isort` and `black` library
+> Note: `check-codestyle` uses `ruff`
 
 <details>
 <summary>4. Code security</summary>
