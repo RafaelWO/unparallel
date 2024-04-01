@@ -53,6 +53,7 @@ bump2version = "^1.0.1"
 pytest-markdown-docs = "^0.5.0"
 pytest-examples = "^0.0.10"
 ruff = "^0.3.4"
+types-tqdm = "^4.66.0.20240106"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.5.1"
@@ -75,28 +76,7 @@ select = [
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
 python_version = "3.8"
-pretty = true
-show_traceback = true
-color_output = true
-
-allow_redefinition = false
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-ignore_missing_imports = true
-implicit_reexport = false
-no_implicit_optional = true
-show_column_numbers = true
-show_error_codes = true
-show_error_context = true
-strict_equality = true
-strict_optional = true
-warn_no_return = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unreachable = true
-warn_unused_configs = true
-warn_unused_ignores = true
+strict = true
 
 
 [tool.pytest.ini_options]
