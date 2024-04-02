@@ -1391,13 +1391,13 @@ ruff = ">=0.0.258"
 
 [[package]]
 name = "pytest-markdown-docs"
-version = "0.5.0"
+version = "0.5.1"
 description = "Run markdown code fences through pytest"
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "pytest_markdown_docs-0.5.0-py3-none-any.whl", hash = "sha256:635f57232447a3a8eb9272ffd577359a42b7b6a02799aa6c823736b6b40135a1"},
-    {file = "pytest_markdown_docs-0.5.0.tar.gz", hash = "sha256:b18acc9a28fcda4773c48e78ca9fcef29903f4f315d2bbddbed3ec900990b116"},
+    {file = "pytest_markdown_docs-0.5.1-py3-none-any.whl", hash = "sha256:29849ae0fccb4dce27f86ee82d942a234095804d6f6ef6157473d38a6903aab3"},
+    {file = "pytest_markdown_docs-0.5.1.tar.gz", hash = "sha256:acf9b678b589779e817f740bb1c8c4984a1bdca23ddc1c68ea6377918f5a871c"},
 ]
 
 [package.dependencies]
