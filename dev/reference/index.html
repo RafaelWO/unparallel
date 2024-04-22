@@ -563,7 +563,7 @@ of the failed request.</p>
 
             <details class="quote">
               <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-22">22</a></span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-22">22</a></span>
 <span class="normal"><a href="#__codelineno-0-23">23</a></span>
 <span class="normal"><a href="#__codelineno-0-24">24</a></span>
 <span class="normal"><a href="#__codelineno-0-25">25</a></span>
@@ -625,7 +625,7 @@ of the failed request.</p>
   </span>
 
 </h3>
-<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payloads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="n">DEFAULT_JSON_FN</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeouts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payloads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="n">DEFAULT_JSON_FN</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeouts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></code></pre></div>
 
   <div class="doc doc-contents ">
@@ -635,7 +635,7 @@ and <code>httpx</code>.</p>
 
 
 
-  <p><strong>Parameters:</strong></p>
+  <p><span class="doc-section-title">Parameters:</span></p>
   <table>
     <thead>
       <tr>
@@ -646,7 +646,7 @@ and <code>httpx</code>.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>urls</code></td>
           <td>
                 <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
@@ -664,7 +664,7 @@ If a <code>base_url</code> is supplied, this can also be a list of paths
               <em>required</em>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>method</code></td>
           <td>
                 <code>str</code>
@@ -679,7 +679,7 @@ If a <code>base_url</code> is supplied, this can also be a list of paths
                 <code>&#39;GET&#39;</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>base_url</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[str]</code>
@@ -694,7 +694,7 @@ None.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>headers</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]]</code>
@@ -709,7 +709,7 @@ Defaults to None.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>payloads</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Any">Any</span>]</code>
@@ -726,7 +726,7 @@ Defaults to None.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>response_fn</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="httpx.Response">Response</span>], <span title="typing.Any">Any</span>]]</code>
@@ -745,7 +745,7 @@ Defaults to <code>httpx.Response.json</code>.</p>
                 <code><span title="unparallel.unparallel.DEFAULT_JSON_FN">DEFAULT_JSON_FN</span></code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>flatten_result</code></td>
           <td>
                 <code>bool</code>
@@ -761,7 +761,7 @@ Defaults to False.</p>
                 <code>False</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>max_connections</code></td>
           <td>
                 <code>int</code>
@@ -776,7 +776,7 @@ connections. Defaults to 100. This is passed into <code>httpx.Limits</code>.</p>
                 <code>100</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>timeout</code></td>
           <td>
                 <code>int</code>
@@ -791,7 +791,7 @@ This is passed into <code>httpx.Timeout</code>.</p>
                 <code>10</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>max_retries_on_timeout</code></td>
           <td>
                 <code>int</code>
@@ -806,7 +806,7 @@ due to a timeout (<code>httpx.TimeoutException</code>). Defauls to 3.</p>
                 <code>3</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>raise_for_status</code></td>
           <td>
                 <code>bool</code>
@@ -821,7 +821,7 @@ response.</p>
                 <code>True</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>limits</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="httpx.Limits">Limits</span>]</code>
@@ -836,7 +836,7 @@ If specified, this overrides the <code>max_connections</code> parameter.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>timeouts</code></td>
           <td>
                 <code><span title="typing.Optional">Optional</span>[<span title="httpx.Timeout">Timeout</span>]</code>
@@ -851,7 +851,7 @@ If specified, this overrides the <code>timeout</code> parameter.</p>
                 <code>None</code>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td><code>progress</code></td>
           <td>
                 <code>bool</code>
@@ -871,7 +871,7 @@ Defaults to True.</p>
 
 
 
-  <p><strong>Raises:</strong></p>
+  <p><span class="doc-section-title">Raises:</span></p>
   <table>
     <thead>
       <tr>
@@ -880,7 +880,7 @@ Defaults to True.</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td>
                 <code>ValueError</code>
           </td>
@@ -890,7 +890,7 @@ Defaults to True.</p>
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td>
                 <code>ValueError</code>
           </td>
@@ -906,7 +906,7 @@ payloads (except if there is only one URL).</p>
 
 
 
-  <p><strong>Returns:</strong></p>
+  <p><span class="doc-section-title">Returns:</span></p>
   <table>
     <thead>
       <tr>
@@ -915,7 +915,7 @@ payloads (except if there is only one URL).</p>
       </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="doc-section-item">
           <td>
                 <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
           </td>
@@ -925,7 +925,7 @@ payloads (except if there is only one URL).</p>
             </div>
           </td>
         </tr>
-        <tr>
+        <tr class="doc-section-item">
           <td>
                 <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
           </td>
@@ -940,7 +940,7 @@ payloads (except if there is only one URL).</p>
 
           <details class="quote">
             <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-204">204</a></span>
+            <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-204">204</a></span>
 <span class="normal"><a href="#__codelineno-0-205">205</a></span>
 <span class="normal"><a href="#__codelineno-0-206">206</a></span>
 <span class="normal"><a href="#__codelineno-0-207">207</a></span>
