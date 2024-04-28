@@ -16,6 +16,8 @@ from unparallel.unparallel import (
     sort_by_idx,
 )
 
+BASE_URL = "http://test.com"
+
 
 def test_order_by_idx():
     to_sort = [(4, "d"), (1, "a"), (3, "c"), (2, "b")]
@@ -27,12 +29,12 @@ def test_order_by_idx():
 @pytest.mark.parametrize(
     "url, method, payload",
     [
-        ("http://test.com", "get", "data"),
-        ("http://test.com/foo", "post", "data"),
+        (BASE_URL, "get", "data"),
+        (f"{BASE_URL}/foo", "post", "data"),
     ],
 )
 async def test_single_request(url, method, payload, respx_mock):
-    getattr(respx_mock, method)(url).mock(return_value=Response(200, json=payload))
+    respx_mock.request(method, url).mock(return_value=Response(200, json=payload))
     session = AsyncClient()
     result = await single_request(1, session, url=url, method=method)
     assert result == (1, payload)
@@ -52,12 +54,11 @@ async def test_single_request(url, method, payload, respx_mock):
 async def test_single_request_custom_response(
     respx_mock, method, return_value, response_fn, expected
 ):
-    url = "http://example.com"
-    respx_mock.request(method, url).mock(return_value=return_value)
+    respx_mock.request(method, BASE_URL).mock(return_value=return_value)
 
     async with AsyncClient() as session:
         _, result = await single_request(
-            1, session, url, method=method, response_fn=response_fn
+            1, session, BASE_URL, method=method, response_fn=response_fn
         )
 
     if isinstance(expected, Response):
@@ -72,7 +73,7 @@ async def test_single_request_custom_response(
     "status, do_raise", [(500, True), (500, False), (404, True), (404, False)]
 )
 async def test_single_request_fail(status, do_raise, respx_mock):
-    url = "http://test.com/foo"
+    url = f"{BASE_URL}/foo"
     respx_mock.get(url).mock(return_value=Response(status))
     session = AsyncClient()
     idx, result = await single_request(
@@ -95,7 +96,7 @@ async def test_single_request_fail(status, do_raise, respx_mock):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("retries", [0, 1, 3])
 async def test_single_request_timeout(respx_mock, retries: int):
-    url = "http://test.com/foo"
+    url = f"{BASE_URL}/foo"
     route = respx_mock.get(url).mock(side_effect=TimeoutException)
     session = AsyncClient()
     with mock.patch("asyncio.sleep", wraps=asyncio.sleep) as mocked_sleep:
@@ -109,12 +110,18 @@ async def test_single_request_timeout(respx_mock, retries: int):
 
 
 @pytest.mark.asyncio
-async def test_full_run_via_httpbin():
-    url = "https://httpbin.org"
+async def test_basic_example(respx_mock):
+    def query_param_value(request, i):
+        return Response(200, json={"i": i})
+
+    respx_mock.get(url__regex=rf"{BASE_URL}/get\?i=(?P<i>\d)").mock(
+        side_effect=query_param_value
+    )
+
     paths = [f"/get?i={i}" for i in range(5)]
-    results = await up(paths, method="get", base_url=url)
+    results = await up(paths, method="get", base_url=BASE_URL)
     assert len(results) == 5
-    assert all(res["args"]["i"] == str(i) for i, res in enumerate(results))
+    assert all(res["i"] == str(i) for i, res in enumerate(results))
 
 
 @pytest.mark.asyncio
@@ -142,13 +149,12 @@ async def test_up_get(caplog, respx_mock):
 @pytest.mark.asyncio
 @pytest.mark.parametrize("paths", ["/post", ["/post"], ["/post"] * 5])
 async def test_up_post_single_vs_multi_path(paths, respx_mock):
-    base_url = "http://test.com"
     payloads = [{"bar": i} for i in range(5)]
-    respx_mock.post(base_url + "/post").mock(
+    respx_mock.post(f"{BASE_URL}/post").mock(
         side_effect=[Response(200, json=data) for data in payloads]
     )
 
-    results = await up(paths, "post", base_url=base_url, payloads=payloads)
+    results = await up(paths, "post", base_url=BASE_URL, payloads=payloads)
     assert len(results) == len(payloads)
     for res, data in zip(results, payloads):
         assert res == data
@@ -159,12 +165,11 @@ async def test_up_post_single_vs_multi_path(paths, respx_mock):
     "payloads", [{"bar": 1}, [{"bar": 1}], [{"bar": i} for i in range(5)]]
 )
 async def test_up_post_single_vs_multi_payload(payloads, respx_mock):
-    base_url = "http://test.com"
     paths = [f"/post/{i}" for i in range(5)]
     for path in paths:
-        respx_mock.post(base_url + path).mock(return_value=Response(200))
+        respx_mock.post(f"{BASE_URL}{path}").mock(return_value=Response(200))
 
-    results = await up(paths, "post", base_url=base_url, payloads=payloads)
+    results = await up(paths, "post", base_url=BASE_URL, payloads=payloads)
     assert len(results) == len(paths)
 
 
@@ -181,7 +186,7 @@ async def test_request_urls_flat(patched_fetch, flatten, expected):
     results = await request_urls(
         urls=["/a", "/b"],
         method="get",
-        base_url="http://test.com",
+        base_url=BASE_URL,
         flatten_result=flatten,
     )
     assert results == expected
@@ -204,7 +209,7 @@ async def test_up_misaligned_paths_and_payloads():
         await up(
             urls=["/a", "/b"],
             method="POST",
-            base_url="http://test.com",
+            base_url=BASE_URL,
             payloads=[1, 2, 3],
         )
 
@@ -212,7 +217,7 @@ async def test_up_misaligned_paths_and_payloads():
 @pytest.mark.asyncio
 async def test_up_wrong_method():
     with pytest.raises(ValueError):
-        await up("/a", method="foobar", base_url="http://test.com")
+        await up("/a", method="foobar", base_url=BASE_URL)
 
 
 @pytest.mark.parametrize(

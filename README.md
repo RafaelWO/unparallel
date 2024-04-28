@@ -113,6 +113,6 @@ I created this project with [python-package-template](https://github.com/TezRoma
 
 <!-- --8<-- [end:index] -->
 
-[docs-usage]: https://rafaelwo.github.io/unparallel/usage/
+[docs-usage]: https://rafaelwo.github.io/unparallel/latest/usage/
 [sync-async-gif]: https://raw.githubusercontent.com/RafaelWO/unparallel/main/docs/assets/sync-vs-async.gif
 [contrib]: https://github.com/RafaelWO/unparallel/blob/main/CONTRIBUTING.md
