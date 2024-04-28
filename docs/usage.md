@@ -113,7 +113,11 @@ from unparallel import up
 
 
 async def main():
-    urls = ["https://www.example.com", "https://duckduckgo.com/", "https://github.com"]
+    urls = [
+        "https://www.example.com",
+        "https://duckduckgo.com/",
+        "https://github.com",
+    ]
     return await up(urls, response_fn=lambda x: x.text)
 
 
@@ -144,7 +148,11 @@ from unparallel import up
 
 
 async def main():
-    urls = ["https://www.example.com", "https://duckduckgo.com/", "https://github.com"]
+    urls = [
+        "https://www.example.com",
+        "https://duckduckgo.com/",
+        "https://github.com",
+    ]
     return await up(urls, method="HEAD", response_fn=lambda x: x.status_code)
 
 
