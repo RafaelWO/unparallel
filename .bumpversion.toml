@@ -1,0 +1,8 @@
+[tool.bumpversion]
+current_version = "0.3.0"
+commit = true
+tag = false
+
+[[tool.bumpversion.files]]
+search = "name = \"unparallel\"\nversion = \"{current_version}\""
+replace = "name = \"unparallel\"\nversion = \"{new_version}\""

@@ -9,6 +9,7 @@ repos:
     hooks:
       - id: check-yaml
         args: [--unsafe]
+      - id: trailing-whitespace
       - id: end-of-file-fixer
         exclude: LICENSE
       - id: trailing-whitespace
