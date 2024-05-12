@@ -390,6 +390,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#custom-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retries" class="md-nav__link">
     <span class="md-ellipsis">
       Retries
@@ -589,6 +598,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#custom-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom client
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retries" class="md-nav__link">
     <span class="md-ellipsis">
       Retries
@@ -724,9 +742,9 @@ of a response:</p>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="s2">&quot;https://www.example.com&quot;</span><span class="p">,</span>
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="s2">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="s2">&quot;https://github.com&quot;</span><span class="p">,</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="hll">    <span class="p">]</span>
-</span></span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="p">]</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="hll">    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
 </span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">results</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
@@ -753,9 +771,9 @@ combination with a custom response function:</p>
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="s2">&quot;https://www.example.com&quot;</span><span class="p">,</span>
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        <span class="s2">&quot;https://duckduckgo.com/&quot;</span><span class="p">,</span>
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="s2">&quot;https://github.com&quot;</span><span class="p">,</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="hll">    <span class="p">]</span>
-</span></span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="p">]</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="hll">    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;HEAD&quot;</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+</span></span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="n">results</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
@@ -824,9 +842,9 @@ flattened array. Unparallel will flatten the data for you if you pass
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://universities.hipolabs.com&quot;</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="hll">    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;/search?limit=20&amp;offset=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
-</span></span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;/search?limit=20&amp;offset=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="hll">    <span class="k">return</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
 </span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
 </span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="n">results</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
 </span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;#Results: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -883,6 +901,41 @@ and pass them to <code>up()</code>:</p>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">timeouts</span><span class="o">=</span><span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 </span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">)</span>
 </span></code></pre></div>
+<h2 id="custom-client">Custom client</h2>
+<p>If you want full control over the HTTPX client or use advanced configuration options,
+e.g. <a href="https://www.python-httpx.org/advanced/authentication/">authentication</a> or
+<a href="https://www.python-httpx.org/advanced/proxies/">proxies</a>, you can configure it outside
+and simply pass the <code>httpx.AsyncClient</code> instance to Unparallel.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="kn">import</span> <span class="nn">httpx</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="kn">from</span> <span class="nn">unparallel</span> <span class="kn">import</span> <span class="n">up</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://httpbin.org&quot;</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;/get?foo=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)]</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="n">auth</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">BasicAuth</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span><span class="p">)</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">up</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">)</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>    <span class="k">return</span> <span class="n">results</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="n">results</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>    <span class="k">for</span> <span class="n">h_key</span><span class="p">,</span> <span class="n">h_value</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;headers&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>        <span class="k">if</span> <span class="n">h_key</span> <span class="o">==</span> <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Args = </span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;args&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, Auth = </span><span class="si">{</span><span class="n">h_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">h_value</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This prints:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Args = {&#39;foo&#39;: &#39;0&#39;}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0&#39;
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Args = {&#39;foo&#39;: &#39;1&#39;}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0&#39;
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>Args = {&#39;foo&#39;: &#39;2&#39;}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0&#39;
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>Args = {&#39;foo&#39;: &#39;3&#39;}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0&#39;
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Args = {&#39;foo&#39;: &#39;4&#39;}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0&#39;
+</span></code></pre></div></p>
 <h2 id="retries">Retries</h2>
 <p>Per default, every HTTP request will be retried 3 times if an exception of the type
 <code>httpx.TimeoutException</code> is raised. You can change the behavior by passing e.g.
