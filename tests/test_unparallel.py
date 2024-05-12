@@ -13,16 +13,9 @@ from unparallel.unparallel import (
     RequestError,
     request_urls,
     single_request,
-    sort_by_idx,
 )
 
 BASE_URL = "http://test.com"
-
-
-def test_order_by_idx():
-    to_sort = [(4, "d"), (1, "a"), (3, "c"), (2, "b")]
-    expected = list("abcd")
-    assert sort_by_idx(to_sort) == expected
 
 
 @pytest.mark.asyncio
@@ -254,3 +247,19 @@ async def test_config(request_urls_mock, up_kwargs, expected_timeouts, expected_
     options = await up("/bar", base_url="foobar", **up_kwargs)
     assert options["timeouts"] == expected_timeouts
     assert options["limits"] == expected_limits
+
+
+@pytest.mark.asyncio
+async def test_up_with_client(respx_mock):
+    auth = httpx.BasicAuth("foo", "bar")
+    headers = {"Authorization": auth._auth_header}
+    client = httpx.AsyncClient(auth=auth)
+    route = respx_mock.get(BASE_URL, headers=headers)
+
+    result = await up(BASE_URL, response_fn=None)
+    assert isinstance(result[0], RequestError)
+
+    result = await up(BASE_URL, response_fn=None, client=client)
+    assert result[0].status_code == 200
+
+    route.calls.assert_called_once()
