@@ -5,7 +5,6 @@ https://techcrunch.com
 See Also:
     https://developer.wordpress.org/rest-api/reference/posts/
 """
-
 import asyncio
 from pprint import pp
 
@@ -30,7 +29,7 @@ async def main():
     # the settings for this to work without errors. For me, it worked using
     # max_connections=800 and timeout=60.
 
-    total_pages = min(total_pages, 500)
+    total_pages = min(total_pages, 1000)
 
     # Get all pages and flatten the result
     paths = [f"{pagination_url}&page={i}" for i in range(1, total_pages + 1)]

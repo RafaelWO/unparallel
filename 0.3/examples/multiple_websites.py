@@ -1,14 +1,14 @@
 """
-This script is based on a use case at StackOverflow and fetches the content of various
+This script is based on a use case at StackOverflow and fetches the content of various 
 webpages.
 
 See Also:
     https://www.stackoverflow.com/a/57129241
 """
-
 import asyncio
 
 from unparallel import up
+from unparallel.unparallel import RequestError
 
 # Extracted from https://en.wikipedia.org/wiki/List_of_most-visited_websites
 websites = """https://www.google.com/
@@ -69,5 +69,4 @@ async def main():
         print(url, repr(content[:100]))
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+results = asyncio.run(main())
