@@ -1,12 +1,20 @@
 import asyncio
 import logging
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Union,
+)
 
 import httpx
 from tqdm.asyncio import tqdm as tqdm_async
 
-from unparallel.utils import AsyncNullContext
+from unparallel import utils
 
 logger = logging.getLogger(__name__)
 
@@ -25,24 +33,18 @@ class RequestError:
 
     Besides the exception itself, this contains the URL, method, and (optional) payload
     of the failed request.
+
+    Attributes:
+        url (str): The target URL of the request.
+        method (str): The HTTP method.
+        payload (Optional[Any]): The payload/body of the request.
+        exception: (Exception): The exception that was raised.
     """
 
     url: str
     method: str
     payload: Optional[Any]
     exception: Exception
-
-
-def sort_by_idx(results: List[Tuple[int, Any]]) -> List[Any]:
-    """Sorts a list of tuples (index, value) by the index and return just the values.
-
-    Args:
-        results (List[Tuple[int, Any]]): A list of tuples (index, value) to be sorted.
-
-    Returns:
-        List[Any]: The values as a list.
-    """
-    return [item[1] for item in sorted(results, key=lambda x: x[0])]
 
 
 async def single_request(
@@ -83,7 +85,7 @@ async def single_request(
             await asyncio.sleep(1)
 
         try:
-            async with semaphore or AsyncNullContext():
+            async with semaphore or utils.AsyncNullContext():
                 response = await client.request(method, url, json=json)
             if raise_for_status:
                 response.raise_for_status()
@@ -125,6 +127,7 @@ async def request_urls(
     raise_for_status: bool = True,
     limits: httpx.Limits = DEFAULT_LIMITS,
     timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
+    client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
 ) -> List[Any]:
     """
@@ -148,6 +151,8 @@ async def request_urls(
             due to a timeout (``httpx.TimeoutException``). Defauls to 3.
         limits (httpx.Limits): The limits configuration for ``httpx``.
         timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
+        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
+            used for creating the HTTP requests.
         progress (bool): Whether to show a progress bar. Defaults to ``True``.
 
     Returns:
@@ -166,8 +171,12 @@ async def request_urls(
         f"Issuing {len(urls)} {method.upper()} request(s) to base URL '{base_url}' "
         f"with {limits.max_connections} max connections..."
     )
-    async with httpx.AsyncClient(
-        base_url=base_url or "", headers=headers, timeout=timeouts, limits=limits
+    async with utils.httpx_client(
+        base_url=base_url or "",
+        headers=headers,
+        timeouts=timeouts,
+        limits=limits,
+        client=client,
     ) as client:
         for i, url in enumerate(urls):
             task = asyncio.create_task(
@@ -191,7 +200,7 @@ async def request_urls(
             res = await task
             results.append(res)
 
-    results = sort_by_idx(results)
+    results = utils.sort_by_idx(results)
     if flatten_result:
         return [
             item
@@ -215,6 +224,7 @@ async def up(
     raise_for_status: bool = True,
     limits: Optional[httpx.Limits] = None,
     timeouts: Optional[httpx.Timeout] = None,
+    client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
 ) -> List[Any]:
     """Creates async web requests to the specified URL(s) using ``asyncio``
@@ -257,6 +267,10 @@ async def up(
             If specified, this overrides the ``max_connections`` parameter.
         timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
             If specified, this overrides the ``timeout`` parameter.
+        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
+            used for creating the HTTP requests. **Note that if you pass a client, all
+            other options that parametrize the client (``base_url``, ``headers``,
+            ``limits``, and ``timeouts``) are ignored**. Defaults to None.
         progress (bool): If set to True, progress bar is shown.
             Defaults to True.
 
@@ -315,7 +329,8 @@ async def up(
         flatten_result=flatten_result,
         max_retries_on_timeout=max_retries_on_timeout,
         raise_for_status=raise_for_status,
-        progress=progress,
         limits=limits,
         timeouts=timeouts,
+        client=client,
+        progress=progress,
     )

@@ -32,7 +32,14 @@ def mock_urls(example: CodeExample):
         host = urllib.parse.urlsplit(url).hostname
         response = "mocked"
         if "httpbin" in url:
-            response = {"args": 42, "data": {"foo": "bar"}}
+            response = {
+                "args": 42,
+                "data": {"foo": "bar"},
+                "headers": {
+                    "Accept": "application/json",
+                    "Authorization": "Basic qpowe3jioqoni2q1",
+                },
+            }
         elif "universities.hipolabs" in url:
             response = [{"page": 1}, {"page": 2}]
         route = respx.route(host=host, method__in=["GET", "POST", "HEAD"])

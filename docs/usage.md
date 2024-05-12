@@ -106,7 +106,7 @@ If you want to process the raw `httpx.Response` later yourself, you can simply s
 The example below demonstrates how to use a custom response function to get the `.text`
 of a response:
 
-```python hl_lines="11"
+```python hl_lines="12"
 import asyncio
 
 from unparallel import up
@@ -141,7 +141,7 @@ by HTTPX - which are `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `PATCH`, and `OPTIO
 For example, you can get the status of services/webpages using the method `HEAD` in
 combination with a custom response function:
 
-```python hl_lines="11"
+```python hl_lines="12"
 import asyncio
 
 from unparallel import up
@@ -229,7 +229,7 @@ But in most cases, you would want just one list of all objects (universities), i
 flattened array. Unparallel will flatten the data for you if you pass
 `flatten_result=True`.
 
-```python hl_lines="9"
+```python hl_lines="10"
 import asyncio
 from pprint import pp
 
@@ -308,6 +308,46 @@ results = await up(
     limits=httpx.Limits(max_connections=20, ...),
     timeouts=httpx.Timeout(connect=5, ...)
 )
+```
+
+## Custom client
+If you want full control over the HTTPX client or use advanced configuration options,
+e.g. [authentication](https://www.python-httpx.org/advanced/authentication/) or
+[proxies](https://www.python-httpx.org/advanced/proxies/), you can configure it outside
+and simply pass the `httpx.AsyncClient` instance to Unparallel.
+
+```python
+import asyncio
+
+import httpx
+
+from unparallel import up
+
+
+async def main():
+    url = "https://httpbin.org"
+    paths = [f"/get?foo={i}" for i in range(20)]
+
+    auth = httpx.BasicAuth(username="username", password="secret")
+    async with httpx.AsyncClient(base_url=url, auth=auth) as client:
+        results = await up(paths, client=client)
+    return results
+
+
+results = asyncio.run(main())
+for item in results[:5]:
+    for h_key, h_value in item["headers"].items():
+        if h_key == "Authorization":
+            print(f"Args = {item['args']}, Auth = {h_key}: {h_value}'")
+```
+
+This prints:
+```
+Args = {'foo': '0'}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0'
+Args = {'foo': '1'}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0'
+Args = {'foo': '2'}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0'
+Args = {'foo': '3'}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0'
+Args = {'foo': '4'}, Auth = Authorization: Basic dXNlcm5hbWU6c2VjcmV0'
 ```
 
 ## Retries
