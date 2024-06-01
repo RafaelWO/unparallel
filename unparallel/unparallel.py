@@ -79,15 +79,15 @@ async def single_request(
         client (AsyncClient): The httpx client.
         url (str): The URL after the base URI.
         method (str): The HTTP method.
-        json (Optional[Any], optional): The JSON payload. Defaults to None.
+        json (Optional[Any], optional): The JSON payload. Defaults to ``None``.
         response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
             on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
-            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+            due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
             response.
         semaphore (Optional[asyncio.Semaphore]): A semaphore object to synchronize
-            the HTTP request. Defaults to None (-> nullcontext).
+            the HTTP request. Defaults to ``None`` (-> nullcontext).
 
     Returns:
         Tuple[int, Any]: A tuple of the index and the JSON response.
@@ -163,7 +163,7 @@ async def request_urls(
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on every
             response.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
-            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+            due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         limits (httpx.Limits): The limits configuration for ``httpx``.
         timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
         client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
@@ -253,13 +253,13 @@ async def up(
         method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,
             ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.
         base_url (Optional[str]):  The base URL of the target API/service. Defaults to
-            None.
+            ``None``.
         headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.
-            Defaults to None.
+            Defaults to ``None``.
         payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.
             for HTTP post requests. Used together with ``urls``. If one payload but
             multiple URLs are supplied, that payload is used for all requests.
-            Defaults to None.
+            Defaults to ``None``.
         response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)
             to apply on every response of the HTTP requests. This can be an existing
             function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom
@@ -268,13 +268,13 @@ async def up(
             Defaults to ``httpx.Response.json``.
         flatten_result (bool): If True and the response per request is a list,
             flatten that list of lists. This is useful when using paging.
-            Defaults to False.
+            Defaults to ``False``.
         max_connections (int): The total number of simultaneous TCP
-            connections. Defaults to 100. This is passed into ``httpx.Limits``.
+            connections. Defaults to ``100``. This is passed into ``httpx.Limits``.
         timeout (int): The timeout for requests in seconds. Defaults to 10.
             This is passed into ``httpx.Timeout``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
-            due to a timeout (``httpx.TimeoutException``). Defauls to 3.
+            due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy
             response.
         limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
