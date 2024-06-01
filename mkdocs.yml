@@ -33,6 +33,8 @@ theme:
 extra:
   version:
     provider: mike
+    alias: true
+    default: latest
 plugins:
   - search
   - mkdocstrings:
