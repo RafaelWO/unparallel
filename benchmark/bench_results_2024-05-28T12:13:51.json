@@ -1,0 +1,242 @@
+[
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1,
+      "semaphore_value": 100
+    },
+    "took": 3.062610149383545,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 120.0
+    },
+    "took": 4.054247140884399,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 150.0
+    },
+    "took": 8.005985736846924,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 2,
+      "semaphore_value": 200
+    },
+    "took": 13.092655658721924,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1,
+      "semaphore_value": 300
+    },
+    "took": 3.4650211334228516,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 360.0
+    },
+    "took": 12.456718444824219,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 450.0
+    },
+    "took": 36.15773272514343,
+    "fails": 318
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 2,
+      "semaphore_value": 600
+    },
+    "took": 63.179272174835205,
+    "fails": 1018
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1,
+      "semaphore_value": 500
+    },
+    "took": 3.953127145767212,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 600.0
+    },
+    "took": 19.55054759979248,
+    "fails": 422
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 750.0
+    },
+    "took": 931.1159596443176,
+    "fails": 1500
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 2,
+      "semaphore_value": 1000
+    },
+    "took": 1358.1956205368042,
+    "fails": 2000
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1,
+      "semaphore_value": 700
+    },
+    "took": 4.885333061218262,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 840.0
+    },
+    "took": 28.396564960479736,
+    "fails": 467
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1050.0
+    },
+    "took": 1705.2571036815643,
+    "fails": 2000
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 2,
+      "semaphore_value": 1400
+    },
+    "took": 1638.2006390094757,
+    "fails": 2000
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1,
+      "semaphore_value": 900
+    },
+    "took": 4.8967719078063965,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 1080.0
+    },
+    "took": 42.43077373504639,
+    "fails": 841
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1350.0
+    },
+    "took": 1796.6837012767792,
+    "fails": 2000
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 2,
+      "semaphore_value": 1800
+    },
+    "took": 2098.918648481369,
+    "fails": 1891
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1,
+      "semaphore_value": 1000
+    },
+    "took": 4.988261461257935,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 1000
+    },
+    "took": 4.591850519180298,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1000
+    },
+    "took": 4.185906410217285,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 2,
+      "semaphore_value": 1000
+    },
+    "took": 4.306590795516968,
+    "fails": 0
+  }
+]

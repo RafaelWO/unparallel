@@ -1,0 +1,242 @@
+[
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1,
+      "semaphore_value": 100
+    },
+    "took": 3.2187960147857666,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 120.0
+    },
+    "took": 4.05229926109314,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 150.0
+    },
+    "took": 6.7215540409088135,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 100,
+      "semaphore_fact": 2,
+      "semaphore_value": 200
+    },
+    "took": 11.921423435211182,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1,
+      "semaphore_value": 300
+    },
+    "took": 3.3508172035217285,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 360.0
+    },
+    "took": 10.049513816833496,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 450.0
+    },
+    "took": 33.9966778755188,
+    "fails": 235
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 300,
+      "semaphore_fact": 2,
+      "semaphore_value": 600
+    },
+    "took": 62.47229504585266,
+    "fails": 85
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1,
+      "semaphore_value": 500
+    },
+    "took": 3.484898567199707,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 600.0
+    },
+    "took": 17.579904794692993,
+    "fails": 193
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 750.0
+    },
+    "took": 62.5948965549469,
+    "fails": 400
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 500,
+      "semaphore_fact": 2,
+      "semaphore_value": 1000
+    },
+    "took": 175.98791074752808,
+    "fails": 396
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1,
+      "semaphore_value": 700
+    },
+    "took": 4.387026071548462,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 840.0
+    },
+    "took": 24.11641764640808,
+    "fails": 337
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1050.0
+    },
+    "took": 124.68742179870605,
+    "fails": 200
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 700,
+      "semaphore_fact": 2,
+      "semaphore_value": 1400
+    },
+    "took": 237.69636011123657,
+    "fails": 26
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1,
+      "semaphore_value": 900
+    },
+    "took": 4.117614507675171,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 1080.0
+    },
+    "took": 34.2446653842926,
+    "fails": 705
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1350.0
+    },
+    "took": 119.85598039627075,
+    "fails": 381
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": 900,
+      "semaphore_fact": 2,
+      "semaphore_value": 1800
+    },
+    "took": 321.4778845310211,
+    "fails": 345
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1,
+      "semaphore_value": 1000
+    },
+    "took": 4.627327919006348,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1.2,
+      "semaphore_value": 1000
+    },
+    "took": 4.2807934284210205,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 1.5,
+      "semaphore_value": 1000
+    },
+    "took": 4.117334842681885,
+    "fails": 0
+  },
+  {
+    "params": {
+      "num_requests": 2000,
+      "max_connections": null,
+      "semaphore_fact": 2,
+      "semaphore_value": 1000
+    },
+    "took": 4.222747325897217,
+    "fails": 0
+  }
+]
