@@ -18,6 +18,10 @@ from unparallel.unparallel import (
 BASE_URL = "http://test.com"
 
 
+def get_kwargs(*args, **kwargs):
+    return kwargs
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "url, method, payload",
@@ -238,15 +242,36 @@ async def test_up_wrong_method():
 )
 @mock.patch("unparallel.unparallel.request_urls")
 @pytest.mark.asyncio
-async def test_config(request_urls_mock, up_kwargs, expected_timeouts, expected_limits):
-    def get_kwargs(*args, **kwargs):
-        return kwargs
-
+async def test_httpx_config(
+    request_urls_mock, up_kwargs, expected_timeouts, expected_limits
+):
     request_urls_mock.side_effect = get_kwargs
 
     options = await up("/bar", base_url="foobar", **up_kwargs)
     assert options["timeouts"] == expected_timeouts
     assert options["limits"] == expected_limits
+
+
+@pytest.mark.parametrize(
+    "up_kwargs, expected_sem_value",
+    [
+        ({}, 100),
+        ({"max_connections": 10}, 10),
+        ({"max_connections": 2000}, 1000),
+        ({"max_connections": None}, 1000),
+        ({"semaphore_value": 42}, 42),
+        ({"max_connections": 100, "semaphore_value": 42}, 42),
+        ({"semaphore_value": None}, None),
+    ],
+)
+@mock.patch("unparallel.unparallel.request_urls")
+@pytest.mark.asyncio
+async def test_up_semaphore_value(request_urls_mock, up_kwargs, expected_sem_value):
+    request_urls_mock.side_effect = get_kwargs
+
+    options = await up("https://example.com", **up_kwargs)
+
+    assert options["semaphore_value"] == expected_sem_value
 
 
 @pytest.mark.asyncio

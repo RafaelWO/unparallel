@@ -24,7 +24,21 @@ DEFAULT_JSON_FN = httpx.Response.json
 DEFAULT_TIMEOUT = httpx.Timeout(timeout=10)
 DEFAULT_LIMITS = httpx.Limits(max_connections=100, max_keepalive_connections=20)
 
-SEMAPHORE_COUNT = 1000
+MAX_SEMAPHORE_COUNT = 1000
+
+
+class UseMaxConnections:
+    """
+    For the parameter `semaphore` in the `up()` signature we need to be able to
+    differentiate between the default "unset" state and `None`.
+
+    The default value `semaphore=USE_MAX_CONNECTIONS` results in the value being the
+    same as `max_connections`. However, the user can also set `semaphore` to some
+    integer or `None`.
+    """
+
+
+USE_MAX_CONNECTIONS = UseMaxConnections()
 
 
 @dataclass
@@ -129,6 +143,7 @@ async def request_urls(
     timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
     client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
+    semaphore_value: Optional[int] = None,
 ) -> List[Any]:
     """
     Asynchronously issues requests to the specified URL(s)
@@ -154,6 +169,8 @@ async def request_urls(
         client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
             used for creating the HTTP requests.
         progress (bool): Whether to show a progress bar. Defaults to ``True``.
+        semaphore_value: (Optional[int]): The value for the ``asyncio.Semaphore`` object
+            that syncronizes the calls to HTTPX. Defaults to ``None``.
 
     Returns:
         A list of the response data per request in the same order as the input
@@ -161,11 +178,7 @@ async def request_urls(
     """
     tasks = []
     results = []
-    # If you want to do lot's of web requests (over 10k), it is really hard to avoid
-    # getting timeout errors. Adding a semaphore with a limit of 1k drastically reduced
-    # the amount of timeouts. As one will likely use fewer parallel open connections
-    # (max_connections) than 1k, it should not slow down the HTTP requests.
-    semaphore = asyncio.Semaphore(SEMAPHORE_COUNT)
+    semaphore = asyncio.Semaphore(semaphore_value) if semaphore_value else None
 
     logging.debug(
         f"Issuing {len(urls)} {method.upper()} request(s) to base URL '{base_url}' "
@@ -226,6 +239,7 @@ async def up(
     timeouts: Optional[httpx.Timeout] = None,
     client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
+    semaphore_value: Union[int, UseMaxConnections, None] = USE_MAX_CONNECTIONS,
 ) -> List[Any]:
     """Creates async web requests to the specified URL(s) using ``asyncio``
     and ``httpx``.
@@ -270,9 +284,12 @@ async def up(
         client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
             used for creating the HTTP requests. **Note that if you pass a client, all
             other options that parametrize the client (``base_url``, ``headers``,
-            ``limits``, and ``timeouts``) are ignored**. Defaults to None.
-        progress (bool): If set to True, progress bar is shown.
-            Defaults to True.
+            ``limits``, and ``timeouts``) are ignored**. Defaults to ``None``.
+        progress (bool): If set to ``True``, progress bar is shown.
+            Defaults to ``True``.
+        semaphore_value: (Union[int, UseMaxConnections, None]): The value for the
+            ``asyncio.Semaphore`` object that syncronizes the calls to HTTPX. Defaults
+            to the number of ``max_connections``.
 
     Raises:
         ValueError: If the HTTP method is not valid.
@@ -319,6 +336,16 @@ async def up(
         else:
             limits = DEFAULT_LIMITS
 
+    # After some benchmarking we discovered that syncronizing the HTTP requests with a
+    # semaphore object that has the same value as the max_connections gives the best
+    # performance.
+    # Also, limiting the semaphore value to a maximum of 1k drastically reduced the
+    # amount of timeouts.
+    if isinstance(semaphore_value, UseMaxConnections):
+        semaphore_value = min(
+            max_connections or MAX_SEMAPHORE_COUNT, MAX_SEMAPHORE_COUNT
+        )
+
     return await request_urls(
         urls=urls,
         method=method,
@@ -333,4 +360,5 @@ async def up(
         timeouts=timeouts,
         client=client,
         progress=progress,
+        semaphore_value=semaphore_value,
     )
