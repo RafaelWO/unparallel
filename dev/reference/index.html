@@ -521,14 +521,14 @@
 
 
 <h2 id="unparallel" class="doc doc-heading">
-          <span class="doc doc-object-name doc-module-name">unparallel</span>
+            <span class="doc doc-object-name doc-module-name">unparallel</span>
 
 
 </h2>
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
 
   <div class="doc doc-children">
 
@@ -544,9 +544,9 @@
 
 
 <h3 id="unparallel.RequestError" class="doc doc-heading">
-          <span class="doc doc-object-name doc-class-name">unparallel.RequestError</span>
+            <span class="doc doc-object-name doc-class-name">unparallel.RequestError</span>
 
-  
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
   </span>
@@ -554,85 +554,84 @@
 </h3>
 
 
-  <div class="doc doc-contents ">
+    <div class="doc doc-contents ">
 
-  
+
       <p>A dataclass wrapping an exception that was raised during a web request.</p>
 <p>Besides the exception itself, this contains the URL, method, and (optional) payload
 of the failed request.</p>
 
 
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">ATTRIBUTE</span></th>
+          <th><span>DESCRIPTION</span></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="unparallel.RequestError.url">url</span></code></td>
+            <td class="doc-attribute-details">
+              <div class="doc-md-description">
+                <p>The target URL of the request.</p>
+              </div>
+              <p>
+                  <span class="doc-attribute-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="unparallel.RequestError.method">method</span></code></td>
+            <td class="doc-attribute-details">
+              <div class="doc-md-description">
+                <p>The HTTP method.</p>
+              </div>
+              <p>
+                  <span class="doc-attribute-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="unparallel.RequestError.payload">payload</span></code></td>
+            <td class="doc-attribute-details">
+              <div class="doc-md-description">
+                <p>The payload/body of the request.</p>
+              </div>
+              <p>
+                  <span class="doc-attribute-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="typing.Any">Any</span>]</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="unparallel.RequestError.exception">exception</span></code></td>
+            <td class="doc-attribute-details">
+              <div class="doc-md-description">
+                <p>(Exception): The exception that was raised.</p>
+              </div>
+              <p>
+                  <span class="doc-attribute-annotation">
+                    <b>TYPE:</b>
+                      <code>Exception</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">ATTRIBUTE</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="unparallel.RequestError.url">url</span></code></td>
-          <td class="doc-attribute-details">
-            <div class="doc-md-description">
-              <p>The target URL of the request.</p>
-            </div>
-            <p>
-                <span class="doc-attribute-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="unparallel.RequestError.method">method</span></code></td>
-          <td class="doc-attribute-details">
-            <div class="doc-md-description">
-              <p>The HTTP method.</p>
-            </div>
-            <p>
-                <span class="doc-attribute-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="unparallel.RequestError.payload">payload</span></code></td>
-          <td class="doc-attribute-details">
-            <div class="doc-md-description">
-              <p>The payload/body of the request.</p>
-            </div>
-            <p>
-                <span class="doc-attribute-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="typing.Any">Any</span>]</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="unparallel.RequestError.exception">exception</span></code></td>
-          <td class="doc-attribute-details">
-            <div class="doc-md-description">
-              <p>(Exception): The exception that was raised.</p>
-            </div>
-            <p>
-                <span class="doc-attribute-annotation">
-                  <b>TYPE:</b>
-                    <code>Exception</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-            <details class="quote">
-              <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-44">44</a></span>
+              <details class="quote">
+                <summary>Source code in <code>unparallel/unparallel.py</code></summary>
+                <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-44">44</a></span>
 <span class="normal"><a href="#__codelineno-0-45">45</a></span>
 <span class="normal"><a href="#__codelineno-0-46">46</a></span>
 <span class="normal"><a href="#__codelineno-0-47">47</a></span>
@@ -668,9 +667,9 @@ of the failed request.</p>
 </span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="n">payload</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
 </span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span>
 </span></code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -686,21 +685,18 @@ of the failed request.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
-
 
 
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="unparallel.up" class="doc doc-heading">
-          <span class="doc doc-object-name doc-function-name">unparallel.up</span>
+            <span class="doc doc-object-name doc-function-name">unparallel.up</span>
 
-  
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
   </span>
@@ -709,415 +705,412 @@ of the failed request.</p>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payloads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="n">DEFAULT_JSON_FN</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeouts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semaphore_value</span><span class="o">=</span><span class="n">USE_MAX_CONNECTIONS</span><span class="p">)</span>
 </span></code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Creates async web requests to the specified URL(s) using <code>asyncio</code>
 and <code>httpx</code>.</p>
 
 
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">PARAMETER</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>urls</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>A list of URLs as the targets for the requests.
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">PARAMETER</span></th>
+          <th><span>DESCRIPTION</span></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>urls</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>A list of URLs as the targets for the requests.
 If only one URL but multiple payloads are supplied, that URL is used for
 all requests.
 If a <code>base_url</code> is supplied, this can also be a list of paths
 (or one path).</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>method</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>HTTP method to use - one of <code>GET</code>, <code>OPTIONS</code>, <code>HEAD</code>,
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Union">Union</span>[str, <span title="typing.List">List</span>[str]]</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>method</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>HTTP method to use - one of <code>GET</code>, <code>OPTIONS</code>, <code>HEAD</code>,
 <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, or <code>DELETE</code>. Defaults to <code>GET</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>str</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>&#39;GET&#39;</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>base_url</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The base URL of the target API/service. Defaults to
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>str</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>&#39;GET&#39;</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>base_url</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The base URL of the target API/service. Defaults to
 <code>None</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[str]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>headers</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>A dictionary of headers to use.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[str]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>headers</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>A dictionary of headers to use.
 Defaults to <code>None</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>payloads</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>A list of JSON payloads (dictionaries) e.g.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[str, <span title="typing.Any">Any</span>]]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>payloads</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>A list of JSON payloads (dictionaries) e.g.
 for HTTP post requests. Used together with <code>urls</code>. If one payload but
 multiple URLs are supplied, that payload is used for all requests.
 Defaults to <code>None</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="typing.Any">Any</span>]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>response_fn</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The function (callback)
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="typing.Any">Any</span>]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>response_fn</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The function (callback)
 to apply on every response of the HTTP requests. This can be an existing
 function of <code>httpx.Response</code> like <code>.json()</code> or <code>.read()</code>, or a custom
 function which takes the <code>httpx.Response</code> as the argument returns <code>Any</code>.
 If you set this to <code>None</code>, you will get the raw <code>httpx.Response</code>.
 Defaults to <code>httpx.Response.json</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="httpx.Response">Response</span>], <span title="typing.Any">Any</span>]]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code><span title="unparallel.unparallel.DEFAULT_JSON_FN">DEFAULT_JSON_FN</span></code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>flatten_result</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>If True and the response per request is a list,
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="typing.Callable">Callable</span>[[<span title="httpx.Response">Response</span>], <span title="typing.Any">Any</span>]]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code><span title="unparallel.unparallel.DEFAULT_JSON_FN">DEFAULT_JSON_FN</span></code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>flatten_result</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>If True and the response per request is a list,
 flatten that list of lists. This is useful when using paging.
 Defaults to <code>False</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>bool</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>False</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>max_connections</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The total number of simultaneous TCP
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>bool</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>False</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>max_connections</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The total number of simultaneous TCP
 connections. Defaults to <code>100</code>. This is passed into <code>httpx.Limits</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>int</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>100</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>timeout</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The timeout for requests in seconds. Defaults to 10.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>int</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>100</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>timeout</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The timeout for requests in seconds. Defaults to 10.
 This is passed into <code>httpx.Timeout</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>int</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>10</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>max_retries_on_timeout</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The maximum number retries if the requests fails
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>int</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>10</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>max_retries_on_timeout</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The maximum number retries if the requests fails
 due to a timeout (<code>httpx.TimeoutException</code>). Defaults to <code>3</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>int</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>3</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>raise_for_status</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>If True, <code>.raise_for_status()</code> is called on overy
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>int</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>3</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>raise_for_status</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>If True, <code>.raise_for_status()</code> is called on overy
 response.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>bool</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>True</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>limits</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The limits configuration for <code>httpx</code>.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>bool</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>True</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>limits</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The limits configuration for <code>httpx</code>.
 If specified, this overrides the <code>max_connections</code> parameter.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="httpx.Limits">Limits</span>]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>timeouts</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>The timeout configuration for <code>httpx</code>.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="httpx.Limits">Limits</span>]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>timeouts</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>The timeout configuration for <code>httpx</code>.
 If specified, this overrides the <code>timeout</code> parameter.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="httpx.Timeout">Timeout</span>]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>client</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>An instance of <code>httpx.AsyncClient</code> to be
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="httpx.Timeout">Timeout</span>]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>client</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>An instance of <code>httpx.AsyncClient</code> to be
 used for creating the HTTP requests. <strong>Note that if you pass a client, all
 other options that parametrize the client (<code>base_url</code>, <code>headers</code>,
 <code>limits</code>, and <code>timeouts</code>) are ignored</strong>. Defaults to <code>None</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Optional">Optional</span>[<span title="httpx.AsyncClient">AsyncClient</span>]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>None</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>progress</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>If set to <code>True</code>, progress bar is shown.
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Optional">Optional</span>[<span title="httpx.AsyncClient">AsyncClient</span>]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>None</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>progress</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>If set to <code>True</code>, progress bar is shown.
 Defaults to <code>True</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code>bool</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code>True</code>
-                </span>
-            </p>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>semaphore_value</code></td>
-          <td class="doc-param-details">
-            <div class="doc-md-description">
-              <p>(Union[int, UseMaxConnections, None]): The value for the
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code>bool</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code>True</code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>semaphore_value</code></td>
+            <td class="doc-param-details">
+              <div class="doc-md-description">
+                <p>(Union[int, UseMaxConnections, None]): The value for the
 <code>asyncio.Semaphore</code> object that syncronizes the calls to HTTPX. Defaults
 to the number of <code>max_connections</code>.</p>
-            </div>
-            <p>
-                <span class="doc-param-annotation">
-                  <b>TYPE:</b>
-                    <code><span title="typing.Union">Union</span>[int, <span title="unparallel.unparallel.UseMaxConnections">UseMaxConnections</span>, None]</code>
-                </span>
-                <span class="doc-param-default">
-                  <b>DEFAULT:</b> 
-                    <code><span title="unparallel.unparallel.USE_MAX_CONNECTIONS">USE_MAX_CONNECTIONS</span></code>
-                </span>
-            </p>
-          </td>
+              </div>
+              <p>
+                  <span class="doc-param-annotation">
+                    <b>TYPE:</b>
+                      <code><span title="typing.Union">Union</span>[int, <span title="unparallel.unparallel.UseMaxConnections">UseMaxConnections</span>, None]</code>
+                  </span>
+                  <span class="doc-param-default">
+                    <b>DEFAULT:</b>
+                      <code><span title="unparallel.unparallel.USE_MAX_CONNECTIONS">USE_MAX_CONNECTIONS</span></code>
+                  </span>
+              </p>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">RAISES</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-    </tbody>
-  </table>
-
-
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">RAISES</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-            <span class="doc-raises-annotation">
-                <code>ValueError</code>
-            </span>
-          </td>
-          <td class="doc-raises-details">
-            <div class="doc-md-description">
-              <p>If the HTTP method is not valid.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td>
-            <span class="doc-raises-annotation">
-                <code>ValueError</code>
-            </span>
-          </td>
-          <td class="doc-raises-details">
-            <div class="doc-md-description">
-              <p>If the number of URLs provided does not match the number of
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+              <span class="doc-raises-annotation">
+                  <code>ValueError</code>
+              </span>
+            </td>
+            <td class="doc-raises-details">
+              <div class="doc-md-description">
+                <p>If the HTTP method is not valid.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+              <span class="doc-raises-annotation">
+                  <code>ValueError</code>
+              </span>
+            </td>
+            <td class="doc-raises-details">
+              <div class="doc-md-description">
+                <p>If the number of URLs provided does not match the number of
 payloads (except if there is only one URL).</p>
-            </div>
-          </td>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<table>
+      <thead>
+        <tr>
+          <th><span class="doc-section-title">RETURNS</span></th>
+          <th><span>DESCRIPTION</span></th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <span class="doc-returns-annotation">
+                    <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
+                </span>
+            </td>
+            <td class="doc-returns-details">
+              <div class="doc-md-description">
+                <p>List[Any]:  A list of the response data per request in the same order as the</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <span class="doc-returns-annotation">
+                    <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
+                </span>
+            </td>
+            <td class="doc-returns-details">
+              <div class="doc-md-description">
+                <p>input (URLs/payloads).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-
-
-  <table>
-    <thead>
-      <tr>
-        <th><span class="doc-section-title">RETURNS</span></th>
-        <th><span>DESCRIPTION</span></th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-              <span class="doc-returns-annotation">
-                  <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
-              </span>
-          </td>
-          <td class="doc-returns-details">
-            <div class="doc-md-description">
-              <p>List[Any]:  A list of the response data per request in the same order as the</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td>
-              <span class="doc-returns-annotation">
-                  <code><span title="typing.List">List</span>[<span title="typing.Any">Any</span>]</code>
-              </span>
-          </td>
-          <td class="doc-returns-details">
-            <div class="doc-md-description">
-              <p>input (URLs/payloads).</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-          <details class="quote">
-            <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-            <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-226">226</a></span>
+            <details class="quote">
+              <summary>Source code in <code>unparallel/unparallel.py</code></summary>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-226">226</a></span>
 <span class="normal"><a href="#__codelineno-0-227">227</a></span>
 <span class="normal"><a href="#__codelineno-0-228">228</a></span>
 <span class="normal"><a href="#__codelineno-0-229">229</a></span>
@@ -1395,8 +1388,8 @@ payloads (except if there is only one URL).</p>
 </span><span id="__span-0-363"><a id="__codelineno-0-363" name="__codelineno-0-363"></a>        <span class="n">semaphore_value</span><span class="o">=</span><span class="n">semaphore_value</span><span class="p">,</span>
 </span><span id="__span-0-364"><a id="__codelineno-0-364" name="__codelineno-0-364"></a>    <span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -1404,7 +1397,7 @@ payloads (except if there is only one URL).</p>
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
