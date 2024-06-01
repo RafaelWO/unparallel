@@ -632,41 +632,41 @@ of the failed request.</p>
 
             <details class="quote">
               <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-30">30</a></span>
-<span class="normal"><a href="#__codelineno-0-31">31</a></span>
-<span class="normal"><a href="#__codelineno-0-32">32</a></span>
-<span class="normal"><a href="#__codelineno-0-33">33</a></span>
-<span class="normal"><a href="#__codelineno-0-34">34</a></span>
-<span class="normal"><a href="#__codelineno-0-35">35</a></span>
-<span class="normal"><a href="#__codelineno-0-36">36</a></span>
-<span class="normal"><a href="#__codelineno-0-37">37</a></span>
-<span class="normal"><a href="#__codelineno-0-38">38</a></span>
-<span class="normal"><a href="#__codelineno-0-39">39</a></span>
-<span class="normal"><a href="#__codelineno-0-40">40</a></span>
-<span class="normal"><a href="#__codelineno-0-41">41</a></span>
-<span class="normal"><a href="#__codelineno-0-42">42</a></span>
-<span class="normal"><a href="#__codelineno-0-43">43</a></span>
-<span class="normal"><a href="#__codelineno-0-44">44</a></span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-44">44</a></span>
 <span class="normal"><a href="#__codelineno-0-45">45</a></span>
 <span class="normal"><a href="#__codelineno-0-46">46</a></span>
-<span class="normal"><a href="#__codelineno-0-47">47</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="nd">@dataclass</span>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="k">class</span> <span class="nc">RequestError</span><span class="p">:</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A dataclass wrapping an exception that was raised during a web request.</span>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Besides the exception itself, this contains the URL, method, and (optional) payload</span>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    of the failed request.</span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Attributes:</span>
-</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        url (str): The target URL of the request.</span>
-</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        method (str): The HTTP method.</span>
-</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        payload (Optional[Any]): The payload/body of the request.</span>
-</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        exception: (Exception): The exception that was raised.</span>
-</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="n">payload</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
-</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a>    <span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span>
+<span class="normal"><a href="#__codelineno-0-47">47</a></span>
+<span class="normal"><a href="#__codelineno-0-48">48</a></span>
+<span class="normal"><a href="#__codelineno-0-49">49</a></span>
+<span class="normal"><a href="#__codelineno-0-50">50</a></span>
+<span class="normal"><a href="#__codelineno-0-51">51</a></span>
+<span class="normal"><a href="#__codelineno-0-52">52</a></span>
+<span class="normal"><a href="#__codelineno-0-53">53</a></span>
+<span class="normal"><a href="#__codelineno-0-54">54</a></span>
+<span class="normal"><a href="#__codelineno-0-55">55</a></span>
+<span class="normal"><a href="#__codelineno-0-56">56</a></span>
+<span class="normal"><a href="#__codelineno-0-57">57</a></span>
+<span class="normal"><a href="#__codelineno-0-58">58</a></span>
+<span class="normal"><a href="#__codelineno-0-59">59</a></span>
+<span class="normal"><a href="#__codelineno-0-60">60</a></span>
+<span class="normal"><a href="#__codelineno-0-61">61</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="nd">@dataclass</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="k">class</span> <span class="nc">RequestError</span><span class="p">:</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A dataclass wrapping an exception that was raised during a web request.</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    Besides the exception itself, this contains the URL, method, and (optional) payload</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    of the failed request.</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Attributes:</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        url (str): The target URL of the request.</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        method (str): The HTTP method.</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        payload (Optional[Any]): The payload/body of the request.</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        exception: (Exception): The exception that was raised.</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="n">payload</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
 
@@ -706,7 +706,7 @@ of the failed request.</p>
   </span>
 
 </h3>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payloads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="n">DEFAULT_JSON_FN</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeouts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">up</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">payloads</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_fn</span><span class="o">=</span><span class="n">DEFAULT_JSON_FN</span><span class="p">,</span> <span class="n">flatten_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">raise_for_status</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeouts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">semaphore_value</span><span class="o">=</span><span class="n">USE_MAX_CONNECTIONS</span><span class="p">)</span>
 </span></code></pre></div>
 
   <div class="doc doc-contents ">
@@ -766,7 +766,7 @@ If a <code>base_url</code> is supplied, this can also be a list of paths
           <td class="doc-param-details">
             <div class="doc-md-description">
               <p>The base URL of the target API/service. Defaults to
-None.</p>
+<code>None</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -785,7 +785,7 @@ None.</p>
           <td class="doc-param-details">
             <div class="doc-md-description">
               <p>A dictionary of headers to use.
-Defaults to None.</p>
+Defaults to <code>None</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -806,7 +806,7 @@ Defaults to None.</p>
               <p>A list of JSON payloads (dictionaries) e.g.
 for HTTP post requests. Used together with <code>urls</code>. If one payload but
 multiple URLs are supplied, that payload is used for all requests.
-Defaults to None.</p>
+Defaults to <code>None</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -849,7 +849,7 @@ Defaults to <code>httpx.Response.json</code>.</p>
             <div class="doc-md-description">
               <p>If True and the response per request is a list,
 flatten that list of lists. This is useful when using paging.
-Defaults to False.</p>
+Defaults to <code>False</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -868,7 +868,7 @@ Defaults to False.</p>
           <td class="doc-param-details">
             <div class="doc-md-description">
               <p>The total number of simultaneous TCP
-connections. Defaults to 100. This is passed into <code>httpx.Limits</code>.</p>
+connections. Defaults to <code>100</code>. This is passed into <code>httpx.Limits</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -906,7 +906,7 @@ This is passed into <code>httpx.Timeout</code>.</p>
           <td class="doc-param-details">
             <div class="doc-md-description">
               <p>The maximum number retries if the requests fails
-due to a timeout (<code>httpx.TimeoutException</code>). Defauls to 3.</p>
+due to a timeout (<code>httpx.TimeoutException</code>). Defaults to <code>3</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -984,7 +984,7 @@ If specified, this overrides the <code>timeout</code> parameter.</p>
               <p>An instance of <code>httpx.AsyncClient</code> to be
 used for creating the HTTP requests. <strong>Note that if you pass a client, all
 other options that parametrize the client (<code>base_url</code>, <code>headers</code>,
-<code>limits</code>, and <code>timeouts</code>) are ignored</strong>. Defaults to None.</p>
+<code>limits</code>, and <code>timeouts</code>) are ignored</strong>. Defaults to <code>None</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -1002,8 +1002,8 @@ other options that parametrize the client (<code>base_url</code>, <code>headers<
           <td><code>progress</code></td>
           <td class="doc-param-details">
             <div class="doc-md-description">
-              <p>If set to True, progress bar is shown.
-Defaults to True.</p>
+              <p>If set to <code>True</code>, progress bar is shown.
+Defaults to <code>True</code>.</p>
             </div>
             <p>
                 <span class="doc-param-annotation">
@@ -1013,6 +1013,26 @@ Defaults to True.</p>
                 <span class="doc-param-default">
                   <b>DEFAULT:</b> 
                     <code>True</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr class="doc-section-item">
+          <td><code>semaphore_value</code></td>
+          <td class="doc-param-details">
+            <div class="doc-md-description">
+              <p>(Union[int, UseMaxConnections, None]): The value for the
+<code>asyncio.Semaphore</code> object that syncronizes the calls to HTTPX. Defaults
+to the number of <code>max_connections</code>.</p>
+            </div>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Union">Union</span>[int, <span title="unparallel.unparallel.UseMaxConnections">UseMaxConnections</span>, None]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code><span title="unparallel.unparallel.USE_MAX_CONNECTIONS">USE_MAX_CONNECTIONS</span></code>
                 </span>
             </p>
           </td>
@@ -1097,20 +1117,7 @@ payloads (except if there is only one URL).</p>
 
           <details class="quote">
             <summary>Source code in <code>unparallel/unparallel.py</code></summary>
-            <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-213">213</a></span>
-<span class="normal"><a href="#__codelineno-0-214">214</a></span>
-<span class="normal"><a href="#__codelineno-0-215">215</a></span>
-<span class="normal"><a href="#__codelineno-0-216">216</a></span>
-<span class="normal"><a href="#__codelineno-0-217">217</a></span>
-<span class="normal"><a href="#__codelineno-0-218">218</a></span>
-<span class="normal"><a href="#__codelineno-0-219">219</a></span>
-<span class="normal"><a href="#__codelineno-0-220">220</a></span>
-<span class="normal"><a href="#__codelineno-0-221">221</a></span>
-<span class="normal"><a href="#__codelineno-0-222">222</a></span>
-<span class="normal"><a href="#__codelineno-0-223">223</a></span>
-<span class="normal"><a href="#__codelineno-0-224">224</a></span>
-<span class="normal"><a href="#__codelineno-0-225">225</a></span>
-<span class="normal"><a href="#__codelineno-0-226">226</a></span>
+            <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-226">226</a></span>
 <span class="normal"><a href="#__codelineno-0-227">227</a></span>
 <span class="normal"><a href="#__codelineno-0-228">228</a></span>
 <span class="normal"><a href="#__codelineno-0-229">229</a></span>
@@ -1220,130 +1227,173 @@ payloads (except if there is only one URL).</p>
 <span class="normal"><a href="#__codelineno-0-333">333</a></span>
 <span class="normal"><a href="#__codelineno-0-334">334</a></span>
 <span class="normal"><a href="#__codelineno-0-335">335</a></span>
-<span class="normal"><a href="#__codelineno-0-336">336</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-213"><a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">up</span><span class="p">(</span>
-</span><span id="__span-0-214"><a id="__codelineno-0-214" name="__codelineno-0-214"></a>    <span class="n">urls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
-</span><span id="__span-0-215"><a id="__codelineno-0-215" name="__codelineno-0-215"></a>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
-</span><span id="__span-0-216"><a id="__codelineno-0-216" name="__codelineno-0-216"></a>    <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-217"><a id="__codelineno-0-217" name="__codelineno-0-217"></a>    <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-218"><a id="__codelineno-0-218" name="__codelineno-0-218"></a>    <span class="n">payloads</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-219"><a id="__codelineno-0-219" name="__codelineno-0-219"></a>    <span class="n">response_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_FN</span><span class="p">,</span>
-</span><span id="__span-0-220"><a id="__codelineno-0-220" name="__codelineno-0-220"></a>    <span class="n">flatten_result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-0-221"><a id="__codelineno-0-221" name="__codelineno-0-221"></a>    <span class="n">max_connections</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-</span><span id="__span-0-222"><a id="__codelineno-0-222" name="__codelineno-0-222"></a>    <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-0-223"><a id="__codelineno-0-223" name="__codelineno-0-223"></a>    <span class="n">max_retries_on_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-</span><span id="__span-0-224"><a id="__codelineno-0-224" name="__codelineno-0-224"></a>    <span class="n">raise_for_status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-225"><a id="__codelineno-0-225" name="__codelineno-0-225"></a>    <span class="n">limits</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Limits</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-226"><a id="__codelineno-0-226" name="__codelineno-0-226"></a>    <span class="n">timeouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-227"><a id="__codelineno-0-227" name="__codelineno-0-227"></a>    <span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-228"><a id="__codelineno-0-228" name="__codelineno-0-228"></a>    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-0-229"><a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-</span><span id="__span-0-230"><a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates async web requests to the specified URL(s) using ``asyncio``</span>
-</span><span id="__span-0-231"><a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">    and ``httpx``.</span>
-</span><span id="__span-0-232"><a id="__codelineno-0-232" name="__codelineno-0-232"></a>
-</span><span id="__span-0-233"><a id="__codelineno-0-233" name="__codelineno-0-233"></a><span class="sd">    Args:</span>
-</span><span id="__span-0-234"><a id="__codelineno-0-234" name="__codelineno-0-234"></a><span class="sd">        urls (Union[str, List[str]]): A list of URLs as the targets for the requests.</span>
-</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a><span class="sd">            If only one URL but multiple payloads are supplied, that URL is used for</span>
-</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a><span class="sd">            all requests.</span>
-</span><span id="__span-0-237"><a id="__codelineno-0-237" name="__codelineno-0-237"></a><span class="sd">            If a ``base_url`` is supplied, this can also be a list of paths</span>
-</span><span id="__span-0-238"><a id="__codelineno-0-238" name="__codelineno-0-238"></a><span class="sd">            (or one path).</span>
-</span><span id="__span-0-239"><a id="__codelineno-0-239" name="__codelineno-0-239"></a><span class="sd">        method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,</span>
-</span><span id="__span-0-240"><a id="__codelineno-0-240" name="__codelineno-0-240"></a><span class="sd">            ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.</span>
-</span><span id="__span-0-241"><a id="__codelineno-0-241" name="__codelineno-0-241"></a><span class="sd">        base_url (Optional[str]):  The base URL of the target API/service. Defaults to</span>
-</span><span id="__span-0-242"><a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="sd">            None.</span>
-</span><span id="__span-0-243"><a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="sd">        headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.</span>
-</span><span id="__span-0-244"><a id="__codelineno-0-244" name="__codelineno-0-244"></a><span class="sd">            Defaults to None.</span>
-</span><span id="__span-0-245"><a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">        payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.</span>
-</span><span id="__span-0-246"><a id="__codelineno-0-246" name="__codelineno-0-246"></a><span class="sd">            for HTTP post requests. Used together with ``urls``. If one payload but</span>
-</span><span id="__span-0-247"><a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">            multiple URLs are supplied, that payload is used for all requests.</span>
-</span><span id="__span-0-248"><a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="sd">            Defaults to None.</span>
-</span><span id="__span-0-249"><a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">        response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)</span>
-</span><span id="__span-0-250"><a id="__codelineno-0-250" name="__codelineno-0-250"></a><span class="sd">            to apply on every response of the HTTP requests. This can be an existing</span>
-</span><span id="__span-0-251"><a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">            function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom</span>
-</span><span id="__span-0-252"><a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">            function which takes the ``httpx.Response`` as the argument returns ``Any``.</span>
-</span><span id="__span-0-253"><a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="sd">            If you set this to ``None``, you will get the raw ``httpx.Response``.</span>
-</span><span id="__span-0-254"><a id="__codelineno-0-254" name="__codelineno-0-254"></a><span class="sd">            Defaults to ``httpx.Response.json``.</span>
-</span><span id="__span-0-255"><a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="sd">        flatten_result (bool): If True and the response per request is a list,</span>
-</span><span id="__span-0-256"><a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="sd">            flatten that list of lists. This is useful when using paging.</span>
-</span><span id="__span-0-257"><a id="__codelineno-0-257" name="__codelineno-0-257"></a><span class="sd">            Defaults to False.</span>
-</span><span id="__span-0-258"><a id="__codelineno-0-258" name="__codelineno-0-258"></a><span class="sd">        max_connections (int): The total number of simultaneous TCP</span>
-</span><span id="__span-0-259"><a id="__codelineno-0-259" name="__codelineno-0-259"></a><span class="sd">            connections. Defaults to 100. This is passed into ``httpx.Limits``.</span>
-</span><span id="__span-0-260"><a id="__codelineno-0-260" name="__codelineno-0-260"></a><span class="sd">        timeout (int): The timeout for requests in seconds. Defaults to 10.</span>
-</span><span id="__span-0-261"><a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="sd">            This is passed into ``httpx.Timeout``.</span>
-</span><span id="__span-0-262"><a id="__codelineno-0-262" name="__codelineno-0-262"></a><span class="sd">        max_retries_on_timeout (int): The maximum number retries if the requests fails</span>
-</span><span id="__span-0-263"><a id="__codelineno-0-263" name="__codelineno-0-263"></a><span class="sd">            due to a timeout (``httpx.TimeoutException``). Defauls to 3.</span>
-</span><span id="__span-0-264"><a id="__codelineno-0-264" name="__codelineno-0-264"></a><span class="sd">        raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy</span>
-</span><span id="__span-0-265"><a id="__codelineno-0-265" name="__codelineno-0-265"></a><span class="sd">            response.</span>
-</span><span id="__span-0-266"><a id="__codelineno-0-266" name="__codelineno-0-266"></a><span class="sd">        limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.</span>
-</span><span id="__span-0-267"><a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="sd">            If specified, this overrides the ``max_connections`` parameter.</span>
-</span><span id="__span-0-268"><a id="__codelineno-0-268" name="__codelineno-0-268"></a><span class="sd">        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.</span>
-</span><span id="__span-0-269"><a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">            If specified, this overrides the ``timeout`` parameter.</span>
-</span><span id="__span-0-270"><a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be</span>
-</span><span id="__span-0-271"><a id="__codelineno-0-271" name="__codelineno-0-271"></a><span class="sd">            used for creating the HTTP requests. **Note that if you pass a client, all</span>
-</span><span id="__span-0-272"><a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">            other options that parametrize the client (``base_url``, ``headers``,</span>
-</span><span id="__span-0-273"><a id="__codelineno-0-273" name="__codelineno-0-273"></a><span class="sd">            ``limits``, and ``timeouts``) are ignored**. Defaults to None.</span>
-</span><span id="__span-0-274"><a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">        progress (bool): If set to True, progress bar is shown.</span>
-</span><span id="__span-0-275"><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">            Defaults to True.</span>
-</span><span id="__span-0-276"><a id="__codelineno-0-276" name="__codelineno-0-276"></a>
-</span><span id="__span-0-277"><a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">    Raises:</span>
-</span><span id="__span-0-278"><a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">        ValueError: If the HTTP method is not valid.</span>
-</span><span id="__span-0-279"><a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">        ValueError: If the number of URLs provided does not match the number of</span>
-</span><span id="__span-0-280"><a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">            payloads (except if there is only one URL).</span>
-</span><span id="__span-0-281"><a id="__codelineno-0-281" name="__codelineno-0-281"></a>
-</span><span id="__span-0-282"><a id="__codelineno-0-282" name="__codelineno-0-282"></a><span class="sd">    Returns:</span>
-</span><span id="__span-0-283"><a id="__codelineno-0-283" name="__codelineno-0-283"></a><span class="sd">        List[Any]:  A list of the response data per request in the same order as the</span>
-</span><span id="__span-0-284"><a id="__codelineno-0-284" name="__codelineno-0-284"></a><span class="sd">        input (URLs/payloads).</span>
-</span><span id="__span-0-285"><a id="__codelineno-0-285" name="__codelineno-0-285"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-0-286"><a id="__codelineno-0-286" name="__codelineno-0-286"></a>    <span class="c1"># Check if method it valid</span>
-</span><span id="__span-0-287"><a id="__codelineno-0-287" name="__codelineno-0-287"></a>    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_HTTP_METHODS</span><span class="p">:</span>
-</span><span id="__span-0-288"><a id="__codelineno-0-288" name="__codelineno-0-288"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-</span><span id="__span-0-289"><a id="__codelineno-0-289" name="__codelineno-0-289"></a>            <span class="sa">f</span><span class="s2">&quot;The method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39; is not a supported HTTP method. &quot;</span>
-</span><span id="__span-0-290"><a id="__codelineno-0-290" name="__codelineno-0-290"></a>            <span class="sa">f</span><span class="s2">&quot;Supported methods: </span><span class="si">{</span><span class="n">VALID_HTTP_METHODS</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-0-291"><a id="__codelineno-0-291" name="__codelineno-0-291"></a>        <span class="p">)</span>
-</span><span id="__span-0-292"><a id="__codelineno-0-292" name="__codelineno-0-292"></a>
-</span><span id="__span-0-293"><a id="__codelineno-0-293" name="__codelineno-0-293"></a>    <span class="c1"># Wrap single URL into list to check for alignment with payload</span>
-</span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a>        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">urls</span><span class="p">]</span>
-</span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a>
-</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a>    <span class="c1"># Check if payloads align with URLs</span>
-</span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a>    <span class="k">if</span> <span class="n">payloads</span><span class="p">:</span>
-</span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payloads</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-</span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a>            <span class="n">payloads</span> <span class="o">=</span> <span class="p">[</span><span class="n">payloads</span><span class="p">]</span>
-</span><span id="__span-0-301"><a id="__codelineno-0-301" name="__codelineno-0-301"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="__span-0-302"><a id="__codelineno-0-302" name="__codelineno-0-302"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using URL &#39;</span><span class="si">{</span><span class="n">urls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; for all </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span><span class="si">}</span><span class="s2"> payloads&quot;</span><span class="p">)</span>
-</span><span id="__span-0-303"><a id="__codelineno-0-303" name="__codelineno-0-303"></a>            <span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span>
-</span><span id="__span-0-304"><a id="__codelineno-0-304" name="__codelineno-0-304"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-</span><span id="__span-0-305"><a id="__codelineno-0-305" name="__codelineno-0-305"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using payload &#39;</span><span class="si">{</span><span class="n">payloads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; for all </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> URLs&quot;</span><span class="p">)</span>
-</span><span id="__span-0-306"><a id="__codelineno-0-306" name="__codelineno-0-306"></a>            <span class="n">payloads</span> <span class="o">=</span> <span class="n">payloads</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
-</span><span id="__span-0-307"><a id="__codelineno-0-307" name="__codelineno-0-307"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">):</span>
-</span><span id="__span-0-308"><a id="__codelineno-0-308" name="__codelineno-0-308"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-</span><span id="__span-0-309"><a id="__codelineno-0-309" name="__codelineno-0-309"></a>                <span class="sa">f</span><span class="s2">&quot;The number of URLs does not match the number of payloads: &quot;</span>
-</span><span id="__span-0-310"><a id="__codelineno-0-310" name="__codelineno-0-310"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-0-311"><a id="__codelineno-0-311" name="__codelineno-0-311"></a>            <span class="p">)</span>
-</span><span id="__span-0-312"><a id="__codelineno-0-312" name="__codelineno-0-312"></a>
-</span><span id="__span-0-313"><a id="__codelineno-0-313" name="__codelineno-0-313"></a>    <span class="k">if</span> <span class="n">timeouts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-314"><a id="__codelineno-0-314" name="__codelineno-0-314"></a>        <span class="n">timeouts</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
-</span><span id="__span-0-315"><a id="__codelineno-0-315" name="__codelineno-0-315"></a>    <span class="k">if</span> <span class="n">limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-316"><a id="__codelineno-0-316" name="__codelineno-0-316"></a>        <span class="k">if</span> <span class="n">max_connections</span> <span class="o">!=</span> <span class="n">DEFAULT_LIMITS</span><span class="o">.</span><span class="n">max_connections</span><span class="p">:</span>
-</span><span id="__span-0-317"><a id="__codelineno-0-317" name="__codelineno-0-317"></a>            <span class="n">limits</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Limits</span><span class="p">(</span><span class="n">max_connections</span><span class="o">=</span><span class="n">max_connections</span><span class="p">)</span>
-</span><span id="__span-0-318"><a id="__codelineno-0-318" name="__codelineno-0-318"></a>            <span class="n">limits</span><span class="o">.</span><span class="n">max_keepalive_connections</span> <span class="o">=</span> <span class="n">DEFAULT_LIMITS</span><span class="o">.</span><span class="n">max_keepalive_connections</span>
-</span><span id="__span-0-319"><a id="__codelineno-0-319" name="__codelineno-0-319"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-320"><a id="__codelineno-0-320" name="__codelineno-0-320"></a>            <span class="n">limits</span> <span class="o">=</span> <span class="n">DEFAULT_LIMITS</span>
-</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a>
-</span><span id="__span-0-322"><a id="__codelineno-0-322" name="__codelineno-0-322"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">request_urls</span><span class="p">(</span>
-</span><span id="__span-0-323"><a id="__codelineno-0-323" name="__codelineno-0-323"></a>        <span class="n">urls</span><span class="o">=</span><span class="n">urls</span><span class="p">,</span>
-</span><span id="__span-0-324"><a id="__codelineno-0-324" name="__codelineno-0-324"></a>        <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-</span><span id="__span-0-325"><a id="__codelineno-0-325" name="__codelineno-0-325"></a>        <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span>
-</span><span id="__span-0-326"><a id="__codelineno-0-326" name="__codelineno-0-326"></a>        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-</span><span id="__span-0-327"><a id="__codelineno-0-327" name="__codelineno-0-327"></a>        <span class="n">payloads</span><span class="o">=</span><span class="n">payloads</span><span class="p">,</span>
-</span><span id="__span-0-328"><a id="__codelineno-0-328" name="__codelineno-0-328"></a>        <span class="n">response_fn</span><span class="o">=</span><span class="n">response_fn</span><span class="p">,</span>
-</span><span id="__span-0-329"><a id="__codelineno-0-329" name="__codelineno-0-329"></a>        <span class="n">flatten_result</span><span class="o">=</span><span class="n">flatten_result</span><span class="p">,</span>
-</span><span id="__span-0-330"><a id="__codelineno-0-330" name="__codelineno-0-330"></a>        <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="n">max_retries_on_timeout</span><span class="p">,</span>
-</span><span id="__span-0-331"><a id="__codelineno-0-331" name="__codelineno-0-331"></a>        <span class="n">raise_for_status</span><span class="o">=</span><span class="n">raise_for_status</span><span class="p">,</span>
-</span><span id="__span-0-332"><a id="__codelineno-0-332" name="__codelineno-0-332"></a>        <span class="n">limits</span><span class="o">=</span><span class="n">limits</span><span class="p">,</span>
-</span><span id="__span-0-333"><a id="__codelineno-0-333" name="__codelineno-0-333"></a>        <span class="n">timeouts</span><span class="o">=</span><span class="n">timeouts</span><span class="p">,</span>
-</span><span id="__span-0-334"><a id="__codelineno-0-334" name="__codelineno-0-334"></a>        <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
-</span><span id="__span-0-335"><a id="__codelineno-0-335" name="__codelineno-0-335"></a>        <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
-</span><span id="__span-0-336"><a id="__codelineno-0-336" name="__codelineno-0-336"></a>    <span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-336">336</a></span>
+<span class="normal"><a href="#__codelineno-0-337">337</a></span>
+<span class="normal"><a href="#__codelineno-0-338">338</a></span>
+<span class="normal"><a href="#__codelineno-0-339">339</a></span>
+<span class="normal"><a href="#__codelineno-0-340">340</a></span>
+<span class="normal"><a href="#__codelineno-0-341">341</a></span>
+<span class="normal"><a href="#__codelineno-0-342">342</a></span>
+<span class="normal"><a href="#__codelineno-0-343">343</a></span>
+<span class="normal"><a href="#__codelineno-0-344">344</a></span>
+<span class="normal"><a href="#__codelineno-0-345">345</a></span>
+<span class="normal"><a href="#__codelineno-0-346">346</a></span>
+<span class="normal"><a href="#__codelineno-0-347">347</a></span>
+<span class="normal"><a href="#__codelineno-0-348">348</a></span>
+<span class="normal"><a href="#__codelineno-0-349">349</a></span>
+<span class="normal"><a href="#__codelineno-0-350">350</a></span>
+<span class="normal"><a href="#__codelineno-0-351">351</a></span>
+<span class="normal"><a href="#__codelineno-0-352">352</a></span>
+<span class="normal"><a href="#__codelineno-0-353">353</a></span>
+<span class="normal"><a href="#__codelineno-0-354">354</a></span>
+<span class="normal"><a href="#__codelineno-0-355">355</a></span>
+<span class="normal"><a href="#__codelineno-0-356">356</a></span>
+<span class="normal"><a href="#__codelineno-0-357">357</a></span>
+<span class="normal"><a href="#__codelineno-0-358">358</a></span>
+<span class="normal"><a href="#__codelineno-0-359">359</a></span>
+<span class="normal"><a href="#__codelineno-0-360">360</a></span>
+<span class="normal"><a href="#__codelineno-0-361">361</a></span>
+<span class="normal"><a href="#__codelineno-0-362">362</a></span>
+<span class="normal"><a href="#__codelineno-0-363">363</a></span>
+<span class="normal"><a href="#__codelineno-0-364">364</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-226"><a id="__codelineno-0-226" name="__codelineno-0-226"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">up</span><span class="p">(</span>
+</span><span id="__span-0-227"><a id="__codelineno-0-227" name="__codelineno-0-227"></a>    <span class="n">urls</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+</span><span id="__span-0-228"><a id="__codelineno-0-228" name="__codelineno-0-228"></a>    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+</span><span id="__span-0-229"><a id="__codelineno-0-229" name="__codelineno-0-229"></a>    <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-230"><a id="__codelineno-0-230" name="__codelineno-0-230"></a>    <span class="n">headers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-231"><a id="__codelineno-0-231" name="__codelineno-0-231"></a>    <span class="n">payloads</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-232"><a id="__codelineno-0-232" name="__codelineno-0-232"></a>    <span class="n">response_fn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">DEFAULT_JSON_FN</span><span class="p">,</span>
+</span><span id="__span-0-233"><a id="__codelineno-0-233" name="__codelineno-0-233"></a>    <span class="n">flatten_result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-234"><a id="__codelineno-0-234" name="__codelineno-0-234"></a>    <span class="n">max_connections</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+</span><span id="__span-0-235"><a id="__codelineno-0-235" name="__codelineno-0-235"></a>    <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-0-236"><a id="__codelineno-0-236" name="__codelineno-0-236"></a>    <span class="n">max_retries_on_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-0-237"><a id="__codelineno-0-237" name="__codelineno-0-237"></a>    <span class="n">raise_for_status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-238"><a id="__codelineno-0-238" name="__codelineno-0-238"></a>    <span class="n">limits</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Limits</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-239"><a id="__codelineno-0-239" name="__codelineno-0-239"></a>    <span class="n">timeouts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-240"><a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="n">client</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-241"><a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-0-242"><a id="__codelineno-0-242" name="__codelineno-0-242"></a>    <span class="n">semaphore_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">UseMaxConnections</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="n">USE_MAX_CONNECTIONS</span><span class="p">,</span>
+</span><span id="__span-0-243"><a id="__codelineno-0-243" name="__codelineno-0-243"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+</span><span id="__span-0-244"><a id="__codelineno-0-244" name="__codelineno-0-244"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates async web requests to the specified URL(s) using ``asyncio``</span>
+</span><span id="__span-0-245"><a id="__codelineno-0-245" name="__codelineno-0-245"></a><span class="sd">    and ``httpx``.</span>
+</span><span id="__span-0-246"><a id="__codelineno-0-246" name="__codelineno-0-246"></a>
+</span><span id="__span-0-247"><a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="sd">    Args:</span>
+</span><span id="__span-0-248"><a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="sd">        urls (Union[str, List[str]]): A list of URLs as the targets for the requests.</span>
+</span><span id="__span-0-249"><a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">            If only one URL but multiple payloads are supplied, that URL is used for</span>
+</span><span id="__span-0-250"><a id="__codelineno-0-250" name="__codelineno-0-250"></a><span class="sd">            all requests.</span>
+</span><span id="__span-0-251"><a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">            If a ``base_url`` is supplied, this can also be a list of paths</span>
+</span><span id="__span-0-252"><a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">            (or one path).</span>
+</span><span id="__span-0-253"><a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="sd">        method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,</span>
+</span><span id="__span-0-254"><a id="__codelineno-0-254" name="__codelineno-0-254"></a><span class="sd">            ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.</span>
+</span><span id="__span-0-255"><a id="__codelineno-0-255" name="__codelineno-0-255"></a><span class="sd">        base_url (Optional[str]):  The base URL of the target API/service. Defaults to</span>
+</span><span id="__span-0-256"><a id="__codelineno-0-256" name="__codelineno-0-256"></a><span class="sd">            ``None``.</span>
+</span><span id="__span-0-257"><a id="__codelineno-0-257" name="__codelineno-0-257"></a><span class="sd">        headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.</span>
+</span><span id="__span-0-258"><a id="__codelineno-0-258" name="__codelineno-0-258"></a><span class="sd">            Defaults to ``None``.</span>
+</span><span id="__span-0-259"><a id="__codelineno-0-259" name="__codelineno-0-259"></a><span class="sd">        payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.</span>
+</span><span id="__span-0-260"><a id="__codelineno-0-260" name="__codelineno-0-260"></a><span class="sd">            for HTTP post requests. Used together with ``urls``. If one payload but</span>
+</span><span id="__span-0-261"><a id="__codelineno-0-261" name="__codelineno-0-261"></a><span class="sd">            multiple URLs are supplied, that payload is used for all requests.</span>
+</span><span id="__span-0-262"><a id="__codelineno-0-262" name="__codelineno-0-262"></a><span class="sd">            Defaults to ``None``.</span>
+</span><span id="__span-0-263"><a id="__codelineno-0-263" name="__codelineno-0-263"></a><span class="sd">        response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)</span>
+</span><span id="__span-0-264"><a id="__codelineno-0-264" name="__codelineno-0-264"></a><span class="sd">            to apply on every response of the HTTP requests. This can be an existing</span>
+</span><span id="__span-0-265"><a id="__codelineno-0-265" name="__codelineno-0-265"></a><span class="sd">            function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom</span>
+</span><span id="__span-0-266"><a id="__codelineno-0-266" name="__codelineno-0-266"></a><span class="sd">            function which takes the ``httpx.Response`` as the argument returns ``Any``.</span>
+</span><span id="__span-0-267"><a id="__codelineno-0-267" name="__codelineno-0-267"></a><span class="sd">            If you set this to ``None``, you will get the raw ``httpx.Response``.</span>
+</span><span id="__span-0-268"><a id="__codelineno-0-268" name="__codelineno-0-268"></a><span class="sd">            Defaults to ``httpx.Response.json``.</span>
+</span><span id="__span-0-269"><a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">        flatten_result (bool): If True and the response per request is a list,</span>
+</span><span id="__span-0-270"><a id="__codelineno-0-270" name="__codelineno-0-270"></a><span class="sd">            flatten that list of lists. This is useful when using paging.</span>
+</span><span id="__span-0-271"><a id="__codelineno-0-271" name="__codelineno-0-271"></a><span class="sd">            Defaults to ``False``.</span>
+</span><span id="__span-0-272"><a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">        max_connections (int): The total number of simultaneous TCP</span>
+</span><span id="__span-0-273"><a id="__codelineno-0-273" name="__codelineno-0-273"></a><span class="sd">            connections. Defaults to ``100``. This is passed into ``httpx.Limits``.</span>
+</span><span id="__span-0-274"><a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">        timeout (int): The timeout for requests in seconds. Defaults to 10.</span>
+</span><span id="__span-0-275"><a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">            This is passed into ``httpx.Timeout``.</span>
+</span><span id="__span-0-276"><a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="sd">        max_retries_on_timeout (int): The maximum number retries if the requests fails</span>
+</span><span id="__span-0-277"><a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">            due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.</span>
+</span><span id="__span-0-278"><a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">        raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy</span>
+</span><span id="__span-0-279"><a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">            response.</span>
+</span><span id="__span-0-280"><a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">        limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.</span>
+</span><span id="__span-0-281"><a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">            If specified, this overrides the ``max_connections`` parameter.</span>
+</span><span id="__span-0-282"><a id="__codelineno-0-282" name="__codelineno-0-282"></a><span class="sd">        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.</span>
+</span><span id="__span-0-283"><a id="__codelineno-0-283" name="__codelineno-0-283"></a><span class="sd">            If specified, this overrides the ``timeout`` parameter.</span>
+</span><span id="__span-0-284"><a id="__codelineno-0-284" name="__codelineno-0-284"></a><span class="sd">        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be</span>
+</span><span id="__span-0-285"><a id="__codelineno-0-285" name="__codelineno-0-285"></a><span class="sd">            used for creating the HTTP requests. **Note that if you pass a client, all</span>
+</span><span id="__span-0-286"><a id="__codelineno-0-286" name="__codelineno-0-286"></a><span class="sd">            other options that parametrize the client (``base_url``, ``headers``,</span>
+</span><span id="__span-0-287"><a id="__codelineno-0-287" name="__codelineno-0-287"></a><span class="sd">            ``limits``, and ``timeouts``) are ignored**. Defaults to ``None``.</span>
+</span><span id="__span-0-288"><a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">        progress (bool): If set to ``True``, progress bar is shown.</span>
+</span><span id="__span-0-289"><a id="__codelineno-0-289" name="__codelineno-0-289"></a><span class="sd">            Defaults to ``True``.</span>
+</span><span id="__span-0-290"><a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">        semaphore_value: (Union[int, UseMaxConnections, None]): The value for the</span>
+</span><span id="__span-0-291"><a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="sd">            ``asyncio.Semaphore`` object that syncronizes the calls to HTTPX. Defaults</span>
+</span><span id="__span-0-292"><a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="sd">            to the number of ``max_connections``.</span>
+</span><span id="__span-0-293"><a id="__codelineno-0-293" name="__codelineno-0-293"></a>
+</span><span id="__span-0-294"><a id="__codelineno-0-294" name="__codelineno-0-294"></a><span class="sd">    Raises:</span>
+</span><span id="__span-0-295"><a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">        ValueError: If the HTTP method is not valid.</span>
+</span><span id="__span-0-296"><a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">        ValueError: If the number of URLs provided does not match the number of</span>
+</span><span id="__span-0-297"><a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">            payloads (except if there is only one URL).</span>
+</span><span id="__span-0-298"><a id="__codelineno-0-298" name="__codelineno-0-298"></a>
+</span><span id="__span-0-299"><a id="__codelineno-0-299" name="__codelineno-0-299"></a><span class="sd">    Returns:</span>
+</span><span id="__span-0-300"><a id="__codelineno-0-300" name="__codelineno-0-300"></a><span class="sd">        List[Any]:  A list of the response data per request in the same order as the</span>
+</span><span id="__span-0-301"><a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">        input (URLs/payloads).</span>
+</span><span id="__span-0-302"><a id="__codelineno-0-302" name="__codelineno-0-302"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-303"><a id="__codelineno-0-303" name="__codelineno-0-303"></a>    <span class="c1"># Check if method it valid</span>
+</span><span id="__span-0-304"><a id="__codelineno-0-304" name="__codelineno-0-304"></a>    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">VALID_HTTP_METHODS</span><span class="p">:</span>
+</span><span id="__span-0-305"><a id="__codelineno-0-305" name="__codelineno-0-305"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span><span id="__span-0-306"><a id="__codelineno-0-306" name="__codelineno-0-306"></a>            <span class="sa">f</span><span class="s2">&quot;The method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39; is not a supported HTTP method. &quot;</span>
+</span><span id="__span-0-307"><a id="__codelineno-0-307" name="__codelineno-0-307"></a>            <span class="sa">f</span><span class="s2">&quot;Supported methods: </span><span class="si">{</span><span class="n">VALID_HTTP_METHODS</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-0-308"><a id="__codelineno-0-308" name="__codelineno-0-308"></a>        <span class="p">)</span>
+</span><span id="__span-0-309"><a id="__codelineno-0-309" name="__codelineno-0-309"></a>
+</span><span id="__span-0-310"><a id="__codelineno-0-310" name="__codelineno-0-310"></a>    <span class="c1"># Wrap single URL into list to check for alignment with payload</span>
+</span><span id="__span-0-311"><a id="__codelineno-0-311" name="__codelineno-0-311"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-0-312"><a id="__codelineno-0-312" name="__codelineno-0-312"></a>        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">urls</span><span class="p">]</span>
+</span><span id="__span-0-313"><a id="__codelineno-0-313" name="__codelineno-0-313"></a>
+</span><span id="__span-0-314"><a id="__codelineno-0-314" name="__codelineno-0-314"></a>    <span class="c1"># Check if payloads align with URLs</span>
+</span><span id="__span-0-315"><a id="__codelineno-0-315" name="__codelineno-0-315"></a>    <span class="k">if</span> <span class="n">payloads</span><span class="p">:</span>
+</span><span id="__span-0-316"><a id="__codelineno-0-316" name="__codelineno-0-316"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payloads</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span><span id="__span-0-317"><a id="__codelineno-0-317" name="__codelineno-0-317"></a>            <span class="n">payloads</span> <span class="o">=</span> <span class="p">[</span><span class="n">payloads</span><span class="p">]</span>
+</span><span id="__span-0-318"><a id="__codelineno-0-318" name="__codelineno-0-318"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-0-319"><a id="__codelineno-0-319" name="__codelineno-0-319"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using URL &#39;</span><span class="si">{</span><span class="n">urls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; for all </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span><span class="si">}</span><span class="s2"> payloads&quot;</span><span class="p">)</span>
+</span><span id="__span-0-320"><a id="__codelineno-0-320" name="__codelineno-0-320"></a>            <span class="n">urls</span> <span class="o">=</span> <span class="n">urls</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span>
+</span><span id="__span-0-321"><a id="__codelineno-0-321" name="__codelineno-0-321"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-0-322"><a id="__codelineno-0-322" name="__codelineno-0-322"></a>            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using payload &#39;</span><span class="si">{</span><span class="n">payloads</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; for all </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> URLs&quot;</span><span class="p">)</span>
+</span><span id="__span-0-323"><a id="__codelineno-0-323" name="__codelineno-0-323"></a>            <span class="n">payloads</span> <span class="o">=</span> <span class="n">payloads</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span>
+</span><span id="__span-0-324"><a id="__codelineno-0-324" name="__codelineno-0-324"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">):</span>
+</span><span id="__span-0-325"><a id="__codelineno-0-325" name="__codelineno-0-325"></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+</span><span id="__span-0-326"><a id="__codelineno-0-326" name="__codelineno-0-326"></a>                <span class="sa">f</span><span class="s2">&quot;The number of URLs does not match the number of payloads: &quot;</span>
+</span><span id="__span-0-327"><a id="__codelineno-0-327" name="__codelineno-0-327"></a>                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">urls</span><span class="p">)</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">payloads</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-0-328"><a id="__codelineno-0-328" name="__codelineno-0-328"></a>            <span class="p">)</span>
+</span><span id="__span-0-329"><a id="__codelineno-0-329" name="__codelineno-0-329"></a>
+</span><span id="__span-0-330"><a id="__codelineno-0-330" name="__codelineno-0-330"></a>    <span class="k">if</span> <span class="n">timeouts</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-331"><a id="__codelineno-0-331" name="__codelineno-0-331"></a>        <span class="n">timeouts</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+</span><span id="__span-0-332"><a id="__codelineno-0-332" name="__codelineno-0-332"></a>    <span class="k">if</span> <span class="n">limits</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-333"><a id="__codelineno-0-333" name="__codelineno-0-333"></a>        <span class="k">if</span> <span class="n">max_connections</span> <span class="o">!=</span> <span class="n">DEFAULT_LIMITS</span><span class="o">.</span><span class="n">max_connections</span><span class="p">:</span>
+</span><span id="__span-0-334"><a id="__codelineno-0-334" name="__codelineno-0-334"></a>            <span class="n">limits</span> <span class="o">=</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Limits</span><span class="p">(</span><span class="n">max_connections</span><span class="o">=</span><span class="n">max_connections</span><span class="p">)</span>
+</span><span id="__span-0-335"><a id="__codelineno-0-335" name="__codelineno-0-335"></a>            <span class="n">limits</span><span class="o">.</span><span class="n">max_keepalive_connections</span> <span class="o">=</span> <span class="n">DEFAULT_LIMITS</span><span class="o">.</span><span class="n">max_keepalive_connections</span>
+</span><span id="__span-0-336"><a id="__codelineno-0-336" name="__codelineno-0-336"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-0-337"><a id="__codelineno-0-337" name="__codelineno-0-337"></a>            <span class="n">limits</span> <span class="o">=</span> <span class="n">DEFAULT_LIMITS</span>
+</span><span id="__span-0-338"><a id="__codelineno-0-338" name="__codelineno-0-338"></a>
+</span><span id="__span-0-339"><a id="__codelineno-0-339" name="__codelineno-0-339"></a>    <span class="c1"># After some benchmarking we discovered that syncronizing the HTTP requests with a</span>
+</span><span id="__span-0-340"><a id="__codelineno-0-340" name="__codelineno-0-340"></a>    <span class="c1"># semaphore object that has the same value as the max_connections gives the best</span>
+</span><span id="__span-0-341"><a id="__codelineno-0-341" name="__codelineno-0-341"></a>    <span class="c1"># performance.</span>
+</span><span id="__span-0-342"><a id="__codelineno-0-342" name="__codelineno-0-342"></a>    <span class="c1"># Also, limiting the semaphore value to a maximum of 1k drastically reduced the</span>
+</span><span id="__span-0-343"><a id="__codelineno-0-343" name="__codelineno-0-343"></a>    <span class="c1"># amount of timeouts.</span>
+</span><span id="__span-0-344"><a id="__codelineno-0-344" name="__codelineno-0-344"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">semaphore_value</span><span class="p">,</span> <span class="n">UseMaxConnections</span><span class="p">):</span>
+</span><span id="__span-0-345"><a id="__codelineno-0-345" name="__codelineno-0-345"></a>        <span class="n">semaphore_value</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+</span><span id="__span-0-346"><a id="__codelineno-0-346" name="__codelineno-0-346"></a>            <span class="n">max_connections</span> <span class="ow">or</span> <span class="n">MAX_SEMAPHORE_COUNT</span><span class="p">,</span> <span class="n">MAX_SEMAPHORE_COUNT</span>
+</span><span id="__span-0-347"><a id="__codelineno-0-347" name="__codelineno-0-347"></a>        <span class="p">)</span>
+</span><span id="__span-0-348"><a id="__codelineno-0-348" name="__codelineno-0-348"></a>
+</span><span id="__span-0-349"><a id="__codelineno-0-349" name="__codelineno-0-349"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">request_urls</span><span class="p">(</span>
+</span><span id="__span-0-350"><a id="__codelineno-0-350" name="__codelineno-0-350"></a>        <span class="n">urls</span><span class="o">=</span><span class="n">urls</span><span class="p">,</span>
+</span><span id="__span-0-351"><a id="__codelineno-0-351" name="__codelineno-0-351"></a>        <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+</span><span id="__span-0-352"><a id="__codelineno-0-352" name="__codelineno-0-352"></a>        <span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span>
+</span><span id="__span-0-353"><a id="__codelineno-0-353" name="__codelineno-0-353"></a>        <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="__span-0-354"><a id="__codelineno-0-354" name="__codelineno-0-354"></a>        <span class="n">payloads</span><span class="o">=</span><span class="n">payloads</span><span class="p">,</span>
+</span><span id="__span-0-355"><a id="__codelineno-0-355" name="__codelineno-0-355"></a>        <span class="n">response_fn</span><span class="o">=</span><span class="n">response_fn</span><span class="p">,</span>
+</span><span id="__span-0-356"><a id="__codelineno-0-356" name="__codelineno-0-356"></a>        <span class="n">flatten_result</span><span class="o">=</span><span class="n">flatten_result</span><span class="p">,</span>
+</span><span id="__span-0-357"><a id="__codelineno-0-357" name="__codelineno-0-357"></a>        <span class="n">max_retries_on_timeout</span><span class="o">=</span><span class="n">max_retries_on_timeout</span><span class="p">,</span>
+</span><span id="__span-0-358"><a id="__codelineno-0-358" name="__codelineno-0-358"></a>        <span class="n">raise_for_status</span><span class="o">=</span><span class="n">raise_for_status</span><span class="p">,</span>
+</span><span id="__span-0-359"><a id="__codelineno-0-359" name="__codelineno-0-359"></a>        <span class="n">limits</span><span class="o">=</span><span class="n">limits</span><span class="p">,</span>
+</span><span id="__span-0-360"><a id="__codelineno-0-360" name="__codelineno-0-360"></a>        <span class="n">timeouts</span><span class="o">=</span><span class="n">timeouts</span><span class="p">,</span>
+</span><span id="__span-0-361"><a id="__codelineno-0-361" name="__codelineno-0-361"></a>        <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span>
+</span><span id="__span-0-362"><a id="__codelineno-0-362" name="__codelineno-0-362"></a>        <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">,</span>
+</span><span id="__span-0-363"><a id="__codelineno-0-363" name="__codelineno-0-363"></a>        <span class="n">semaphore_value</span><span class="o">=</span><span class="n">semaphore_value</span><span class="p">,</span>
+</span><span id="__span-0-364"><a id="__codelineno-0-364" name="__codelineno-0-364"></a>    <span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
           </details>
   </div>
@@ -1403,7 +1453,7 @@ payloads (except if there is only one URL).</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../assets/javascripts/bundle.a7c05c9e.min.js"></script>
