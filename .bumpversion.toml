@@ -4,5 +4,6 @@ commit = true
 tag = false
 
 [[tool.bumpversion.files]]
+filename = "pyproject.toml"
 search = "name = \"unparallel\"\nversion = \"{current_version}\""
 replace = "name = \"unparallel\"\nversion = \"{new_version}\""
