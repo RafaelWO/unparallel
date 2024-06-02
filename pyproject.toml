@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "unparallel"
-version = "0.3.0"
+version = "0.4.0"
 description = "Create async web requests in no time"
 readme = "README.md"
 authors = ["RafaelWO <weingartner.rafael@hotmail.com>"]
