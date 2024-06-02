@@ -1,8 +1,9 @@
 [tool.bumpversion]
-current_version = "0.3.0"
+current_version = "0.4.0"
 commit = true
 tag = false
 
 [[tool.bumpversion.files]]
+filename = "pyproject.toml"
 search = "name = \"unparallel\"\nversion = \"{current_version}\""
 replace = "name = \"unparallel\"\nversion = \"{new_version}\""
