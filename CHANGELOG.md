@@ -17,7 +17,20 @@ Types of changes:
 
 ## [Unreleased]
 
+## [0.4.0] - 2024-06-02
+
+### Added
+* Add option to pass a custom HTTPX Client to Unparallel (#186) @RafaelWO
+
+### Changed
+* Use ruff instead of black and isort (#165) @RafaelWO
+* Refactor tests and mock URLs (#169) @RafaelWO
+* Use bump-my-version instead of bump2version (#141) @RafaelWO
+* Update dependencies due to CVEs (#197) @RafaelWO
+* Update dev dependencies (#152, #149, #148, #147, #153, #154, #156, #143, #158, #162, #167, #164, #160, #171, #172, #173, #182, #177, #176, #185, #179, #183, #184, #196, #194, #193, #192, #191, #190, #189, #188, #187, #174) @dependabot
+
 ### Fixed
+* Fix Code Blocks in Docs (use pytest-examples for testing) (#146) @RafaelWO
 * Fix synchronization of async tasks and HTTPX timeouts by using a semaphore with the
 same value as ``max_connections`` (#197) @RafaelWO
 
@@ -97,7 +110,8 @@ same value as ``max_connections`` (#197) @RafaelWO
 * Add docs via MkDocs (#80) @RafaelWO
 
 
-[unreleased]: https://github.com/RafaelWO/unparallel/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/RafaelWO/unparallel/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/RafaelWO/unparallel/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/RafaelWO/unparallel/releases/tag/v0.1.0
+[unreleased]: https://github.com/RafaelWO/unparallel/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/RafaelWO/unparallel/compare/0.3.0...0.4.0
+[0.3.0]: https://github.com/RafaelWO/unparallel/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/RafaelWO/unparallel/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/RafaelWO/unparallel/releases/tag/0.1.0
