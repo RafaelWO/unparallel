@@ -165,13 +165,13 @@ files = [
 
 [[package]]
 name = "bump-my-version"
-version = "0.21.1"
+version = "0.24.1"
 description = "Version bump your Python project"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "bump_my_version-0.21.1-py3-none-any.whl", hash = "sha256:946a7edcf30c5a8574c579684df983136ea395f70c184e4db32eb3e307584c14"},
-    {file = "bump_my_version-0.21.1.tar.gz", hash = "sha256:ec612474e9e790c3fbbfed153a10b356f84fc15096ceff181b399d5e985bfacc"},
+    {file = "bump_my_version-0.24.1-py3-none-any.whl", hash = "sha256:400e2e116a0d04015c26cc0461f7b30ee9602601561162ff7929a1591c59d829"},
+    {file = "bump_my_version-0.24.1.tar.gz", hash = "sha256:bf7a474aa23519405a739eaf15c782e4bb038e14ae6db234f53a1f61f8fe1441"},
 ]
 
 [package.dependencies]
@@ -2332,4 +2332,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<4.0"
-content-hash = "55a223f8036b11fd632fb43ca40a9a24d7fb8b6b42db45c3f17fbaa2aa01dfa7"
+content-hash = "1b9d06fc8a7450bd084d53cc43569af4da770a23336679f6ed231906b39eaeb6"
