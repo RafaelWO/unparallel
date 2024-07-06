@@ -4,6 +4,8 @@
 name-template: "$NEXT_PATCH_VERSION"
 tag-template: "$NEXT_PATCH_VERSION"
 sort-direction: ascending
+exclude-labels:
+ - release
 
 categories:
   - title: ":rocket: Features"

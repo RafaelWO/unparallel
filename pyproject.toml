@@ -12,6 +12,7 @@ authors = ["RafaelWO <weingartner.rafael@hotmail.com>"]
 license = "MIT"
 repository = "https://github.com/RafaelWO/unparallel"
 homepage = "https://github.com/RafaelWO/unparallel"
+documentation = "https://rafaelwo.github.io/unparallel/"
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
 keywords = ["async", "http", "requests", "network"]
