@@ -165,13 +165,13 @@ files = [
 
 [[package]]
 name = "bump-my-version"
-version = "0.24.2"
+version = "0.24.3"
 description = "Version bump your Python project"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "bump_my_version-0.24.2-py3-none-any.whl", hash = "sha256:b7264acd237fad34712db1ee61aac29576ad1791a5c31b9fa0b55b34ba18e91f"},
-    {file = "bump_my_version-0.24.2.tar.gz", hash = "sha256:38581935e821266df24f292bbfe73f1a4ded368b62e52b44218f31aeea2be13c"},
+    {file = "bump_my_version-0.24.3-py3-none-any.whl", hash = "sha256:cdd86e158430dd5e5e25fc61703c140a1107579fdd8d74f8f3a5f991daa07168"},
+    {file = "bump_my_version-0.24.3.tar.gz", hash = "sha256:9b8ac82458a703a968a9a438b460175494cc0e0c6bd5f316019945a6b66eb81f"},
 ]
 
 [package.dependencies]
