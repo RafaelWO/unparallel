@@ -1,5 +1,6 @@
 ::: unparallel
     options:
-      members: 
+      members:
       - up
+      - Up
       - RequestError

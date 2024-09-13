@@ -1,8 +1,10 @@
 import asyncio
 import logging
+import warnings
 from dataclasses import dataclass
 from typing import (
     Any,
+    AsyncIterator,
     Callable,
     Dict,
     List,
@@ -129,98 +131,239 @@ async def single_request(
     )
 
 
-async def request_urls(
-    urls: List[str],
-    method: str,
-    base_url: Optional[str] = None,
-    headers: Optional[Dict[str, Any]] = None,
-    payloads: Optional[Any] = None,
-    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
-    flatten_result: bool = False,
-    max_retries_on_timeout: int = 3,
-    raise_for_status: bool = True,
-    limits: httpx.Limits = DEFAULT_LIMITS,
-    timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
-    client: Optional[httpx.AsyncClient] = None,
-    progress: bool = True,
-    semaphore_value: Optional[int] = None,
-) -> List[Any]:
+class Up:
+    """A client to create async web requests to a set of URLs using ``asyncio``
+    and ``httpx``.
+
+    You can use the `Up` client to create web requests and asyncrounously loop over
+    the results:
+
+    ```python
+    import asyncio
+    from unparallel import Up
+
+    async def main():
+        urls = [f"https://httpbin.org/get?i={i}" for i in range(5)]
+        async for result in Up(urls, method="GET"):
+            print(result["args"])
+
+    asyncio.run(main())
+    #> [{'i': '0'}, {'i': '2'}, {'i': '1'}, {'i': '4'}, {'i': '3'}]
+    ```
+
+    If you do something with the result right away, the above is very memory
+    efficient. Note that the results are **not** in the same order as the input.
+
+    If you care about the order (and don't care about having all responses in
+    memory), you can use `.all()` on the `Up` client:
+
+    ```python
+    import asyncio
+    from unparallel import Up
+
+    async def main():
+        urls = [f"https://httpbin.org/get?i={i}" for i in range(5)]
+        results = await Up(urls, method="GET").all()
+        print([item["args"] for item in results])
+
+    asyncio.run(main())
+    #> [{'i': '0'}, {'i': '2'}, {'i': '1'}, {'i': '3'}, {'i': '4'}]
+    ```
+
+    Now the results are sorted in the same way as the input order.
     """
-    Asynchronously issues requests to the specified URL(s)
-    via ``asyncio`` and ``httpx``.
 
-    Args:
-        urls (List[str]): A list of URLs for the HTTP requests.
-        method (str): HTTP method to use, e.g. get, post, etc.
-        base_url (Optional[str]): The base URL of the service, e.g. http://localhost:8000.
-        headers (Optional[Dict[str, Any]]): A dictionary of headers to use.
-        payloads (Optional[Any]): A list of JSON payloads (dictionaries) for e.g. HTTP
-            post requests. Used together with ``urls``.
-        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
-            on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
-        flatten_result (bool): If True and the response per request is a list, flatten
-            that list of lists. This is useful when using paging.
-        raise_for_status (bool): If True, ``.raise_for_status()`` is called on every
-            response.
-        max_retries_on_timeout (int): The maximum number retries if the requests fails
-            due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
-        limits (httpx.Limits): The limits configuration for ``httpx``.
-        timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
-        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
-            used for creating the HTTP requests.
-        progress (bool): Whether to show a progress bar. Defaults to ``True``.
-        semaphore_value: (Optional[int]): The value for the ``asyncio.Semaphore`` object
-            that syncronizes the calls to HTTPX. Defaults to ``None``.
-
-    Returns:
-        A list of the response data per request in the same order as the input
-        (URLs/payloads).
-    """
-    tasks = []
-    results = []
-    semaphore = asyncio.Semaphore(semaphore_value) if semaphore_value else None
-
-    logging.debug(
-        f"Issuing {len(urls)} {method.upper()} request(s) to base URL '{base_url}' "
-        f"with {limits.max_connections} max connections..."
-    )
-    async with utils.httpx_client(
-        base_url=base_url or "",
-        headers=headers,
-        timeouts=timeouts,
-        limits=limits,
-        client=client,
-    ) as client:
-        for i, url in enumerate(urls):
-            task = asyncio.create_task(
-                single_request(
-                    idx=i,
-                    url=url,
-                    client=client,
-                    method=method,
-                    json=payloads[i] if payloads else None,
-                    response_fn=response_fn,
-                    max_retries_on_timeout=max_retries_on_timeout,
-                    raise_for_status=raise_for_status,
-                    semaphore=semaphore,
-                )
+    def __init__(
+        self,
+        urls: Union[str, List[str]],
+        method: str = "GET",
+        base_url: Optional[str] = None,
+        headers: Optional[Dict[str, Any]] = None,
+        payloads: Optional[Any] = None,
+        response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
+        flatten_result: bool = False,
+        max_connections: Optional[int] = 100,
+        timeout: Optional[int] = 10,
+        max_retries_on_timeout: int = 3,
+        raise_for_status: bool = True,
+        limits: Optional[httpx.Limits] = None,
+        timeouts: Optional[httpx.Timeout] = None,
+        client: Optional[httpx.AsyncClient] = None,
+        progress: bool = True,
+        semaphore_value: Union[int, UseMaxConnections, None] = USE_MAX_CONNECTIONS,
+    ) -> None:
+        # Check if method it valid
+        if method.upper() not in VALID_HTTP_METHODS:
+            raise ValueError(
+                f"The method '{method}' is not a supported HTTP method. "
+                f"Supported methods: {VALID_HTTP_METHODS}"
             )
-            tasks.append(task)
+        self.method = method
 
-        for task in tqdm_async.as_completed(
-            tasks, desc="Making async requests", disable=not progress
-        ):
-            res = await task
-            results.append(res)
+        # Wrap single URL into list to check for alignment with payload
+        if isinstance(urls, str):
+            self.urls = [urls]
+        else:
+            self.urls = urls
 
-    results = utils.sort_by_idx(results)
-    if flatten_result:
-        return [
-            item
-            for sublist in results
-            for item in ((sublist,) if isinstance(sublist, RequestError) else sublist)
-        ]
-    return results
+        # Check if payloads align with URLs
+        self.payloads: Optional[List[Any]] = None
+        if payloads:
+            if not isinstance(payloads, list):
+                self.payloads = [payloads]
+            else:
+                self.payloads = payloads
+
+            if len(self.urls) == 1 and len(self.payloads) > 1:
+                logging.info(
+                    f"Using URL '{self.urls[0]}' for all {len(self.payloads)} payloads"
+                )
+                self.urls = self.urls * len(self.payloads)
+            if len(self.payloads) == 1 and len(self.urls) > 1:
+                logging.info(
+                    f"Using payload '{self.payloads[0]}' for all {len(self.urls)} URLs"
+                )
+                self.payloads = self.payloads * len(self.urls)
+            if len(self.urls) != len(self.payloads):
+                raise ValueError(
+                    f"The number of URLs does not match the number of payloads: "
+                    f"{len(self.urls)} != {len(self.payloads)}"
+                )
+
+        if timeouts is None:
+            self.timeouts = httpx.Timeout(timeout)
+        else:
+            self.timeouts = timeouts
+
+        if limits is None:
+            if max_connections != DEFAULT_LIMITS.max_connections:
+                self.limits = httpx.Limits(max_connections=max_connections)
+                self.limits.max_keepalive_connections = (
+                    DEFAULT_LIMITS.max_keepalive_connections
+                )
+            else:
+                self.limits = DEFAULT_LIMITS
+        else:
+            self.limits = limits
+
+        # After some benchmarking we discovered that syncronizing the HTTP requests with
+        # a semaphore object that has the same value as the max_connections gives the
+        # best performance.
+        # Also, limiting the semaphore value to a maximum of 1k drastically reduced the
+        # amount of timeouts.
+        self.semaphore_value: Optional[int]
+        if isinstance(semaphore_value, UseMaxConnections):
+            self.semaphore_value = min(
+                max_connections or MAX_SEMAPHORE_COUNT, MAX_SEMAPHORE_COUNT
+            )
+        else:
+            self.semaphore_value = semaphore_value
+
+        self.base_url = base_url
+        self.headers = headers
+        self.response_fn = response_fn
+        self.flatten_result = flatten_result
+        self.max_retries_on_timeout = max_retries_on_timeout
+        self.raise_for_status = raise_for_status
+        self.client = client
+        self.progress = progress
+
+    async def _request_urls(self) -> AsyncIterator[Tuple[int, Any]]:
+        """Creates web requests with ``httpx`` as ``asyncio`` tasks.
+
+        Returns:
+            AsyncIterator[Tuple[int, Any]]: An async iterator yielding one
+            response/result of a request at a time.
+
+        Yields:
+            Tuple[int, Any]: A results of a web request as a tuple of index (the
+            position in the input) and the actual result.
+        """
+        # tasks = []
+        semaphore = (
+            asyncio.Semaphore(self.semaphore_value) if self.semaphore_value else None
+        )
+
+        logging.debug(
+            f"Issuing {len(self.urls)} {self.method.upper()} request(s) to base URL "
+            f"'{self.base_url}' with {self.limits.max_connections} max connections..."
+        )
+        async with utils.httpx_client(
+            base_url=self.base_url or "",
+            headers=self.headers,
+            timeouts=self.timeouts,
+            limits=self.limits,
+            client=self.client,
+        ) as client:
+            task_gen = (
+                asyncio.create_task(
+                    single_request(
+                        idx=i,
+                        url=url,
+                        client=client,
+                        method=self.method,
+                        json=self.payloads[i] if self.payloads else None,
+                        response_fn=self.response_fn,
+                        max_retries_on_timeout=self.max_retries_on_timeout,
+                        raise_for_status=self.raise_for_status,
+                        semaphore=semaphore,
+                    )
+                )
+                for i, url in enumerate(self.urls)
+            )
+
+            for task in tqdm_async.as_completed(
+                task_gen,
+                desc="Making async requests",
+                disable=not self.progress,
+                total=len(self.urls),
+            ):
+                yield await task
+
+    async def __aiter__(self) -> AsyncIterator[Any]:
+        """Creates web requests with ``httpx`` as ``asyncio`` tasks.
+
+        Returns:
+            AsyncIterator[Any]: An async iterator yielding one response/result of a
+            web request at a time.
+
+        Yields:
+            Iterator[AsyncIterator[Any]]: The response/result of a web request.
+        """
+        if self.flatten_result:
+            warnings.warn(
+                "Setting `flatten_result=True` has no effect when iterating over the "
+                "results.",
+                stacklevel=2,
+            )
+
+        async for result in self._request_urls():
+            yield result[1]
+
+    async def all(self) -> List[Any]:
+        """Asynchronously issues requests to the specified URL(s) and collects all the
+        responses. The output is sorted based on the order of the input and can be
+        flattened as well if `flatten_result` is set to `True`.
+
+        Returns:
+            List[Any]: A list of the response data per request in the same order as the
+            input (URLs/payloads).
+        """
+        results = []
+
+        async for result in self._request_urls():
+            results.append(result)
+
+        results = utils.sort_by_idx(results)
+        if self.flatten_result:
+            return [
+                item
+                for sublist in results
+                for item in (
+                    (sublist,) if isinstance(sublist, RequestError) else sublist
+                )
+            ]
+        return results
 
 
 async def up(
@@ -300,53 +443,7 @@ async def up(
         List[Any]:  A list of the response data per request in the same order as the
         input (URLs/payloads).
     """
-    # Check if method it valid
-    if method.upper() not in VALID_HTTP_METHODS:
-        raise ValueError(
-            f"The method '{method}' is not a supported HTTP method. "
-            f"Supported methods: {VALID_HTTP_METHODS}"
-        )
-
-    # Wrap single URL into list to check for alignment with payload
-    if isinstance(urls, str):
-        urls = [urls]
-
-    # Check if payloads align with URLs
-    if payloads:
-        if not isinstance(payloads, list):
-            payloads = [payloads]
-        if len(urls) == 1 and len(payloads) > 1:
-            logging.info(f"Using URL '{urls[0]}' for all {len(payloads)} payloads")
-            urls = urls * len(payloads)
-        if len(payloads) == 1 and len(urls) > 1:
-            logging.info(f"Using payload '{payloads[0]}' for all {len(urls)} URLs")
-            payloads = payloads * len(urls)
-        if len(urls) != len(payloads):
-            raise ValueError(
-                f"The number of URLs does not match the number of payloads: "
-                f"{len(urls)} != {len(payloads)}"
-            )
-
-    if timeouts is None:
-        timeouts = httpx.Timeout(timeout)
-    if limits is None:
-        if max_connections != DEFAULT_LIMITS.max_connections:
-            limits = httpx.Limits(max_connections=max_connections)
-            limits.max_keepalive_connections = DEFAULT_LIMITS.max_keepalive_connections
-        else:
-            limits = DEFAULT_LIMITS
-
-    # After some benchmarking we discovered that syncronizing the HTTP requests with a
-    # semaphore object that has the same value as the max_connections gives the best
-    # performance.
-    # Also, limiting the semaphore value to a maximum of 1k drastically reduced the
-    # amount of timeouts.
-    if isinstance(semaphore_value, UseMaxConnections):
-        semaphore_value = min(
-            max_connections or MAX_SEMAPHORE_COUNT, MAX_SEMAPHORE_COUNT
-        )
-
-    return await request_urls(
+    up_obj = Up(
         urls=urls,
         method=method,
         base_url=base_url,
@@ -354,6 +451,8 @@ async def up(
         payloads=payloads,
         response_fn=response_fn,
         flatten_result=flatten_result,
+        max_connections=max_connections,
+        timeout=timeout,
         max_retries_on_timeout=max_retries_on_timeout,
         raise_for_status=raise_for_status,
         limits=limits,
@@ -362,3 +461,5 @@ async def up(
         progress=progress,
         semaphore_value=semaphore_value,
     )
+
+    return await up_obj.all()

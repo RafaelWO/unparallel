@@ -1,6 +1,6 @@
 from importlib import metadata as importlib_metadata
 
-from .unparallel import RequestError, up
+from .unparallel import RequestError, Up, up
 
 
 def get_version() -> str:
@@ -12,4 +12,4 @@ def get_version() -> str:
 
 version: str = get_version()
 
-__all__ = ["RequestError", "up", "version"]
+__all__ = ["RequestError", "Up", "up", "version"]
