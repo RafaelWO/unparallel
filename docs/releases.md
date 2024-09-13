@@ -17,4 +17,4 @@ We use [`Release Drafter`](https://github.com/marketplace/actions/release-drafte
 
 You can update it in [`release-drafter.yml`](https://github.com/RafaelWO/unparallel/blob/main/.github/release-drafter.yml).
 
-GitHub creates the `bug`, `enhancement`, and `documentation` labels for you. Dependabot creates the `dependencies` label. Create the remaining labels on the Issues tab of your GitHub repository, when you need them.
+GitHub creates the `bug`, `enhancement`, and `question` labels for you (based on issue templates). Create the remaining labels on the Issues tab of your GitHub repository, when you need them.
