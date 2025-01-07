@@ -1,6 +1,8 @@
+import functools
 import re
 import urllib.parse
 
+import httpx
 import pytest
 import respx
 from httpx import Response
@@ -30,20 +32,30 @@ def mock_urls(example: CodeExample):
     for url in re.findall(r"\"http.+?\"", example.source):
         url = url.strip('"')
         host = urllib.parse.urlsplit(url).hostname
-        response = "mocked"
-        if "httpbin" in url:
-            response = {
-                "args": 42,
-                "data": {"foo": "bar"},
-                "headers": {
-                    "Accept": "application/json",
-                    "Authorization": "Basic qpowe3jioqoni2q1",
-                },
-            }
-        elif "universities.hipolabs" in url:
-            response = [{"page": 1}, {"page": 2}]
+
+        def my_side_effect(
+            request: httpx.Request,
+            url,
+        ):
+            response = "mocked"
+            if "httpbin" in url:
+                response = {
+                    "args": urllib.parse.parse_qs(request.url.query.decode()),
+                    "data": {"foo": "bar"},
+                    "headers": {
+                        "Accept": "application/json",
+                        "Authorization": "Basic qpowe3jioqoni2q1",
+                    },
+                }
+            elif "universities.hipolabs" in url:
+                response = [{"page": 1}, {"page": 2}]
+            else:
+                response = "mocked"
+            return Response(200, json=response)
+
+        side_effect = functools.partial(my_side_effect, url=url)
         route = respx.route(host=host, method__in=["GET", "POST", "HEAD"])
-        route.return_value = Response(200, json=response)
+        route.side_effect = side_effect
 
 
 @respx.mock
@@ -67,4 +79,9 @@ def test_docs_usage(example: CodeExample, eval_example: EvalExample):
     eval_example.set_config(line_length=80)
     eval_example.lint(example)
 
+    eval_example.run(example)
+
+
+@pytest.mark.parametrize("example", find_examples("unparallel/unparallel.py"), ids=str)
+def test_docstrings(example: CodeExample, eval_example: EvalExample):
     eval_example.run(example)
