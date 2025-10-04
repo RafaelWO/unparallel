@@ -203,10 +203,10 @@ async def request_urls(
             )
             tasks.append(task)
 
-        for task in tqdm_async.as_completed(
+        for done_task in tqdm_async.as_completed(
             tasks, desc="Making async requests", disable=not progress
         ):
-            res = await task
+            res = await done_task
             results.append(res)
 
     results = utils.sort_by_idx(results)
