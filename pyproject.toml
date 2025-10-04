@@ -1,18 +1,18 @@
-# Poetry pyproject.toml: https://python-poetry.org/docs/pyproject/
-[build-system]
-requires = ["poetry_core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "unparallel"
 version = "0.4.0"
 description = "Create async web requests in no time"
+authors = [
+  { name = "RafaelWO", email = "weingartner.rafael@hotmail.com" }
+]
 readme = "README.md"
-authors = ["RafaelWO <weingartner.rafael@hotmail.com>"]
+requires-python = ">=3.8,<4.0"
 license = "MIT"
-repository = "https://github.com/RafaelWO/unparallel"
-homepage = "https://github.com/RafaelWO/unparallel"
-documentation = "https://rafaelwo.github.io/unparallel/"
+
+dependencies  = [
+  "httpx (>=0.21.0,<1)",
+  "tqdm (>=4.61.2)"
+]
 
 # Keywords description https://python-poetry.org/docs/pyproject/#keywords
 keywords = ["async", "http", "requests", "network"]
@@ -23,7 +23,6 @@ classifiers = [
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
@@ -32,10 +31,11 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8,<4.0"
-httpx = ">=0.21.0"
-tqdm = ">=4.61.2"
+[project.urls]
+homepage = "https://rafaelwo.github.io/unparallel/"
+repository = "https://github.com/RafaelWO/unparallel"
+documentation = "https://rafaelwo.github.io/unparallel/"
+changelog = "https://github.com/RafaelWO/unparallel/blob/main/CHANGELOG.md"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.1"
@@ -61,6 +61,11 @@ bump-my-version = ">=0.21,<0.25"
 mkdocs-material = "^9.5.1"
 mkdocstrings-python = "^1.7.5"
 mike = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 
 ##########################################
 
