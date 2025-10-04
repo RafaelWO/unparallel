@@ -4,10 +4,7 @@ from dataclasses import dataclass
 from typing import (
     Any,
     Callable,
-    Dict,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -71,7 +68,7 @@ async def single_request(
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
     semaphore: Optional[asyncio.Semaphore] = None,
-) -> Tuple[int, Any]:
+) -> tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
     Args:
@@ -115,9 +112,8 @@ async def single_request(
 
     # this assert is here to make mypy happy
     assert exception is not None
-    logger.warning(
-        f"{exception.__class__.__name__} was raised after {trial+1} tries: {exception}"
-    )
+    exc_name = exception.__class__.__name__
+    logger.warning(f"{exc_name} was raised after {trial + 1} tries: {exception}")
     return (
         idx,
         RequestError(
@@ -130,10 +126,10 @@ async def single_request(
 
 
 async def request_urls(
-    urls: List[str],
+    urls: list[str],
     method: str,
     base_url: Optional[str] = None,
-    headers: Optional[Dict[str, Any]] = None,
+    headers: Optional[dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     flatten_result: bool = False,
@@ -144,7 +140,7 @@ async def request_urls(
     client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
     semaphore_value: Optional[int] = None,
-) -> List[Any]:
+) -> list[Any]:
     """
     Asynchronously issues requests to the specified URL(s)
     via ``asyncio`` and ``httpx``.
@@ -224,10 +220,10 @@ async def request_urls(
 
 
 async def up(
-    urls: Union[str, List[str]],
+    urls: Union[str, list[str]],
     method: str = "GET",
     base_url: Optional[str] = None,
-    headers: Optional[Dict[str, Any]] = None,
+    headers: Optional[dict[str, Any]] = None,
     payloads: Optional[Any] = None,
     response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
     flatten_result: bool = False,
@@ -240,7 +236,7 @@ async def up(
     client: Optional[httpx.AsyncClient] = None,
     progress: bool = True,
     semaphore_value: Union[int, UseMaxConnections, None] = USE_MAX_CONNECTIONS,
-) -> List[Any]:
+) -> list[Any]:
     """Creates async web requests to the specified URL(s) using ``asyncio``
     and ``httpx``.
 
