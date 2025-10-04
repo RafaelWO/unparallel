@@ -6,7 +6,7 @@ authors = [
   { name = "RafaelWO", email = "weingartner.rafael@hotmail.com" }
 ]
 readme = "README.md"
-requires-python = ">=3.8,<4.0"
+requires-python = ">=3.9.2,<4.0"
 license = "MIT"
 
 dependencies  = [
@@ -82,7 +82,7 @@ select = [
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = "3.8"
+python_version = "3.9"
 strict = true
 
 
