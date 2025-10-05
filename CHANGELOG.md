@@ -17,6 +17,14 @@ Types of changes:
 
 ## [Unreleased]
 
+
+## [0.5.0] - 2025-10-05
+
+### Removed
+* **Breaking Change**: Drop support for Python 3.8 (#242) @RafaelWO
+  * This project requires at least Python 3.9.2 because some packages with vulnerability fixes require 3.9.2
+
+
 ## [0.4.0] - 2024-06-02
 
 ### Added
@@ -74,7 +82,8 @@ same value as ``max_connections`` (#197) @RafaelWO
 * Add docs via MkDocs (#80) @RafaelWO
 
 
-[unreleased]: https://github.com/RafaelWO/unparallel/compare/0.4.0...HEAD
+[unreleased]: https://github.com/RafaelWO/unparallel/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/RafaelWO/unparallel/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/RafaelWO/unparallel/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/RafaelWO/unparallel/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/RafaelWO/unparallel/compare/0.1.0...0.2.0
