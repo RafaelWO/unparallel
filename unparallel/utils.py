@@ -1,6 +1,7 @@
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from types import TracebackType
-from typing import Any, AsyncIterator, Dict, List, Optional, Tuple, Type
+from typing import Any, Optional
 
 import httpx
 
@@ -13,7 +14,7 @@ class AsyncNullContext:
         return None
 
     async def __aexit__(
-        self, exc_type: Type[Exception], exc_value: Any, traceback: TracebackType
+        self, exc_type: type[Exception], exc_value: Any, traceback: TracebackType
     ) -> None:
         pass
 
@@ -23,7 +24,7 @@ async def httpx_client(
     base_url: str,
     limits: httpx.Limits,
     timeouts: httpx.Timeout,
-    headers: Optional[Dict[str, Any]] = None,
+    headers: Optional[dict[str, Any]] = None,
     client: Optional[httpx.AsyncClient] = None,
 ) -> AsyncIterator[httpx.AsyncClient]:
     if client is not None:
@@ -35,7 +36,7 @@ async def httpx_client(
             yield client
 
 
-def sort_by_idx(results: List[Tuple[int, Any]]) -> List[Any]:
+def sort_by_idx(results: list[tuple[int, Any]]) -> list[Any]:
     """Sorts a list of tuples (index, value) by the index and return just the values.
 
     Args:
