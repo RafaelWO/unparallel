@@ -38,7 +38,7 @@ async def main():
     # Check if some requests failed
     valid_results = [item for item in results if not isinstance(item, RequestError)]
     fails = len(results) - len(valid_results)
-    print(f"{fails=} ({fails/len(results):.2%})")
+    print(f"{fails=} ({fails / len(results):.2%})")
 
     # Display some properties of the first 5 posts
     intersting_keys = ["id", "date", "slug", "title", "author"]
