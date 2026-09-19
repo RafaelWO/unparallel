@@ -17,6 +17,10 @@ Types of changes:
 
 ## [Unreleased]
 
+### Removed
+* **Breaking Change**: Drop support for Python 3.9 @RafaelWO
+  * This project now requires at least Python 3.10
+
 
 ## [0.5.0] - 2025-10-05
 

@@ -275,9 +275,9 @@ You can configure connection pool limits and request timeouts using the followin
 parameters in the `up()` method:
 
 * `max_connections (int)`: The total number of simultaneous TCP connections. This is passed into `httpx.Limits()` and defaults to 100.
-* `limits (Optional[httpx.Limits])`: Explicitly set the HTTPX limits configuration. This overrides `max_connections`.
+* `limits (httpx.Limits | None)`: Explicitly set the HTTPX limits configuration. This overrides `max_connections`.
 * `timeout (int)`: The timeout for requests in seconds. This is passed into `httpx.Timeout()` and defaults to 10.
-* `timeouts (Optional[httpx.Timeout])`: Explicitly set the HTTPX timeout configuration. This overrides `timeout`.
+* `timeouts (httpx.Timeout | None)`: Explicitly set the HTTPX timeout configuration. This overrides `timeout`.
 
 If you don't care about a detailed timeout or limits configuration, you can use
 `up()` without specifying any of those options:

@@ -1,12 +1,8 @@
 import asyncio
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import (
-    Any,
-    Callable,
-    Optional,
-    Union,
-)
+from typing import Any
 
 import httpx
 from tqdm.asyncio import tqdm as tqdm_async
@@ -48,13 +44,13 @@ class RequestError:
     Attributes:
         url (str): The target URL of the request.
         method (str): The HTTP method.
-        payload (Optional[Any]): The payload/body of the request.
+        payload (Any | None): The payload/body of the request.
         exception: (Exception): The exception that was raised.
     """
 
     url: str
     method: str
-    payload: Optional[Any]
+    payload: Any | None
     exception: Exception
 
 
@@ -63,11 +59,11 @@ async def single_request(
     client: httpx.AsyncClient,
     url: str,
     method: str,
-    json: Optional[Any] = None,
-    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
+    json: Any | None = None,
+    response_fn: Callable[[httpx.Response], Any] | None = DEFAULT_JSON_FN,
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
-    semaphore: Optional[asyncio.Semaphore] = None,
+    semaphore: asyncio.Semaphore | None = None,
 ) -> tuple[int, Any]:
     """Do a single web request for the given URL, HTTP method, and playload.
 
@@ -76,21 +72,21 @@ async def single_request(
         client (AsyncClient): The httpx client.
         url (str): The URL after the base URI.
         method (str): The HTTP method.
-        json (Optional[Any], optional): The JSON payload. Defaults to ``None``.
-        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
+        json (Any | None, optional): The JSON payload. Defaults to ``None``.
+        response_fn (Callable[[httpx.Response], Any] | None): The function to apply
             on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         max_retries_on_timeout (int): The maximum number retries if the requests fails
             due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on the
             response.
-        semaphore (Optional[asyncio.Semaphore]): A semaphore object to synchronize
+        semaphore (asyncio.Semaphore | None): A semaphore object to synchronize
             the HTTP request. Defaults to ``None`` (-> nullcontext).
 
     Returns:
-        Tuple[int, Any]: A tuple of the index and the JSON response.
+        tuple[int, Any]: A tuple of the index and the JSON response.
     """
     trial = 0
-    exception: Optional[Exception] = None
+    exception: Exception | None = None
     for trial in range(max(0, max_retries_on_timeout) + 1):
         if trial > 0:
             await asyncio.sleep(1)
@@ -128,31 +124,31 @@ async def single_request(
 async def request_urls(
     urls: list[str],
     method: str,
-    base_url: Optional[str] = None,
-    headers: Optional[dict[str, Any]] = None,
-    payloads: Optional[Any] = None,
-    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
+    base_url: str | None = None,
+    headers: dict[str, Any] | None = None,
+    payloads: Any | None = None,
+    response_fn: Callable[[httpx.Response], Any] | None = DEFAULT_JSON_FN,
     flatten_result: bool = False,
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
     limits: httpx.Limits = DEFAULT_LIMITS,
     timeouts: httpx.Timeout = DEFAULT_TIMEOUT,
-    client: Optional[httpx.AsyncClient] = None,
+    client: httpx.AsyncClient | None = None,
     progress: bool = True,
-    semaphore_value: Optional[int] = None,
+    semaphore_value: int | None = None,
 ) -> list[Any]:
     """
     Asynchronously issues requests to the specified URL(s)
     via ``asyncio`` and ``httpx``.
 
     Args:
-        urls (List[str]): A list of URLs for the HTTP requests.
+        urls (list[str]): A list of URLs for the HTTP requests.
         method (str): HTTP method to use, e.g. get, post, etc.
-        base_url (Optional[str]): The base URL of the service, e.g. http://localhost:8000.
-        headers (Optional[Dict[str, Any]]): A dictionary of headers to use.
-        payloads (Optional[Any]): A list of JSON payloads (dictionaries) for e.g. HTTP
+        base_url (str | None): The base URL of the service, e.g. http://localhost:8000.
+        headers (dict[str, Any] | None): A dictionary of headers to use.
+        payloads (Any | None): A list of JSON payloads (dictionaries) for e.g. HTTP
             post requests. Used together with ``urls``.
-        response_fn (Optional[Callable[[httpx.Response], Any]]): The function to apply
+        response_fn (Callable[[httpx.Response], Any] | None): The function to apply
             on every response of the HTTP requests. Defaults to ``httpx.Response.json``.
         flatten_result (bool): If True and the response per request is a list, flatten
             that list of lists. This is useful when using paging.
@@ -162,10 +158,10 @@ async def request_urls(
             due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         limits (httpx.Limits): The limits configuration for ``httpx``.
         timeouts (httpx.Timeout): The timeout configuration for ``httpx``.
-        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
+        client (httpx.AsyncClient | None): An instance of ``httpx.AsyncClient`` to be
             used for creating the HTTP requests.
         progress (bool): Whether to show a progress bar. Defaults to ``True``.
-        semaphore_value: (Optional[int]): The value for the ``asyncio.Semaphore`` object
+        semaphore_value: (int | None): The value for the ``asyncio.Semaphore`` object
             that syncronizes the calls to HTTPX. Defaults to ``None``.
 
     Returns:
@@ -220,43 +216,43 @@ async def request_urls(
 
 
 async def up(
-    urls: Union[str, list[str]],
+    urls: str | list[str],
     method: str = "GET",
-    base_url: Optional[str] = None,
-    headers: Optional[dict[str, Any]] = None,
-    payloads: Optional[Any] = None,
-    response_fn: Optional[Callable[[httpx.Response], Any]] = DEFAULT_JSON_FN,
+    base_url: str | None = None,
+    headers: dict[str, Any] | None = None,
+    payloads: Any | None = None,
+    response_fn: Callable[[httpx.Response], Any] | None = DEFAULT_JSON_FN,
     flatten_result: bool = False,
-    max_connections: Optional[int] = 100,
-    timeout: Optional[int] = 10,
+    max_connections: int | None = 100,
+    timeout: int | None = 10,
     max_retries_on_timeout: int = 3,
     raise_for_status: bool = True,
-    limits: Optional[httpx.Limits] = None,
-    timeouts: Optional[httpx.Timeout] = None,
-    client: Optional[httpx.AsyncClient] = None,
+    limits: httpx.Limits | None = None,
+    timeouts: httpx.Timeout | None = None,
+    client: httpx.AsyncClient | None = None,
     progress: bool = True,
-    semaphore_value: Union[int, UseMaxConnections, None] = USE_MAX_CONNECTIONS,
+    semaphore_value: int | UseMaxConnections | None = USE_MAX_CONNECTIONS,
 ) -> list[Any]:
     """Creates async web requests to the specified URL(s) using ``asyncio``
     and ``httpx``.
 
     Args:
-        urls (Union[str, List[str]]): A list of URLs as the targets for the requests.
+        urls (str | list[str]): A list of URLs as the targets for the requests.
             If only one URL but multiple payloads are supplied, that URL is used for
             all requests.
             If a ``base_url`` is supplied, this can also be a list of paths
             (or one path).
         method (str): HTTP method to use - one of ``GET``, ``OPTIONS``, ``HEAD``,
             ``POST``, ``PUT``, ``PATCH``, or ``DELETE``. Defaults to ``GET``.
-        base_url (Optional[str]):  The base URL of the target API/service. Defaults to
+        base_url (str | None):  The base URL of the target API/service. Defaults to
             ``None``.
-        headers (Optional[Dict[str, Any]], optional): A dictionary of headers to use.
+        headers (dict[str, Any] | None, optional): A dictionary of headers to use.
             Defaults to ``None``.
-        payloads (Optional[Any], optional): A list of JSON payloads (dictionaries) e.g.
+        payloads (Any | None, optional): A list of JSON payloads (dictionaries) e.g.
             for HTTP post requests. Used together with ``urls``. If one payload but
             multiple URLs are supplied, that payload is used for all requests.
             Defaults to ``None``.
-        response_fn (Optional[Callable[[httpx.Response], Any]]): The function (callback)
+        response_fn (Callable[[httpx.Response], Any] | None): The function (callback)
             to apply on every response of the HTTP requests. This can be an existing
             function of ``httpx.Response`` like ``.json()`` or ``.read()``, or a custom
             function which takes the ``httpx.Response`` as the argument returns ``Any``.
@@ -273,17 +269,17 @@ async def up(
             due to a timeout (``httpx.TimeoutException``). Defaults to ``3``.
         raise_for_status (bool): If True, ``.raise_for_status()`` is called on overy
             response.
-        limits (Optional[httpx.Limits]): The limits configuration for ``httpx``.
+        limits (httpx.Limits | None): The limits configuration for ``httpx``.
             If specified, this overrides the ``max_connections`` parameter.
-        timeouts (Optional[httpx.Timeout]): The timeout configuration for ``httpx``.
+        timeouts (httpx.Timeout | None): The timeout configuration for ``httpx``.
             If specified, this overrides the ``timeout`` parameter.
-        client (Optional[httpx.AsyncClient]): An instance of ``httpx.AsyncClient`` to be
+        client (httpx.AsyncClient | None): An instance of ``httpx.AsyncClient`` to be
             used for creating the HTTP requests. **Note that if you pass a client, all
             other options that parametrize the client (``base_url``, ``headers``,
             ``limits``, and ``timeouts``) are ignored**. Defaults to ``None``.
         progress (bool): If set to ``True``, progress bar is shown.
             Defaults to ``True``.
-        semaphore_value: (Union[int, UseMaxConnections, None]): The value for the
+        semaphore_value: (int | UseMaxConnections | None): The value for the
             ``asyncio.Semaphore`` object that syncronizes the calls to HTTPX. Defaults
             to the number of ``max_connections``.
 
@@ -293,7 +289,7 @@ async def up(
             payloads (except if there is only one URL).
 
     Returns:
-        List[Any]:  A list of the response data per request in the same order as the
+        list[Any]:  A list of the response data per request in the same order as the
         input (URLs/payloads).
     """
     # Check if method it valid

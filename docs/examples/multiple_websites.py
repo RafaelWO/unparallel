@@ -65,7 +65,7 @@ async def main():
     )
 
     # Print the content of the first 5 pages
-    for url, content in zip(urls, results[:5]):
+    for url, content in zip(urls, results[:5], strict=False):
         print(url, repr(content[:100]))
 
 
