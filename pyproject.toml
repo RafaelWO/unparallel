@@ -46,6 +46,8 @@ pytest = "^8.4.2"
 safety = "^3.6.2"
 coverage = "^7.10.7"
 coverage-badge = "^1.1.2"
+# coverage-badge imports pkg_resources, which setuptools removed in 82.0.0
+setuptools = "<82"
 pytest-cov = "^7.0.0"
 pytest-asyncio = "^1.2.0"
 respx = "^0.22.0"
