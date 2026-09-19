@@ -6,7 +6,7 @@ authors = [
   { name = "RafaelWO", email = "weingartner.rafael@hotmail.com" }
 ]
 readme = "README.md"
-requires-python = ">=3.9.2,<4.0"
+requires-python = ">=3.10,<4.0"
 license = "MIT"
 
 dependencies  = [
@@ -24,11 +24,10 @@ classifiers = [
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 
 [project.urls]
@@ -47,6 +46,8 @@ pytest = "^8.4.2"
 safety = "^3.6.2"
 coverage = "^7.10.7"
 coverage-badge = "^1.1.2"
+# coverage-badge imports pkg_resources, which setuptools removed in 82.0.0
+setuptools = "<82"
 pytest-cov = "^7.0.0"
 pytest-asyncio = "^1.2.0"
 respx = "^0.22.0"
@@ -82,7 +83,7 @@ select = [
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = "3.9"
+python_version = "3.10"
 strict = true
 
 

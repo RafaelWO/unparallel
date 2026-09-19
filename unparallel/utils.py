@@ -1,7 +1,7 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from types import TracebackType
-from typing import Any, Optional
+from typing import Any
 
 import httpx
 
@@ -24,8 +24,8 @@ async def httpx_client(
     base_url: str,
     limits: httpx.Limits,
     timeouts: httpx.Timeout,
-    headers: Optional[dict[str, Any]] = None,
-    client: Optional[httpx.AsyncClient] = None,
+    headers: dict[str, Any] | None = None,
+    client: httpx.AsyncClient | None = None,
 ) -> AsyncIterator[httpx.AsyncClient]:
     if client is not None:
         yield client
@@ -40,9 +40,9 @@ def sort_by_idx(results: list[tuple[int, Any]]) -> list[Any]:
     """Sorts a list of tuples (index, value) by the index and return just the values.
 
     Args:
-        results (List[Tuple[int, Any]]): A list of tuples (index, value) to be sorted.
+        results (list[tuple[int, Any]]): A list of tuples (index, value) to be sorted.
 
     Returns:
-        List[Any]: The values as a list.
+        list[Any]: The values as a list.
     """
     return [item[1] for item in sorted(results, key=lambda x: x[0])]
