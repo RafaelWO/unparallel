@@ -45,8 +45,8 @@ formatting: codestyle
 #* Linting
 .PHONY: test
 test:
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=term-missing --cov=unparallel tests/
-	poetry run coverage-badge -o assets/images/coverage.svg -f
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=term-missing --cov-report=xml --cov=unparallel tests/
+	poetry run genbadge coverage -i coverage.xml -o assets/images/coverage.svg
 
 test-examples:
 	for file in ./docs/examples/*.py; do \
