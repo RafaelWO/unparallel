@@ -138,7 +138,7 @@ async def test_up_get(caplog, respx_mock):
     my_log = next(rec for rec in caplog.records if rec.module == "unparallel")
     assert "Issuing 3 GET request(s)" in my_log.message
     assert len(results) == len(urls)
-    for i, (res, path) in enumerate(zip(results, urls)):
+    for i, (res, path) in enumerate(zip(results, urls, strict=False)):
         assert res == {"foo": i}
         assert path.endswith(str(i))
 
@@ -153,7 +153,7 @@ async def test_up_post_single_vs_multi_path(paths, respx_mock):
 
     results = await up(paths, "post", base_url=BASE_URL, payloads=payloads)
     assert len(results) == len(payloads)
-    for res, data in zip(results, payloads):
+    for res, data in zip(results, payloads, strict=False):
         assert res == data
 
 
